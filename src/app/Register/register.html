@@ -1,0 +1,56 @@
+<div class="background-overlay">
+        <div class="login-container">
+            <div class="login-image">
+                <img class="rectangle" src="{{hinhAnh[currentIndex]}}" alt="Mèo cute">
+            </div>
+
+            <div class="login-form" [formGroup]="formLogin">
+                <h2>Đăng Ký</h2>
+                 <div class="input-group"  >
+                    <div>
+                            <input  type="tel" placeholder="Nhập số điện thoại  " class="sdt" formControlName="sdt">
+                            <div *ngIf="formLogin.get('sdt')?.invalid && formLogin.get('sdt')?.touched"
+                                >
+                                
+                            </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="input-group">
+                    <div>
+                            <input type="text" placeholder="Nhập user" class="user" formControlName="user">
+                    </div>
+                    
+                </div>
+                
+                 <div  class="input-group">
+                    <div class="pass" >
+                            <input [type]="typePass"  placeholder="Hãy nập mật khẩu" formControlName="pass" toggleMask="false">
+                            <img (click)="iconPass()" class="icon" width="15px" src="assets/images/locked-computer.png" alt="">
+                    </div>
+                    <div *ngIf="formLogin.get('pass')?.invalid && formLogin.get('pass')?.touched">
+                    </div>
+                 </div>
+
+                <div class="register-link">Bạn đã có tài khoản? 
+                    <a routerLink="/LoginMain" style=" text-decoration: none; cursor: pointer;">Đăng nhập</a>
+                </div>
+                 <div class="btn">
+                    <p-toast></p-toast>
+                    <button type="button" (click)="btnLogin()" class="btn-login">Đăng Ký</button>
+                 </div>
+                                    
+
+                <!-- <div class="divider">
+                    <span>or</span>
+                </div>
+
+                <div class="row-type">
+                    <div class="col-1"><img width="30px" src="assets/images/facebook.png" alt=""></div>
+                    <div class="col-1"><img width="30px" src="assets/images/search.png" alt=""></div>
+                    <div class="col-1"><img width="30px" src="assets/images/logo.png" alt=""></div>
+                </div> -->
+            </div>
+        </div>
+    </div>

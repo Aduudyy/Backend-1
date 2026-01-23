@@ -1,0 +1,56 @@
+<div class="cart-container">
+  <h2 class="cart-title">Giỏ hàng của bạn 🍦</h2>
+
+  <div class="cart-content">
+    <div class="cart-items">
+      @if (cartItems.length > 0) {
+        @for (item of cartItems; track item.id) {
+          <div class="cart-item">
+            <div class="item-img">
+              <img [src]="item.image" alt="ice cream">
+            </div>
+            <div class="item-info">
+              <h4>{{item.name}}</h4>
+              <p class="unit-price">{{item.price }}đ / phần</p>
+            </div>
+            <div class="item-qty">
+              <div class="qty-control">
+                <button (click)="decreaseQty(item)">−</button>
+                <input type="text" [value]="item.quantity" readonly>
+                <button (click)="increaseQty(item)">+</button>
+              </div>
+            </div>
+            <div class="item-total">
+              {{(item.price * item.quantity) }}đ
+            </div>
+            <button class="btn-remove" (click)="removeItem(item.id)">×</button>
+          </div>
+        }
+      } @else {
+        <div class="empty-cart">
+          <p>Giỏ hàng đang trống. Quay lại mua kem nhé!</p>
+          <button class="btn-shop">ĐI MUA SẮM</button>
+        </div>
+      }
+    </div>
+
+    <div class="cart-summary">
+      <h3>Tóm tắt đơn hàng</h3>
+      <div class="summary-row">
+        <span>Tạm tính:</span>
+        <span>{{getSubtotal()}}đ</span>
+      </div>
+      <div class="summary-row">
+        <span>Phí vận chuyển:</span>
+        <span>{{getShipping() }}đ</span>
+      </div>
+      <hr>
+      <div class="summary-row total">
+        <span>Tổng cộng:</span>
+        <span class="final-price">{{(getSubtotal() + getShipping()) }}đ</span>
+      </div>
+      <button class="btn-checkout">THANH TOÁN NGAY</button>
+      <p class="note">* Miễn phí vận chuyển cho đơn hàng trên 200k</p>
+    </div>
+  </div>
+</div>

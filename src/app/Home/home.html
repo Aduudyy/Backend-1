@@ -1,0 +1,53 @@
+<div class="container-fluid product-type">
+    <div class="slidebar">
+        <div class="search">
+            <input type="text" placeholder="Tìm kiếm sản phẩm ">
+        </div>
+        <div class="image_slide">
+            <img [src]="hinhAnh[currentIndex]" alt="">
+        </div>
+    </div>
+    
+        <div class="product">
+        <p style="color: rgb(238, 138, 138);">Sản phẩm bán chạy</p>
+        
+        <div class="product1">
+            @for (item of products; track $index) {
+            <div style="cursor: pointer;" class="product_1" routerLink="/Detail/{{$index}}">
+            <div>
+                <img width="100px" height="100px" src="../../assets/images/{{item.images}}" alt="">
+            </div>
+            <div class="product_infomation">
+                <p>{{item.name}}</p>
+            </div>
+            <div class="product_quantity">
+                <p>Đã bán <span>1</span> </p>
+            </div>
+        </div>
+    }
+        </div> 
+    
+    </div>
+     <div class="product">
+        <p style="color: rgb(238, 138, 138);">Thương hiệu đồng hành</p>
+        
+        <div class="product1">
+            @for (item of products; track $index) {
+            <div class="product_1" style="cursor: pointer;" routerLink="/Detail/{{$index}}">
+            <div>
+                <img width="100px" height="100px" src="../../assets/images/{{item.images}}" alt="">
+            </div>
+            <div class="product_infomation">
+                <p>{{item.name}}</p>
+            </div>
+            <div class="product_quantity">
+                <p>Đã bán <span>1</span> </p>
+            </div>
+        </div>
+    }
+        </div> 
+    
+    </div>
+    
+    
+</div>

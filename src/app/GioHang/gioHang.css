@@ -1,0 +1,132 @@
+.cart-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.cart-title {
+  color: #9b59b6; /* Tím nhẹ */
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.cart-content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+/* Danh sách Item */
+.cart-items {
+  flex: 2;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+  position: relative;
+}
+
+.item-img img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover; /* Lấy phần giữa ảnh như bạn muốn */
+  border-radius: 12px;
+}
+
+.item-info {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.item-info h4 { margin: 0; color: #333; }
+.unit-price { color: #888; font-size: 0.9rem; margin-top: 5px; }
+
+.qty-control {
+  display: flex;
+  background: #fdf0f0;
+  border-radius: 20px;
+  padding: 2px;
+}
+
+.qty-control button {
+  border: none; background: none; width: 30px; height: 30px;
+  cursor: pointer; color: #ee8a8a; font-weight: bold;
+}
+
+.qty-control input {
+  width: 35px; border: none; background: none; 
+  text-align: center; font-weight: bold;
+}
+
+.item-total {
+  width: 120px;
+  text-align: right;
+  font-weight: 700;
+  color: #ee8a8a; /* Hồng Pastel */
+  font-size: 1.1rem;
+}
+
+.btn-remove {
+  background: none; border: none; font-size: 1.5rem;
+  color: #ccc; cursor: pointer; margin-left: 20px;
+}
+
+.btn-remove:hover { color: #ff6b6b; }
+
+/* Bảng tổng kết */
+.cart-summary {
+  flex: 1;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  border-top: 5px solid #ee8a8a;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  color: #666;
+}
+
+.total {
+  margin-top: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+.final-price {
+  color: #9b59b6;
+  font-size: 1.5rem;
+}
+
+.btn-checkout {
+  width: 100%;
+  background: linear-gradient(to right, #ff9a9e, #fecfef);
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(238, 138, 138, 0.3);
+}
+
+.note { font-size: 0.8rem; color: #aaa; text-align: center; margin-top: 15px; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .cart-content { flex-direction: column; }
+  .cart-item { flex-wrap: wrap; gap: 10px; }
+  .item-total { width: 100%; text-align: left; margin-left: 100px; }
+}

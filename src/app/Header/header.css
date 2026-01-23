@@ -1,0 +1,149 @@
+.my-type{
+    height: 9vh;
+    background-color: rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(238, 238, 238);
+    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    padding-top: 5px;
+}
+.home-type{
+    display: flex;
+    flex-direction: column(1);
+    gap: 40px;
+    width: 10%;
+    justify-content: center;
+    align-items: center;
+    min-height: 8vh;   
+    li{
+        list-style: none; 
+        a{
+        color: rgb(0, 0, 0);
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 0;
+        }
+        a:hover{
+            color: rgb(156, 158, 158);
+        }
+    }
+}
+
+.header-type{
+    display: flex;
+    flex-direction: column(1);
+    gap: 10px;
+    width: 85%;
+    justify-content: end;
+    align-items: center;
+    min-height: 8vh;   
+    li{
+        list-style: none; 
+        a{
+        color: rgb(0, 0, 0);
+        font-size: 16px;
+        text-decoration: none;
+        padding: 0;
+        }
+        a:hover{
+            color: rgb(156, 158, 158);
+        }
+    }
+}
+.search{
+    color: aliceblue;
+}
+
+
+.logout{
+    display: none;
+    position: absolute;
+    top: 130px;
+    left: -10px;
+    text-transform: none;
+    font-weight: none;
+    width: 100px;
+}
+.profile{
+    display: none;
+    position: absolute;
+    top: 90px;
+    left: -10px;
+    text-transform: none;
+    font-weight: none;
+    width: 100px;
+}
+.imgUser{
+    position: relative;
+    cursor: pointer;
+    
+}
+.imgUser:focus  .logout,
+        .logout:focus-within {
+    display: block;
+}
+.imgUser:focus  .profile,
+        .profile:focus-within {
+    display: block;
+}
+.end-type{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 15%;
+    min-height: 8vh;
+    li{
+        list-style: none; 
+    }
+     a{
+        color: rgb(0, 0, 0);
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 0;
+        }
+        a div:hover{
+            color: rgb(156, 158, 158);
+        }
+}
+.shop-bag{
+    position: relative;
+    color: rgb(255, 255, 255);
+}
+.quanity{
+    position: absolute;
+    display: flex;
+    background-color: red;
+    top: 50%;
+    left: 20%;
+    width: 20px;
+    height: 20px;
+    font-size: 10px !important;
+    color: rgb(251, 251, 251) !important;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.imgUser_infomation{
+    position: absolute;
+    top: 50px;
+    background-color: rgb(252, 252, 252);
+}
+@media(max-width: 768px){
+    .header-type{
+        display: none;
+    }
+    .my-type{
+        display: grid;
+        grid-template-columns: 30% 70%;
+    }
+    .end-type{
+        justify-content: end;
+        width: 100%;
+
+    }
+}
