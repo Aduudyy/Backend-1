@@ -3,17 +3,15 @@
     <div class="image-section">
       <div class="main-image-container">
         <button class="nav-btn prev">❮</button>
-        <img [src]="'assets/images/' + prod.images" [alt]="prod.name" class="main-image">
+        <img [src]="'assets/images/SanPham/' + prod.images" [alt]="prod.name" class="main-image">
         <button class="nav-btn next">❯</button>
       </div>
       
       <div class="slideImg">
         <div class="thumb-item active">
-          <img [src]="'assets/images/' + prod.images" alt="thumb">
+          <img [src]="'assets/images/SanPham/' + prod.images" alt="thumb">
         </div>
-        <div class="thumb-item">
-          <img src="assets/images/image_background.png" alt="thumb">
-        </div>
+        
       </div>
     </div>
 
@@ -24,9 +22,9 @@
         <div class="rating-like-header">
           <div class="rating-summary-top">
             <span class="stars">⭐⭐⭐⭐⭐</span>
-            <span class="rating-count">(150 đánh giá)</span>
-            <span class="divider-v">|</span>
-            <span class="sold-count">Đã bán 500+</span>
+            <span class="rating-count">({{prod.sold}} đánh giá)</span>
+            <span class="divider-v">| </span>
+            <span class="sold-count">{{prod.sold}}</span>
           </div>
           <div class="like-action" (click)="toggleLike()">
             <span class="heart-icon" [class.liked]="isLiked">❤</span>
@@ -80,7 +78,7 @@
         <span class="score-big">4.9</span>
         <div class="stars-col">
           <span>⭐⭐⭐⭐⭐</span>
-          <p>Dựa trên 150 lượt mua</p>
+          <p>Dựa trên {{prod.sold}} lượt mua</p>
         </div>
       </div>
     </div>
@@ -100,10 +98,7 @@
                }
             </div>
             <p class="rev-content">{{rev.content}}</p>
-            <div class="rev-footer">
-              <span class="helpful">Phản hồi này có ích?</span>
-              <button class="btn-like-rev">👍 ({{rev.likes}})</button>
-            </div>
+           
           </div>
         </div>
       }

@@ -5,10 +5,7 @@ import { LocalStorageService } from "ngx-webstorage";
 @Injectable({providedIn: 'root'})
 export class UserService{
     private listProduct : User[] =[
-        { user: 'abc', pass: '123',sdt:'0316246213'},
-        {user: 'mnk', pass: '123',sdt:'0316246213'},
-        {user: 'bcd', pass: '123',sdt:'0316246213'},
-        {user: 'nguns', pass: '123',sdt:'0316246213'},
+        { user: 'abc', pass: '123',sdt:'0316246213', name: "Nguyễn Văn A"},
     ];
     constructor(@Inject(PLATFORM_ID) private platformId: Object,
     private storage: LocalStorageService){}

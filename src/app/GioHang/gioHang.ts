@@ -1,63 +1,94 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
-import { Product } from '../models/productModel/product.model';
-import { NgIf } from '@angular/common';
-import { NgModel, FormsModule } from '@angular/forms';
-
-
-
+import { FormsModule } from '@angular/forms';
+import { ShopService } from '../service/shoppingService/shopping.service';
+import { Shopping } from '../models/ShoppingModel/shopping.model';
 
 @Component({
   selector: 'app-GioHang',
   standalone: true,
-  imports: [RouterOutlet,NgIf,FormsModule],
+  imports: [FormsModule],
   templateUrl: './gioHang.html',
   styleUrl: './gioHang.css'
 })
-export class GioHangComponent  {
-  cartItems = [
-    {
-      id: 1,
-      name: 'Kem Ốc Quế Việt Quất',
-      price: 45000,
-      quantity: 2,
-      image: 'assets/images/vietquat.png'
-    },
-    {
-      id: 2,
-      name: 'Kem Trái Dừa Đặc Biệt',
-      price: 65000,
-      quantity: 1,
-      image: 'assets/images/dua.png'
-    }
-  ];
+export class GioHangComponent implements OnInit {
 
-  ngOnInit() {}
+  private shopService = inject(ShopService);
 
-  // Tăng số lượng
-  increaseQty(item: any) {
-    item.quantity++;
+  cartItems: Shopping[] = [];
+
+  // ===== BIẾN PHỤC VỤ CHỌN MUA =====
+  selectedCount = 0;
+  isAllSelected = false;
+  quanity : number =1;
+
+  ngOnInit() {
+    this.cartItems = this.shopService.getCart();
+    // Mặc định khi load: chưa chọn sản phẩm nào
+    this.cartItems.forEach(item => {
+      if (item.selected === undefined) {
+        item.selected = false;
+      }
+    });
+
+    this.updateTotal();
   }
 
-  // Giảm số lượng
-  decreaseQty(item: any) {
-    if (item.quantity > 1) {
-      item.quantity--;
-    }
+  // ===== TÍNH TOÁN =====
+  subTotal = 0;
+  shippingFee = 0;
+  finalTotal = 0;
+
+  updateTotal() {
+    const selectedItems = this.cartItems.filter(item => item.selected);
+
+    this.selectedCount = selectedItems.length;
+
+    this.subTotal = selectedItems.reduce(
+      (sum, item) => sum + item.price * item.quanity,
+      0
+    );
+
+    // Freeship >= 200k
+    this.shippingFee =
+      this.subTotal >= 200000 || this.subTotal === 0 ? 0 : 20000;
+
+    this.finalTotal = this.subTotal + this.shippingFee;
+
+    // Kiểm tra chọn tất cả
+    this.isAllSelected =
+      this.cartItems.length > 0 &&
+      this.cartItems.every(item => item.selected);
   }
 
-  // Xóa sản phẩm
+  // ===== CHECKBOX =====
+  toggleSelectAll(event: any) {
+    const checked = event.target.checked;
+    this.cartItems.forEach(item => item.selected = checked);
+    this.updateTotal();
+  }
+
+  // ===== TĂNG / GIẢM SỐ LƯỢNG =====
+  increaseQty(item: Shopping) {
+    this.shopService.updateQuantity(item.id, 1);
+    this.quanity +=1;
+    this.updateTotal();
+  }
+
+  decreaseQty(item: Shopping) {
+    if (item.quanity > 1) {
+      this.shopService.updateQuantity(item.id, -1);
+      this.quanity-=1;
+      this.updateTotal();
+    }
+  }
+  fomatPrice( price:number):string{
+    return price.toLocaleString('vi-VN')
+  }
+
+  // ===== XÓA SẢN PHẨM =====
   removeItem(id: number) {
-    this.cartItems = this.cartItems.filter(item => item.id !== id);
-  }
-
-  // Tính tổng tiền hàng
-  getSubtotal() {
-    return this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  }
-
-  // Phí vận chuyển (giả định)
-  getShipping() {
-    return this.getSubtotal() > 200000 ? 0 : 15000;
+    this.shopService.removeProduct(id);
+    this.cartItems = this.shopService.getCart();
+    this.updateTotal();
   }
 }

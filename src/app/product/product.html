@@ -1,0 +1,53 @@
+<div class="container-fluid product-type">
+  <nav class="breadcrumb">
+    <span routerLink="/Home">Home </span> / <span class="active"> Sản phẩm</span>
+  </nav>
+
+  <div class="main-layout">
+    <div class="sidebar">
+      <div class="filter-group">
+        <h3 class="filter-title">Các loại kem</h3>
+        <ul class="filter-list">
+          <li (click)="filterByName('Kem que')">Kem que</li>
+          <li (click)="filterByName('Kem hộp')">Kem hộp</li>
+          <li (click)="filterByName('Kem ốc quế')">Kem ốc quế</li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <h3 class="filter-title">Sữa chua</h3>
+        <ul class="filter-list">
+          <li (click)="filterByName('Sữa chua lọ')">Sữa chua lọ</li>
+          <li (click)="filterByName('Sữa chua uống')" >Sữa chua uống</li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <h3 class="filter-title">Thương hiệu</h3>
+        <ul class="filter-list">
+          <li (click)="filterByBrand('Trangtien')">Tràng Tiền</li>
+          <li (click)="filterByBrand('Vinamilk')">Vinamilk</li>
+          <li (click)="filterByBrand('Merino')">Merino</li>
+          <li (click)="filterByBrand('Khac')">Khác</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="product-content">
+      
+        <div class="product1">
+            @for (item of filteredProducts; track $index) {
+            <div style="cursor: pointer;" class="product_1" routerLink="/Detail/{{$index}}">
+            <div>
+                <img src="../../assets/images/SanPham/{{item.images}}" alt="">
+            </div>
+            <div class="product_infomation">
+                <div>{{item.name}}</div>
+                <div class="product_price"> {{item.price}}<span>đ</span> </div>
+            </div>
+        </div>
+         }
+      </div>
+    </div>
+  </div>
+</div>

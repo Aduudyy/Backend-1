@@ -3,6 +3,7 @@ import { FormControl, FormsModule, NgModel, Validators, ReactiveFormsModule } fr
 import { RouterOutlet, RouterLink, RouterModule } from '@angular/router';
 import { ProductService } from '../service/productService/product.service';
 import { NgFor } from "@angular/common";
+import { Product, TradeMark } from '../models/productModel/product.model';
 
 
 
@@ -14,30 +15,25 @@ import { NgFor } from "@angular/common";
   styleUrl: './home.css'
 })
 export class HomeComponent implements OnInit  {
-  products : any[] = []
-  searching = new FormControl('')
+  products : any[] = [];
+  sellProduct : Product[] = [];
+  tradeMarks : TradeMark[] =[];
+  searching = new FormControl('');
   listProduct = inject(ProductService)
   private ngZone= inject(NgZone)
   currentIndex :number = 0;
   private chg = inject(ChangeDetectorRef)
   ngOnInit(): void {
     this.products = this.listProduct.getProduct()
+    this.sellProduct = this.listProduct.getSold()
+    this.tradeMarks =  this.listProduct.getTrade()
     this.slideBar()
   }
-  search(){
-    const sear =this.searching.value
-    if(!sear){
-      console.log("Không Tìm Thấy");
-      this.products = this.listProduct.getProduct()
-    }else{
-      this.products = this.listProduct.getSearch(sear)
-      console.log("Tìm Thấy", this.listProduct.getSearch(sear));
-    }
-    
-  }
+  // Tien Viet
   fomatPrice( price:number):string{
     return price.toLocaleString('vi-VN')
   }
+  // sidebar
     hinhAnh = [
       'assets/images/background1.png',
       'assets/images/image_background.png',

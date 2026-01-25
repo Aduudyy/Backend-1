@@ -39,6 +39,7 @@ export class registerComponent implements OnInit {
               const userss = this.formLogin.get('user')?.value;
               const passs = this.formLogin.get('pass')?.value;
               const sdthoai = this.formLogin.get('sdt')?.value;
+              const name = this.formLogin.get('name')?.value;
               let result
               if(userss != '' && passs != '' && sdthoai != ''){
                   result = this.listUser.find(s => (s.user === userss ) && s.user != null)
@@ -64,7 +65,8 @@ export class registerComponent implements OnInit {
                   this.listUser.push({
                     user : userss,
                     pass : passs,
-                    sdt : sdthoai
+                    sdt : sdthoai,
+                    name: name,
                   })
                   console.log(this.listUser)
                    setTimeout(() => {

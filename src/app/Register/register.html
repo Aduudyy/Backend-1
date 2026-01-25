@@ -9,12 +9,16 @@
                  <div class="input-group"  >
                     <div>
                             <input  type="tel" placeholder="Nhập số điện thoại  " class="sdt" formControlName="sdt">
-                            <div *ngIf="formLogin.get('sdt')?.invalid && formLogin.get('sdt')?.touched"
-                                >
-                                
+                            <div *ngIf="formLogin.get('sdt')?.invalid && formLogin.get('sdt')?.touched">         
                             </div>
                     </div>
-                    
+                </div>
+                <div class="input-group"  >
+                    <div>
+                            <input  type="text" placeholder="Nhập họ và tên " class="name" formControlName="name">
+                            <div *ngIf="formLogin.get('name')?.invalid && formLogin.get('name')?.touched">         
+                            </div>
+                    </div>
                 </div>
                 
                 <div class="input-group">

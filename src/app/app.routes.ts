@@ -7,6 +7,7 @@ import { DetailComponent } from './Detail/detail';
 import { ProFileComponent } from './profFile/profile';
 import { HeaderComponent } from './Header/header';
 import { GioHangComponent } from './GioHang/gioHang';
+import { Products } from './product/product';
 
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
             {path: 'Profile',component: ProFileComponent},
             {path: 'Shopping-Bag',component: GioHangComponent},
             {path: 'Header',component: HeaderComponent},
+            {path: 'SanPham',component: Products},
 
         ]
     }

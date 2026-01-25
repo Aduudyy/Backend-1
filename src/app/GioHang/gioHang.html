@@ -1,56 +1,115 @@
-<div class="cart-container">
-  <h2 class="cart-title">Giỏ hàng của bạn 🍦</h2>
+<div class="cart-page">
+  <div class="shopee-cart-container">
+  <h2 class="cart-header">Giỏ hàng của bạn 🍦</h2>
 
-  <div class="cart-content">
-    <div class="cart-items">
-      @if (cartItems.length > 0) {
-        @for (item of cartItems; track item.id) {
-          <div class="cart-item">
-            <div class="item-img">
-              <img [src]="item.image" alt="ice cream">
-            </div>
-            <div class="item-info">
-              <h4>{{item.name}}</h4>
-              <p class="unit-price">{{item.price }}đ / phần</p>
-            </div>
-            <div class="item-qty">
-              <div class="qty-control">
-                <button (click)="decreaseQty(item)">−</button>
-                <input type="text" [value]="item.quantity" readonly>
-                <button (click)="increaseQty(item)">+</button>
+  <div class="cart-layout">
+    <div class="cart-main">
+
+      <!-- HEADER -->
+      <div class="cart-column-header">
+        <div class="col-check">
+          <input type="checkbox"
+                 [checked]="isAllSelected"
+                 (change)="toggleSelectAll($event)">
+        </div>
+        <div class="col-product">Sản phẩm</div>
+        <div class="col-price">Đơn giá</div>
+        <div class="col-qty">Số lượng</div>
+        <div class="col-total">Số tiền</div>
+        <div class="col-action">Thao tác</div>
+      </div>
+
+      <!-- LIST -->
+      <div class="cart-list">
+        @if (cartItems.length > 0) {
+          @for (item of cartItems; track item.id) {
+            <div class="shopee-item">
+
+              <!-- CHECK -->
+              <div class="col-check">
+                <input type="checkbox"
+                       [(ngModel)]="item.selected"
+                       (change)="updateTotal()">
+              </div>
+
+              <div class="col-product">
+                <div class="product-info">
+                  <img src="../../assets/images/SanPham/{{item.images}}">
+                  <span class="product-name">{{item.name}}</span>
+                </div>
+              </div>
+
+              <div class="col-price">
+                <span class="mobile-label">Đơn giá: </span>
+                {{item.price}}đ
+              </div>
+
+              <div class="col-qty">
+                <div class="shopee-qty-control">
+                  <button (click)="decreaseQty(item)">−</button>
+                  <input type="text" [value]="item.quanity" readonly>
+                  <button (click)="increaseQty(item)">+</button>
+                </div>
+              </div>
+
+              <div class="col-total">
+                <span class="mobile-label">Thành tiền: </span>
+                <span class="price-highlight">
+                   {{fomatPrice(item.price * item.quanity)}}đ
+                </span>
+              </div>
+
+              <div class="col-action">
+                <button class="delete-link"
+                        (click)="removeItem(item.id)">
+                  Xóa
+                </button>
               </div>
             </div>
-            <div class="item-total">
-              {{(item.price * item.quantity) }}đ
-            </div>
-            <button class="btn-remove" (click)="removeItem(item.id)">×</button>
+          }
+        } @else {
+          <div class="empty-state">
+            <img src="assets/empty-cart.png">
+            <p>Giỏ hàng của bạn còn trống</p>
+            <button class="btn-go-shop">MUA SẮM NGAY</button>
           </div>
         }
-      } @else {
-        <div class="empty-cart">
-          <p>Giỏ hàng đang trống. Quay lại mua kem nhé!</p>
-          <button class="btn-shop">ĐI MUA SẮM</button>
-        </div>
-      }
+      </div>
     </div>
 
-    <div class="cart-summary">
-      <h3>Tóm tắt đơn hàng</h3>
-      <div class="summary-row">
-        <span>Tạm tính:</span>
-        <span>{{getSubtotal()}}đ</span>
+    <!-- SIDEBAR -->
+    <div class="cart-sidebar">
+      <div class="summary-card">
+        <div class="summary-line">
+          <span>
+            Tạm tính ({{selectedCount}} sản phẩm):
+          </span>
+          <span>{{fomatPrice(subTotal)}}đ</span>
+        </div>
+
+        <div class="summary-line">
+          <span>Phí vận chuyển:</span>
+          <span>
+            Miễn phí
+          </span>
+        </div>
+
+        <div class="shipping-note" *ngIf="subTotal > 0 && subTotal < 200000">
+          Mua thêm <strong>{{fomatPrice( 200000 - subTotal)}}đ</strong> để được Freeship!
+        </div>
+
+        <div class="total-section">
+          <span class="total-label">Tổng thanh toán:</span>
+          <span class="total-amount">{{fomatPrice( finalTotal)}}đ</span>
+        </div>
+
+        <button class="shopee-btn-main"
+                [disabled]="subTotal === 0">
+          THANH TOÁN
+        </button>
       </div>
-      <div class="summary-row">
-        <span>Phí vận chuyển:</span>
-        <span>{{getShipping() }}đ</span>
-      </div>
-      <hr>
-      <div class="summary-row total">
-        <span>Tổng cộng:</span>
-        <span class="final-price">{{(getSubtotal() + getShipping()) }}đ</span>
-      </div>
-      <button class="btn-checkout">THANH TOÁN NGAY</button>
-      <p class="note">* Miễn phí vận chuyển cho đơn hàng trên 200k</p>
     </div>
   </div>
 </div>
+</div>
+

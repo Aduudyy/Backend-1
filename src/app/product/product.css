@@ -1,0 +1,93 @@
+.product-type{
+ 
+}
+.breadcrumb{
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    color: rgb(73, 73, 73);
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Times New Roman', Times, serif;
+}
+.active{
+    color: black !important;
+    font-weight: bold;
+}
+span:hover{
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+.main-layout{
+    display: flex;
+
+    gap: 10px;
+
+}
+.sidebar{
+
+    padding: 10px;
+    flex: 1;
+    
+}
+.filter-title{
+    font-size: 20px;
+    list-style: none;
+    font-family: Roboto;
+    
+}
+.filter-list{
+    list-style: none;
+    font-size: 16px;
+    font-family: Roboto;
+    border-bottom: 1px solid rgb(165, 165, 165);
+}
+.filter-list li{
+    cursor: pointer;
+    margin: 10px 0;
+    
+}
+.filter-list li:hover{
+    font-weight: 600;
+
+}
+.product-content{
+    flex: 7;
+}
+.product1{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+    gap: 30px;
+    padding: 3%;
+}
+.product_1{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 1px 1px rgb(143, 142, 142);
+    overflow: hidden;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s ease;
+}
+.product_1:hover {
+    transform: translateY(-5px);
+}
+.product_1 div img{
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+.product_infomation{
+   padding: 5px 0px;
+}
+.product_price{
+   color: red;
+}
+.product_price span{
+   text-decoration: underline;
+   font-size: 10px;
+}

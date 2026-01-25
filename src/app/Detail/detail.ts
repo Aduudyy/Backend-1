@@ -57,10 +57,10 @@ export class DetailComponent implements OnInit {
     }
   }
   addProduct(){
-      this.shopping.listShop.push(this.prod);
-      
-      console.log(this.shopping.listShop)
-  }
+        this.shopping.addToCart(this.prod);
+        
+        console.log(this.shopping.listShop)
+    }
   isLiked: boolean = false; // Lưu ý bạn đang viết là 'quanity' nên tôi giữ nguyên theo HTML của bạn
 
 toggleLike() {
@@ -70,25 +70,11 @@ toggleLike() {
 // Giả lập hàm chuyển ảnh (nếu bạn có mảng ảnh)
 prevImage() { console.log('Ảnh trước'); }
 nextImage() { console.log('Ảnh sau'); }
-iceCreams = [
-    {
-      id: 1,
-      name: 'Kem Vani Truyền Thống',
-      price: 45000,
-      image: 'https://images.unsplash.com/photo-1570197788417-0e82375c9371?q=80&w=500',
-      description: 'Hương vị vani nguyên bản từ hạt đậu Madagascar.'
-    },
-    {
-      id: 2,
-      name: 'Kem Dâu Tây Đà Lạt',
-      price: 55000,
-      image: 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?q=80&w=500',
-      description: 'Dâu tươi chín mọng hòa quyện cùng kem sữa béo ngậy.'
-    },]
+
 
 reviews : any[] = [
     {
-      author: 'Nguyễn Thu Thảo',
+      author: 'Nguyễn Thị A',
       rating: 5,
       date: '22/01/2026',
       content: 'Kem giao đến vẫn còn rất cứng, đóng gói chắc chắn. Vị béo ngậy rất vừa miệng!',

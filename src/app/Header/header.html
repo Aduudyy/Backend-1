@@ -10,10 +10,10 @@
     <ul class="header-type">
         <li><a routerLink="/Home">Trang chủ</a> </li>
         <li><a routerLink="/Home">Giới thiệu</a> </li>
-        <li><a routerLink="/Home">Sản phẩm</a> </li> 
+        <li><a routerLink="/SanPham">Sản phẩm</a> </li> 
         <li><a routerLink="/Home">Liên hệ</a> </li> 
         <li class="shop-bag" style="cursor: pointer;" routerLink="/Shopping-Bag">
-                <img width="30px" style="margin-right: 30px;" src="assets/images/shopping-bag.png" alt="">
+                <img width="30px"  src="assets/images/shopping-bag.png" alt="">
                 <a class="quanity" >
                     {{index()}}
                 </a>
@@ -21,12 +21,15 @@
         <li  *ngIf="loginService.getProducts() as u">
             <a class="imgUser" tabindex="0">
                 <img width="30px" src="assets/images/user.png" alt=""> 
-                    <a (click)="proFile()" class="profile">
-                    Profile
-                    </a>   
-                    <div (click)="btnLogOut()" class="logout">
+                <div class="profile">
+                    <div (click)="proFile()" >
+                        Profile
+                    </div>   
+                    <div (click)="btnLogOut()">
                         Đăng Xuất
                     </div> 
+
+                </div>
             </a>
         </li>
         <li *ngIf="!loginService.getProducts()">

@@ -3,4 +3,6 @@ export interface Shopping{
     name: string,
     price: number,
     images: string,   
+    quanity:number,
+    selected?: boolean
 }
