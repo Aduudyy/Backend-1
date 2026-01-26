@@ -74,4 +74,7 @@ export class ShopService {
     get finalTotal(): number {
     return this.subTotal + this.shippingFee;
   }
+  clearCart() {
+    localStorage.removeItem(this.CART_KEY);
+  }
 }

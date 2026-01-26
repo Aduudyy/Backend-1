@@ -8,6 +8,7 @@ import { ProFileComponent } from './profFile/profile';
 import { HeaderComponent } from './Header/header';
 import { GioHangComponent } from './GioHang/gioHang';
 import { Products } from './product/product';
+import { CheckoutComponent } from './checkout/checkout';
 
 
 export const routes: Routes = [
@@ -24,6 +25,7 @@ export const routes: Routes = [
             {path: 'Shopping-Bag',component: GioHangComponent},
             {path: 'Header',component: HeaderComponent},
             {path: 'SanPham',component: Products},
+            {path: 'dathang',component: CheckoutComponent},
 
         ]
     }

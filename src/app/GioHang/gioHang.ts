@@ -2,17 +2,20 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ShopService } from '../service/shoppingService/shopping.service';
 import { Shopping } from '../models/ShoppingModel/shopping.model';
+import { Router, RouterLink } from "@angular/router";
+import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-GioHang',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink, NgIf],
   templateUrl: './gioHang.html',
   styleUrl: './gioHang.css'
 })
 export class GioHangComponent implements OnInit {
 
   private shopService = inject(ShopService);
+  private router = inject(Router)
 
   cartItems: Shopping[] = [];
 
@@ -90,5 +93,8 @@ export class GioHangComponent implements OnInit {
     this.shopService.removeProduct(id);
     this.cartItems = this.shopService.getCart();
     this.updateTotal();
+  }
+  goCheckOut(){
+    this.router.navigate(['/dathang'])
   }
 }

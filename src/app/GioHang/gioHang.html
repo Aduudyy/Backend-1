@@ -94,9 +94,9 @@
           </span>
         </div>
 
-        <div class="shipping-note" *ngIf="subTotal > 0 && subTotal < 200000">
+       <!-- <div class="shipping-note">
           Mua thêm <strong>{{fomatPrice( 200000 - subTotal)}}đ</strong> để được Freeship!
-        </div>
+        </div> -->
 
         <div class="total-section">
           <span class="total-label">Tổng thanh toán:</span>
@@ -104,7 +104,10 @@
         </div>
 
         <button class="shopee-btn-main"
-                [disabled]="subTotal === 0">
+                [disabled]="subTotal === 0"
+                 (click)="goCheckOut()"
+                >
+                 
           THANH TOÁN
         </button>
       </div>

@@ -1,0 +1,127 @@
+<div class="checkout-container">
+  <h2 class="checkout-title">Thanh toán</h2>
+
+  <!-- ================= SẢN PHẨM ================= -->
+  <div class="box">
+    <h3>Sản phẩm</h3>
+
+    @for (item of cartItems; track item.id) {
+      <div class="item">
+        <img src="../../assets/images/SanPham/{{item.images}}">
+        <div class="info">
+          <p class="name">{{ item.name }}</p>
+          <p>Số lượng: x{{ item.quanity }}</p>
+        </div>
+        <div class="price">
+          {{ item.price * item.quanity | number }}đ
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- ================= THÔNG TIN NHẬN HÀNG ================= -->
+  <div class="box">
+    <h3>Thông tin nhận hàng</h3>
+
+    <input type="text"
+           placeholder="Họ và tên"
+           [(ngModel)]="customer.name">
+
+    <input type="text"
+           placeholder="Số điện thoại"
+           [(ngModel)]="customer.phone">
+
+    <!-- ĐỊA CHỈ -->
+    <div class="address-box">
+      @if (selectedAddress) {
+        <div class="address-display">
+          <p>{{ selectedAddress.fullAddress }}</p>
+          <button type="button"
+                  (click)="openAddressPopup()">
+            Thay đổi
+          </button>
+        </div>
+      } @else {
+      <button type="button"
+        (click)="openAddressPopup()">
+                + Thêm địa chỉ mới
+        </button>
+      }
+    </div>
+
+    <textarea placeholder="Ghi chú"
+              [(ngModel)]="customer.note"></textarea>
+  </div>
+
+  <!-- ================= TỔNG TIỀN ================= -->
+  <div class="box summary">
+    <div class="row">
+      <span>Tạm tính</span>
+      <span>{{ subTotal | number }}đ</span>
+    </div>
+
+    <div class="row">
+      <span>Phí vận chuyển</span>
+      <span>{{ shippingFee === 0 ? 'Miễn phí' : (shippingFee | number) + 'đ' }}</span>
+    </div>
+
+    <div class="row total">
+      <span>Tổng thanh toán</span>
+      <span>{{ total | number }}đ</span>
+    </div>
+
+    <button class="order-btn"
+            (click)="placeOrder()">
+      XÁC NHẬN ĐẶT HÀNG
+    </button>
+  </div>
+</div>
+
+<!-- ================= POPUP ĐỊA CHỈ ================= -->
+@if (showAddressPopup) {
+  <div class="modal-overlay">
+    <div class="modal">
+      <h3>Địa chỉ nhận hàng</h3>
+
+      <select [(ngModel)]="newAddress.province"
+              (change)="onProvinceChange()">
+        <option value="">Chọn Tỉnh / Thành phố</option>
+        @for (p of provinces; track p) {
+          <option [value]="p">{{ p }}</option>
+        }
+      </select>
+
+      <select [(ngModel)]="newAddress.district"
+              (change)="onDistrictChange()"
+              [disabled]="!newAddress.province">
+        <option value="">Chọn Quận / Huyện</option>
+        @for (d of districts; track d) {
+          <option [value]="d">{{ d }}</option>
+        }
+      </select>
+
+      <select [(ngModel)]="newAddress.ward"
+              [disabled]="!newAddress.district">
+        <option value="">Chọn Phường / Xã</option>
+        @for (w of wards; track w) {
+          <option [value]="w">{{ w }}</option>
+        }
+      </select>
+
+      <input type="text"
+             placeholder="Địa chỉ chi tiết"
+             [(ngModel)]="newAddress.detail">
+
+      <div class="modal-actions">
+        <button class="cancel"
+                (click)="closeAddressPopup()">
+          Hủy
+        </button>
+        <button class="save"
+                (click)="saveAddress()">
+          Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+}
