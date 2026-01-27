@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-Home',
   standalone: true,
-  imports: [RouterOutlet,NgIf,FormsModule],
+  imports: [FormsModule],
   templateUrl: './detail.html',
   styleUrl: './detail.css'
 })

@@ -2,6 +2,9 @@
 .container {
     max-width: 900px;
     margin-bottom: 50px;
+    overflow-y: scroll;
+    scrollbar-width: auto;
+    height: 65vh;
 }
 
 /* Kiểu dáng tiêu đề */
@@ -89,4 +92,27 @@ h6.fw-bold {
 /* Font in nghiêng cho ghi chú */
 .italic {
     font-style: italic;
+}
+/* 1. Độ rộng của thanh cuộn */
+::-webkit-scrollbar {
+  width: 10px; /* Độ rộng cho scroll dọc */
+  height: 10px; /* Độ cao cho scroll ngang */
+}
+
+/* 2. Phần nền của thanh cuộn (Track) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+}
+
+/* 3. Phần tay kéo (Thumb) */
+::-webkit-scrollbar-thumb {
+  background: #d32f2f; /* Màu đỏ giống màu của cửa hàng bạn */
+  border-radius: 10px;
+  border: 2px solid #f1f1f1; /* Tạo khoảng cách nhỏ giữa thumb và track */
+}
+
+/* 4. Hiệu ứng khi di chuột vào tay kéo */
+::-webkit-scrollbar-thumb:hover {
+  background: #b71c1c; /* Màu đậm hơn một chút khi hover */
 }

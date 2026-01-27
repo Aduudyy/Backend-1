@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../service/productService/product.service';
 import { RouterLink } from "@angular/router";
-import { NgForOf } from "@angular/common";
 import { Product } from '../models/productModel/product.model';
 
 
 @Component({
   selector: 'app-product',
-  imports: [RouterLink, NgForOf],
+  imports: [RouterLink],
   templateUrl: './product.html',
   styleUrl: './product.css',
 })
@@ -15,6 +14,9 @@ import { Product } from '../models/productModel/product.model';
 export class Products implements OnInit{
   allProducts: Product[] = [];
   filteredProducts: Product[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  products: any;
 
   constructor(private productService: ProductService) {}
 
@@ -44,4 +46,19 @@ export class Products implements OnInit{
   fomatPrice( price:number):string{
     return price.toLocaleString('vi-VN')
   }
+get paginatedProducts() {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  return this.filteredProducts.slice(startIndex, startIndex + this.itemsPerPage);
+}
+
+// Hàm chuyển trang
+changePage(page: number) {
+  this.currentPage = page;
+  window.scrollTo(0, 0); // Cuộn lên đầu trang khi chuyển trang
+}
+
+// Tính tổng số trang
+get totalPages(): number {
+      return Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+}
 }

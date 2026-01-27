@@ -7,10 +7,11 @@ import { Product, TradeMark } from '../models/productModel/product.model';
 
 
 
+
 @Component({
   selector: 'app-Home',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, RouterLink, RouterModule, ReactiveFormsModule, NgFor],
+  imports: [ FormsModule, RouterLink, RouterModule, ReactiveFormsModule],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -22,6 +23,8 @@ export class HomeComponent implements OnInit  {
   listProduct = inject(ProductService)
   private ngZone= inject(NgZone)
   currentIndex :number = 0;
+  currentPage: number = 1;
+  itemsPerPage: number = 15;
   private chg = inject(ChangeDetectorRef)
   ngOnInit(): void {
     this.products = this.listProduct.getProduct()
@@ -46,4 +49,9 @@ export class HomeComponent implements OnInit  {
       },3000)
       }); 
     }
+    // Các biến điều hướng
+ // Số sản phẩm trên mỗi trang
+
+// Hàm lấy danh sách sản phẩm sau khi phân trang
+
 }

@@ -31,7 +31,8 @@ export class HeaderComponent implements OnInit {
   
   btnLogOut(){
     this.pService.getClear();
-    window.location.reload();
+    this.router.navigate(['/LoginMain'])
+  
   }
   proFile() {
     // Sử dụng chữ thường để khớp với khai báo ở trên

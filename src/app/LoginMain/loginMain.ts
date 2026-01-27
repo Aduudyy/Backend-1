@@ -1,10 +1,8 @@
 import { ChangeDetectorRef, Component, inject, NgZone, OnInit, } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { NgIf, NgForOf } from "@angular/common";
+import { NgIf } from "@angular/common";
 import { Toast } from "primeng/toast";
-import { Button, ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
-import { routes } from '../app.routes';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { Product } from '../models/productModel/product.model';
 import { UserService } from '../service/userService/user.service';
@@ -12,7 +10,7 @@ import { UserService } from '../service/userService/user.service';
 @Component({
   selector: 'app-loginMain',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, Toast, RouterLink, RouterModule, NgForOf],
+  imports: [ReactiveFormsModule, NgIf, Toast, RouterLink, RouterModule],
   templateUrl: './loginMain.html',
   styleUrl: './loginMain.css'
 })

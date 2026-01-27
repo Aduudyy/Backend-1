@@ -2,14 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ShopService } from '../service/shoppingService/shopping.service';
 import { Shopping } from '../models/ShoppingModel/shopping.model';
-import { Router, RouterLink } from "@angular/router";
+import { Router, RouterLink, RouterModule } from "@angular/router";
 import { NgIf } from "@angular/common";
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-GioHang',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink,RouterModule],
   templateUrl: './gioHang.html',
   styleUrl: './gioHang.css'
 })
