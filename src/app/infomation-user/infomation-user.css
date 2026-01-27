@@ -3,7 +3,6 @@
     width: 80%;
     margin: 30px auto;
     gap: 25px;
-    height: 80vh;
     /* padding: 0 15px; */
     background-color: #ffffff;
 }
@@ -33,25 +32,19 @@
 }
 
 .side-nav a {
-    display: block;
-    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #4a5568;
     text-decoration: none;
-    color: #617d98; /* Màu chữ mặc định khi chưa chọn */
-    border-left: 4px solid transparent; /* Giữ chỗ cho border để không bị giật khi active */
-    transition: all 0.3s ease;
+    gap: 12px;
+    transition: 0.3s;
 }
 
-.active-link {
-    background-color: #f0f4f8 !important;
-    color: #102a43 !important;
-    border-left: 4px solid #d32f2f !important;
-    font-weight: bold;
-}
-
-/* Hiệu ứng hover nhẹ */
-.side-nav a:hover:not(.active-link) {
-    background-color: #f9fbff;
+.side-nav a.active, .side-nav a:hover {
+    background-color: #f0f4f8;
     color: #102a43;
+    border-left: 4px solid #d32f2f;
 }
 
 /* Main Content */

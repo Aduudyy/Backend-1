@@ -5,6 +5,8 @@ import { NgIf } from '@angular/common';
 import { NgModel, FormsModule } from '@angular/forms';
 import { ProductService } from '../service/productService/product.service';
 import { ShopService } from '../service/shoppingService/shopping.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import { Router } from '@angular/router';
 
 
 
@@ -22,6 +24,9 @@ export class DetailComponent implements OnInit {
   products = inject(ProductService)
   private route = inject(ActivatedRoute);
   shopping = inject(ShopService)
+  checkOut : any[] = []
+  storage = inject(LocalStorageService)
+  router = inject(Router)
   currentId : number = Number(this.route.snapshot.paramMap.get('id'));
   ngOnInit(): void {
     this.prod = this.products.getDetail(this.currentId)
@@ -61,10 +66,27 @@ export class DetailComponent implements OnInit {
         
         console.log(this.shopping.listShop)
     }
-  isLiked: boolean = false; // Lưu ý bạn đang viết là 'quanity' nên tôi giữ nguyên theo HTML của bạn
+  isLiked: boolean = false; 
 
 toggleLike() {
   this.isLiked = !this.isLiked;
+}
+btnBuy() {
+  let currentCheckout: any[] = this.storage.retrieve('checkout') || [];
+  
+  // Tìm xem sản phẩm này đã có trong danh sách chưa
+  const existingProduct = currentCheckout.find(item => item.id === this.prod.id);
+
+  if (existingProduct) {
+    // Nếu có rồi thì tăng số lượng (giả sử bạn có thuộc tính quantity)
+    existingProduct.quantity = (existingProduct.quanity || 1) + 1;
+  } else {
+    // Nếu chưa có thì mới thêm mới vào mảng
+    currentCheckout.push({ ...this.prod, quanity: this.quanity });
+  }
+
+  this.storage.store('checkout', currentCheckout);
+  this.router.navigate(['/dathang']);
 }
 
 // Giả lập hàm chuyển ảnh (nếu bạn có mảng ảnh)
@@ -100,4 +122,5 @@ reviews : any[] = [
   getStars(rating: number) {
     return Array(rating).fill(0);
   }
+  
 }

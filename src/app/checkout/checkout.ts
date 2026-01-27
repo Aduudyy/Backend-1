@@ -60,7 +60,7 @@ newAddress = {
     const name = this.user.getProductss()
     this.customer.name = name[0].name
     this.customer.phone = name[0].sdt
-    const savedAddress = this.storage.retrieve('checkout');
+    const savedAddress = this.storage.retrieve('address');
     if (savedAddress) {
       this.selectedAddress = savedAddress;
       this.customer.address = savedAddress.fullAddress;
@@ -103,9 +103,27 @@ newAddress = {
 
   console.log('Đơn hàng:', order);
 
+  
+ const donhang = this.storage.retrieve('checkout') || [];
+  const listOrder = this.storage.retrieve('donHang') || [];
+
+  // Chuẩn bị các item mới kèm thông tin bổ sung
+  const newItems = donhang.map((item: any, idx: number) => ({
+    ...item, // Copy lại toàn bộ name, price, images...
+    orderCode: 'ORD' + Date.now() + idx,
+    status: 'Đang xử lý',
+    date: new Date()
+  }));
+
+  // Gộp vào danh sách cũ (Lưu ý: dùng ... để phẳng hóa mảng)
+  const updatedList = [...newItems, ...listOrder];
+
+  // Lưu đè lại vào storage
+  this.storage.store('donHang', updatedList); 
+  
+  this.storage.clear('checkout');
   alert('🎉 Đặt hàng thành công!');
-  this.shopService.clearCart();
-  this.router.navigate(['/']);
+  this.router.navigate(['/Home']);
 }
 
 
@@ -161,5 +179,10 @@ saveAddress() {
 
   this.closeAddressPopup();
 }
+returnGioHang(){
+  this.storage.clear('checkout')
+    this.router.navigate(['/Shopping-Bag'])
+
+  }
 
 }

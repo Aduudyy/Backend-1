@@ -1,0 +1,92 @@
+/* Container chính */
+.container {
+    max-width: 900px;
+    margin-bottom: 50px;
+}
+
+/* Kiểu dáng tiêu đề */
+h2 {
+    color: #334e68;
+    font-size: 1.5rem;
+}
+
+/* Tùy chỉnh Card đơn hàng */
+.card {
+    border-radius: 12px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f4f8; /* Viền mờ nhẹ */
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05) !important;
+}
+
+/* Header của Card */
+.card-header {
+    border-bottom: 1px solid #f1f5f9;
+    border-radius: 12px 12px 0 0 !important;
+}
+
+/* Badge trạng thái */
+.badge {
+    padding: 8px 14px;
+    font-weight: 500;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Hình ảnh sản phẩm */
+.card-body img {
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s;
+}
+
+.card-body img:hover {
+    transform: scale(1.05);
+}
+
+/* Chi tiết sản phẩm */
+h6.fw-bold {
+    color: #102a43;
+    font-size: 1rem;
+}
+
+.text-muted.small {
+    color: #627d98 !important;
+}
+
+/* Giá tiền */
+.text-dark.fw-bold {
+    font-size: 1.1rem;
+    color: #243b53 !important;
+}
+
+/* Tổng thanh toán */
+.text-danger.h5 {
+    color: #d32f2f !important; /* Màu đỏ đặc trưng */
+    letter-spacing: 0.5px;
+}
+
+/* Trạng thái trống (Empty State) */
+.text-center.py-5.bg-white {
+    border: 2px dashed #cbd5e0;
+    background-color: #ffffff;
+}
+
+.text-center img {
+    filter: grayscale(100%);
+}
+
+/* Hiệu ứng cho nút xóa lịch sử */
+.btn-outline-danger {
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+/* Font in nghiêng cho ghi chú */
+.italic {
+    font-style: italic;
+}

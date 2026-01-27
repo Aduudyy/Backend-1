@@ -7,55 +7,15 @@
         <p>Thành viên Bạc</p>
       </div>
     </div>
-    <nav class="side-nav">
-      <a href="#" class="active"><i class="fas fa-user"></i> Tài khoản của tôi</a>
-      <a href="#"><i class="fas fa-box"></i> Đơn hàng của tôi</a>
+    <nav class="side-nav" tabindex="0">
+      <a routerLink="Infomation" routerLinkActive="active-link" class="active"><i class="fas fa-user"></i> Tài khoản của tôi</a>
+      <a routerLink="my-order" routerLinkActive="active-link" ><i class="fas fa-box"></i> Đơn hàng của tôi</a>
       <a href="#"><i class="fas fa-map-marker-alt"></i> Sổ địa chỉ</a>
       <a href="#"><i class="fas fa-bell"></i> Thông báo (3)</a>
     </nav>
   </aside>
 
   <main class="profile-main">
-    <section class="info-section">
-      <div class="section-header">
-        <h3>Hồ Sơ Cá Nhân</h3>
-        <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
-      </div>
-
-      <div class="info-grid">
-        <div class="form-group">
-          <label>Tên đăng nhập</label>
-          <input type="text" [value]="userName" readonly class="readonly-input">
-        </div>
-        <div class="form-group">
-          <label>Họ và tên</label>
-          <input type="text" [value]="nameUser">
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" value="khachhang@example.com">
-        </div>
-        <div class="form-group">
-          <label>Số điện thoại</label>
-          <input type="text" [value]="sdt" disabled="fasle">
-        </div>
-        <!-- <div class="form-group full-width">
-          <label>Địa chỉ nhận hàng mặc định</label>
-          <textarea>Số 123, Đường ABC, TP. Thái Nguyên</textarea>
-        </div> -->
-      </div>
-      <button class="btn-save">Lưu thay đổi</button>
-    </section>
-
-    <div class="activity-summary">
-      <div class="stat-card">
-        <i class="fas fa-wallet"></i>
-        <span>Số dư: <strong>500.000đ</strong></span>
-      </div>
-      <div class="stat-card">
-        <i class="fas fa-star"></i>
-        <span>Điểm thưởng: <strong>1,250</strong></span>
-      </div>
-    </div>
+    <router-outlet></router-outlet>
   </main>
 </div>

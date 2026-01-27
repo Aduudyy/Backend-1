@@ -9,6 +9,8 @@ import { HeaderComponent } from './Header/header';
 import { GioHangComponent } from './GioHang/gioHang';
 import { Products } from './product/product';
 import { CheckoutComponent } from './checkout/checkout';
+import { MyOrder } from './my-order/my-order';
+import { InfomationUser } from './infomation-user/infomation-user';
 
 
 export const routes: Routes = [
@@ -21,11 +23,18 @@ export const routes: Routes = [
             {path: '',redirectTo: '/Home', pathMatch:'full'}, 
             {path: 'Home',component: HomeComponent},
             {path: 'Detail/:id',component: DetailComponent},
-            {path: 'Profile',component: ProFileComponent},
             {path: 'Shopping-Bag',component: GioHangComponent},
             {path: 'Header',component: HeaderComponent},
             {path: 'SanPham',component: Products},
             {path: 'dathang',component: CheckoutComponent},
+            {path: 'Profile',component: ProFileComponent,
+                children:[
+                {path: 'my-order',component: MyOrder},
+                {path: 'Infomation',component: InfomationUser},
+                {path:'' , redirectTo:'Infomation',pathMatch:'full'},
+
+                ]
+            },
 
         ]
     }
