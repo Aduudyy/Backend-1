@@ -1,48 +1,61 @@
-<main class="profile-container">
-  <aside class="sidebar">
-    <div class="avatar-section">
-      <div class="avatar-circle">
-        <img width="90px" src="assets/images/user.png" alt="">
-      </div>
-      <div class="sidebar-menu">
-        <div class="menu-item">Tài khoản</div>
-        <div class="menu-item active">Thông tin cá nhân</div>
-        <div class="menu-item">Lịch sử mua hàng</div>
+<div class="customer-profile">
+  <aside class="profile-sidebar">
+    <div class="user-brief">
+      <i class="fa-regular fa-circle-user"></i>
+      <div class="user-meta">
+        <h4>{{nameUser}}</h4>
+        <p>Thành viên Bạc</p>
       </div>
     </div>
+    <nav class="side-nav">
+      <a href="#" class="active"><i class="fas fa-user"></i> Tài khoản của tôi</a>
+      <a href="#"><i class="fas fa-box"></i> Đơn hàng của tôi</a>
+      <a href="#"><i class="fas fa-map-marker-alt"></i> Sổ địa chỉ</a>
+      <a href="#"><i class="fas fa-bell"></i> Thông báo (3)</a>
+    </nav>
   </aside>
 
-  <section class="content-area">
-    <div class="profile-card">
-      <div class="form-container">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Họ Tên</label>
-            <input type="text" class="input-field" value="{{nameUser}}">
-          </div>
-         
-        </div>
+  <main class="profile-main">
+    <section class="info-section">
+      <div class="section-header">
+        <h3>Hồ Sơ Cá Nhân</h3>
+        <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+      </div>
 
-        <div class="form-group full-width">
+      <div class="info-grid">
+        <div class="form-group">
+          <label>Tên đăng nhập</label>
+          <input type="text" [value]="userName" readonly class="readonly-input">
+        </div>
+        <div class="form-group">
+          <label>Họ và tên</label>
+          <input type="text" [value]="nameUser">
+        </div>
+        <div class="form-group">
           <label>Email</label>
-          <input type="email" class="input-field">
+          <input type="email" value="khachhang@example.com">
         </div>
-
-        <div class="form-group full-width">
+        <div class="form-group">
           <label>Số điện thoại</label>
-          <input type="tel" class="input-field" value="{{sdt}}">
+          <input type="text" [value]="sdt" disabled="fasle">
         </div>
+        <!-- <div class="form-group full-width">
+          <label>Địa chỉ nhận hàng mặc định</label>
+          <textarea>Số 123, Đường ABC, TP. Thái Nguyên</textarea>
+        </div> -->
+      </div>
+      <button class="btn-save">Lưu thay đổi</button>
+    </section>
 
-        <div class="form-group full-width">
-          <label>Địa chỉ</label>
-          <input type="text" class="input-field">
-        </div>
-
-        <div class="form-actions">
-          <button class="btn btn-outline">Chỉnh sửa</button>
-          <button class="btn btn-solid">Lưu trữ</button>
-        </div>
+    <div class="activity-summary">
+      <div class="stat-card">
+        <i class="fas fa-wallet"></i>
+        <span>Số dư: <strong>500.000đ</strong></span>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-star"></i>
+        <span>Điểm thưởng: <strong>1,250</strong></span>
       </div>
     </div>
-  </section>
-</main>
+  </main>
+</div>

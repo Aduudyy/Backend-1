@@ -67,15 +67,16 @@ body {
 }
 
 /* ================= CHECKBOX ================= */
-.col-check {
+.checkbox {
   display: flex;
   justify-content: center;
 }
 
-.col-check input {
-  width: 18px;
-  height: 18px;
+.checkbox input {
+  width: 15px;
+  height: 15px;
   cursor: pointer;
+  background-color: #fff !important ;
 }
 
 /* ================= PRODUCT ================= */
@@ -112,21 +113,23 @@ body {
 }
 
 /* ================= QTY ================= */
-.shopee-qty-control {
+.shopee-qty-control-a {
   display: flex;
   align-items: center;
+  
 }
 
-.shopee-qty-control button {
+.shopee-qty-control-a button {
   width: 28px;
   height: 28px;
   border: 1px solid #ddd;
   background: #fff;
+  color: black;
   cursor: pointer;
   font-size: 16px;
 }
 
-.shopee-qty-control input {
+.shopee-qty-control-a input {
   width: 42px;
   height: 28px;
   border: 1px solid #ddd;
@@ -134,6 +137,9 @@ body {
   border-right: none;
   text-align: center;
   font-size: 14px;
+    background: #fff;
+    color: black;
+
 }
 
 /* ================= ACTION ================= */

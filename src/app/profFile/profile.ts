@@ -14,9 +14,12 @@ export class ProFileComponent  implements OnInit{
   user = inject(UserService)
   nameUser: any;
   sdt: any;
+  userName : any;
   ngOnInit(): void {
      const names = this.user.getProductss();
      this.nameUser = names[0].name;
      this.sdt = names[0].sdt;
+     this.userName = names[0].user;
+
   }
 }

@@ -41,4 +41,7 @@ export class Products implements OnInit{
   resetFilter() {
     this.filteredProducts = [...this.allProducts];
   }
+  fomatPrice( price:number):string{
+    return price.toLocaleString('vi-VN')
+  }
 }

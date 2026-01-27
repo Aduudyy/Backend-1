@@ -28,11 +28,10 @@ export class CheckoutComponent implements OnInit {
     note: ''
   };
   /* DỮ LIỆU MẪU – SAU NÀY CÓ THỂ GẮN API */
-  provinces = ['Hà Nội', 'TP.HCM'];
+  provinces = ['Thái Nguyên'];
 
   districtMap: any = {
-  'Hà Nội': ['Cầu Giấy', 'Đống Đa'],
-  'TP.HCM': ['Quận 1', 'Quận 7']
+  'Thái Nguyên': ['TP.Thái Nguyên', 'xã Quyết']
   };
 
   wardMap: any = {
@@ -57,11 +56,11 @@ newAddress = {
 };
 
   ngOnInit(): void {
-    this.cartItems = this.shopService.getCart();
+    this.cartItems = this.storage.retrieve('checkout');
     const name = this.user.getProductss()
     this.customer.name = name[0].name
     this.customer.phone = name[0].sdt
-    const savedAddress = this.storage.retrieve('address');
+    const savedAddress = this.storage.retrieve('checkout');
     if (savedAddress) {
       this.selectedAddress = savedAddress;
       this.customer.address = savedAddress.fullAddress;
@@ -138,7 +137,7 @@ saveAddress() {
   if (
     !this.newAddress.province ||
     !this.newAddress.district ||
-    !this.newAddress.ward ||
+    // !this.newAddress.ward ||
     !this.newAddress.detail
   ) {
     alert('Vui lòng nhập đầy đủ địa chỉ');

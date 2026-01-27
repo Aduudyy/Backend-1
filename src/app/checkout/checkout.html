@@ -25,7 +25,8 @@
 
     <input type="text"
            placeholder="Họ và tên"
-           [(ngModel)]="customer.name">
+           [(ngModel)]="customer.name" 
+           id="name">
 
     <input type="text"
            placeholder="Số điện thoại"
@@ -94,19 +95,19 @@
       <select [(ngModel)]="newAddress.district"
               (change)="onDistrictChange()"
               [disabled]="!newAddress.province">
-        <option value="">Chọn Quận / Huyện</option>
+        <option value="">Chọn Xã</option>
         @for (d of districts; track d) {
           <option [value]="d">{{ d }}</option>
         }
       </select>
 
-      <select [(ngModel)]="newAddress.ward"
+      <!-- <select [(ngModel)]="newAddress.ward"
               [disabled]="!newAddress.district">
         <option value="">Chọn Phường / Xã</option>
         @for (w of wards; track w) {
           <option [value]="w">{{ w }}</option>
         }
-      </select>
+      </select> -->
 
       <input type="text"
              placeholder="Địa chỉ chi tiết"

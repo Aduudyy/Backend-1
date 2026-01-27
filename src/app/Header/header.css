@@ -63,7 +63,7 @@
     visibility: hidden;   /* Dùng visibility + opacity để dễ làm hiệu ứng mượt hơn */
     opacity: 0;
     position: absolute;
-    top: 300%;         
+    top: 200%;         
     right: 0px;
     background-color: rgb(255, 255, 255);
     width: 120px;
@@ -71,9 +71,10 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     display: flex;       /* Giữ flex để căn giữa các mục bên trong */
     flex-direction: column;
-    align-items: center;
-    padding: 15px 0;
+    /* align-items: center; */
+    padding: 15px 10px;
     gap: 10px;
+    width: 150px;
     transition: all 0.2s ease; /* Thêm hiệu ứng cho sang */
     z-index: 1001;
     color: rgb(0, 0, 0);

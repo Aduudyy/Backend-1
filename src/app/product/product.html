@@ -37,13 +37,13 @@
       
         <div class="product1">
             @for (item of filteredProducts; track $index) {
-            <div style="cursor: pointer;" class="product_1" routerLink="/Detail/{{$index}}">
+            <div style="cursor: pointer;" class="product_1" routerLink="/Detail/{{item.id}}">
             <div>
                 <img src="../../assets/images/SanPham/{{item.images}}" alt="">
             </div>
             <div class="product_infomation">
                 <div>{{item.name}}</div>
-                <div class="product_price"> {{item.price}}<span>đ</span> </div>
+                <div class="product_price"> {{fomatPrice( item.price)}}<span>đ</span> </div>
             </div>
         </div>
          }

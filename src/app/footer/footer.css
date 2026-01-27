@@ -1,0 +1,104 @@
+/* --- FOOTER SECTION --- */
+.footer-section {
+    background-color: #102a43; /* Màu xanh Navy sâu giúp giảm phản chiếu */
+    color: #ffffff;
+    padding: 40px 15px 20px 15px; /* Thêm padding ngang để ko bị sát lề mobile */
+    margin-top: 50px;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.brand-name {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Container chứa thông tin liên hệ */
+.contact-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap; /* Tự động xuống dòng trên mobile */
+    margin-bottom: 30px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: #bcccdc;
+}
+
+.contact-item i {
+    color: #ff5252;
+    font-size: 18px;
+}
+
+/* --- RESPONSIVE LOGIC --- */
+
+/* Cho Tablet (Dưới 992px) */
+@media (max-width: 991px) {
+    .contact-wrapper {
+        gap: 20px;
+    }
+}
+
+/* Cho Mobile (Dưới 768px) */
+@media (max-width: 767px) {
+    .footer-section {
+        padding: 30px 10px 15px 10px;
+    }
+
+    .brand-name {
+        font-size: 20px; /* Chữ nhỏ lại một chút trên điện thoại */
+        margin-bottom: 20px;
+    }
+
+    .contact-wrapper {
+        flex-direction: column; /* Xếp dọc các dòng thông tin */
+        align-items: flex-start; /* Căn trái cho dễ đọc trên màn hình hẹp */
+        max-width: fit-content;
+        margin: 0 auto 25px auto;
+    }
+
+    .contact-item {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+}
+
+/* --- FIX Ô SỐ LƯỢNG (CART) --- */
+.quantity-control {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.quantity-control input {
+    width: 40px;
+    height: 32px;
+    border: none;
+    background-color: #ffffff !important; /* Fix lỗi bị đen */
+    color: #333 !important;
+    text-align: center;
+    font-weight: bold;
+}
+
+.quantity-control button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #f8f9fa;
+    cursor: pointer;
+}

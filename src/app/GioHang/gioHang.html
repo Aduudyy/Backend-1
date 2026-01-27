@@ -1,16 +1,17 @@
 <div class="cart-page">
   <div class="shopee-cart-container">
-  <h2 class="cart-header">Giỏ hàng của bạn 🍦</h2>
+  <h2 class="cart-header">Giỏ hàng của bạn </h2>
 
   <div class="cart-layout">
     <div class="cart-main">
 
       <!-- HEADER -->
       <div class="cart-column-header">
-        <div class="col-check">
+        <div class="checkbox">
           <input type="checkbox"
                  [checked]="isAllSelected"
-                 (change)="toggleSelectAll($event)">
+                 (change)="toggleSelectAll($event)"
+                 >
         </div>
         <div class="col-product">Sản phẩm</div>
         <div class="col-price">Đơn giá</div>
@@ -21,36 +22,36 @@
 
       <!-- LIST -->
       <div class="cart-list">
-        @if (cartItems.length > 0) {
-          @for (item of cartItems; track item.id) {
+      @if (cartItems.length > 0) {
+        @for (item of cartItems; track item.id) {
             <div class="shopee-item">
 
               <!-- CHECK -->
-              <div class="col-check">
+              <div class="checkbox">
                 <input type="checkbox"
                        [(ngModel)]="item.selected"
                        (change)="updateTotal()">
-              </div>
+            </div>
 
               <div class="col-product">
                 <div class="product-info">
                   <img src="../../assets/images/SanPham/{{item.images}}">
                   <span class="product-name">{{item.name}}</span>
-                </div>
+            </div>
               </div>
 
               <div class="col-price">
                 <span class="mobile-label">Đơn giá: </span>
-                {{item.price}}đ
+                {{fomatPrice( item.price)}}đ
               </div>
 
               <div class="col-qty">
-                <div class="shopee-qty-control">
-                  <button (click)="decreaseQty(item)">−</button>
-                  <input type="text" [value]="item.quanity" readonly>
-                  <button (click)="increaseQty(item)">+</button>
-                </div>
+                <div class="shopee-qty-control-a">
+                <button (click)="decreaseQty(item)">−</button>
+                <input type="text" [value]="item.quanity" readonly>
+                <button (click)="increaseQty(item)">+</button>
               </div>
+            </div>
 
               <div class="col-total">
                 <span class="mobile-label">Thành tiền: </span>
@@ -74,7 +75,7 @@
             <button class="btn-go-shop">MUA SẮM NGAY</button>
           </div>
         }
-      </div>
+        </div>
     </div>
 
     <!-- SIDEBAR -->
@@ -85,14 +86,14 @@
             Tạm tính ({{selectedCount}} sản phẩm):
           </span>
           <span>{{fomatPrice(subTotal)}}đ</span>
-        </div>
+      </div>
 
         <div class="summary-line">
-          <span>Phí vận chuyển:</span>
+        <span>Phí vận chuyển:</span>
           <span>
             Miễn phí
           </span>
-        </div>
+      </div>
 
        <!-- <div class="shipping-note">
           Mua thêm <strong>{{fomatPrice( 200000 - subTotal)}}đ</strong> để được Freeship!

@@ -4,11 +4,12 @@ import { ShopService } from '../service/shoppingService/shopping.service';
 import { Shopping } from '../models/ShoppingModel/shopping.model';
 import { Router, RouterLink } from "@angular/router";
 import { NgIf } from "@angular/common";
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-GioHang',
   standalone: true,
-  imports: [FormsModule, RouterLink, NgIf],
+  imports: [FormsModule],
   templateUrl: './gioHang.html',
   styleUrl: './gioHang.css'
 })
@@ -16,7 +17,7 @@ export class GioHangComponent implements OnInit {
 
   private shopService = inject(ShopService);
   private router = inject(Router)
-
+  private storage = inject(LocalStorageService)
   cartItems: Shopping[] = [];
 
   // ===== BIẾN PHỤC VỤ CHỌN MUA =====
@@ -42,32 +43,34 @@ export class GioHangComponent implements OnInit {
   finalTotal = 0;
 
   updateTotal() {
-    const selectedItems = this.cartItems.filter(item => item.selected);
+  const selectedItems = this.cartItems.filter(item => item.selected);
+  this.selectedCount = selectedItems.length;
+  this.subTotal = selectedItems.reduce(
+    (sum, item) => sum + item.price * item.quanity,
+    0
+  );
 
-    this.selectedCount = selectedItems.length;
-
-    this.subTotal = selectedItems.reduce(
-      (sum, item) => sum + item.price * item.quanity,
-      0
-    );
-
-    // Freeship >= 200k
-    this.shippingFee =
-      this.subTotal >= 200000 || this.subTotal === 0 ? 0 : 20000;
-
-    this.finalTotal = this.subTotal + this.shippingFee;
-
-    // Kiểm tra chọn tất cả
-    this.isAllSelected =
-      this.cartItems.length > 0 &&
-      this.cartItems.every(item => item.selected);
-  }
+  this.shippingFee = (this.subTotal >= 200000 || this.subTotal === 0) ? 0 : 20000;
+  this.finalTotal = this.subTotal + this.shippingFee;
+  this.isAllSelected = this.cartItems.length > 0 && 
+                       this.cartItems.every(item => item.selected);
+  this.storage.store('Checkout', selectedItems);
+  this.storage.store('Cart', this.cartItems);
+}
 
   // ===== CHECKBOX =====
   toggleSelectAll(event: any) {
-    const checked = event.target.checked;
-    this.cartItems.forEach(item => item.selected = checked);
-    this.updateTotal();
+  const checked = event.target.checked;
+  this.isAllSelected = checked;
+  this.cartItems.forEach(item => item.selected = checked);
+  const selectedProducts = this.cartItems.filter(item => item.selected);
+  if (checked) {
+    this.storage.store('Checkout', selectedProducts);
+  } else {
+    this.storage.store('Checkout', []);
+  }
+
+  this.updateTotal();
   }
 
   // ===== TĂNG / GIẢM SỐ LƯỢNG =====
@@ -97,4 +100,9 @@ export class GioHangComponent implements OnInit {
   goCheckOut(){
     this.router.navigate(['/dathang'])
   }
+  getSubtotal() {
+    return this.cartItems.reduce((sum, item) => sum + (item.price * item.quanity), 0);}
+  getShipping() {
+    return this.getSubtotal() > 200000 ? 0 : 15000;}
+
 }
