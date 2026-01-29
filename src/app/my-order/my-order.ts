@@ -10,15 +10,13 @@ import { CommonModule } from "@angular/common";
 })
 export class MyOrder implements OnInit {
   orders: any[] = [];
-
   constructor(private storage: LocalStorageService) {}
-
   ngOnInit(): void {
     this.orders = this.storage.retrieve('donHang') || [];
   }
 
   clearHistory(orderCode: string) {
-   let currentOrders = this.storage.retrieve('donHang') || [];
+  let currentOrders = this.storage.retrieve('donHang') || [];
   const updatedOrders = currentOrders.filter((item: any) => item.id !== orderCode);
   this.storage.store('donHang', updatedOrders);
   this.orders = updatedOrders;
@@ -29,8 +27,6 @@ export class MyOrder implements OnInit {
   const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
   if (checkoutItems.length > 0) {
     let history = this.storage.retrieve('donHang') || [];
-
-
     const newOrder = {
       date: new Date(),
       items: checkoutItems,
@@ -38,10 +34,9 @@ export class MyOrder implements OnInit {
     };
 
     history.unshift(newOrder); // Đưa đơn mới nhất lên đầu
-    this.storage.store('donHang', history); // Ghi đè cập nhật
+    this.storage.store('donHang', history);
     
-    this.storage.clear('checkout'); // Xóa sạch bộ nhớ tạm
-    
+    this.storage.clear('checkout'); 
   }
 }
 }

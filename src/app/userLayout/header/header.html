@@ -2,23 +2,23 @@
 <div class="container-fluid my-type">
     <ul class="home-type">
             <li>
-            <a routerLink="/Home"> 
+            <a routerLink="/User/Home"> 
                 <img width="50px" src="assets/images/image4.png" alt="">
             </a>
         </li>
     </ul>
     <ul class="header-type">
-        <li><a routerLink="/Home">Trang chủ</a> </li>
-        <li><a routerLink="/Home">Giới thiệu</a> </li>
-        <li><a routerLink="/SanPham">Sản phẩm</a> </li> 
-        <li><a routerLink="/Home">Liên hệ</a> </li> 
-        <li class="shop-bag" style="cursor: pointer;" routerLink="/Shopping-Bag">
+        <li><a style="cursor: pointer;" routerLink="/User/Home">Trang chủ</a> </li>
+        <li><a style="cursor: pointer;" routerLink="/User/Home">Giới thiệu</a> </li>
+        <li><a style="cursor: pointer;" routerLink="/User/SanPham">Sản phẩm</a> </li> 
+        <li><a style="cursor: pointer;" routerLink="/User/Home">Liên hệ</a> </li> 
+        <li class="shop-bag" style="cursor: pointer;" routerLink="/User/Shopping-Bag">
                 <img width="30px"  src="assets/images/shopping-bag.png" alt="">
                 <a class="quanity" >
                     {{index()}}
                 </a>
         </li>
-        <!-- <li  *ngIf="loginService.getProducts() as u">
+        <li>
             <a class="imgUser" tabindex="0">
                 <img width="30px" src="assets/images/user.png" alt=""> 
                 <div class="profile">
@@ -33,11 +33,6 @@
 
                 </div>
             </a>
-        </li> -->
-        <li>
-            <a  routerLink="/LoginMain">
-                Đăng nhập
-            </a>
-        </li>   
+        </li> 
     </ul>
 </div>

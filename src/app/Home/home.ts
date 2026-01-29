@@ -4,6 +4,7 @@ import { RouterOutlet, RouterLink, RouterModule } from '@angular/router';
 import { ProductService } from '../service/productService/product.service';
 import { NgFor } from "@angular/common";
 import { Product, TradeMark } from '../models/productModel/product.model';
+import { UserService } from '../service/userService/user.service';
 
 
 
@@ -22,11 +23,13 @@ export class HomeComponent implements OnInit  {
   searching = new FormControl('');
   listProduct = inject(ProductService)
   private ngZone= inject(NgZone)
+  pService = inject(UserService)
   currentIndex :number = 0;
   currentPage: number = 1;
   itemsPerPage: number = 15;
   private chg = inject(ChangeDetectorRef)
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.products = this.listProduct.getProduct()
     this.sellProduct = this.listProduct.getSold()
     this.tradeMarks =  this.listProduct.getTrade()
@@ -38,8 +41,9 @@ export class HomeComponent implements OnInit  {
   }
   // sidebar
     hinhAnh = [
-      'assets/images/background1.png',
       'assets/images/image_background.png',
+      'assets/images/anh2.png',
+      'assets/images/anh3.png',
     ]
     slideBar() {
       this.ngZone.run(()=>{
@@ -49,9 +53,4 @@ export class HomeComponent implements OnInit  {
       },3000)
       }); 
     }
-    // Các biến điều hướng
- // Số sản phẩm trên mỗi trang
-
-// Hàm lấy danh sách sản phẩm sau khi phân trang
-
 }

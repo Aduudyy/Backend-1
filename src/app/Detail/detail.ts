@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterModule, RouterOutlet } from '@angular/router';
 import { Product } from '../models/productModel/product.model';
 import { NgIf } from '@angular/common';
 import { NgModel, FormsModule } from '@angular/forms';
@@ -7,6 +7,7 @@ import { ProductService } from '../service/productService/product.service';
 import { ShopService } from '../service/shoppingService/shopping.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
+import { routes } from '../app.routes';
 
 
 
@@ -30,6 +31,7 @@ export class DetailComponent implements OnInit {
   currentId : number = Number(this.route.snapshot.paramMap.get('id'));
   ngOnInit(): void {
     this.prod = this.products.getDetail(this.currentId)
+    window.scrollTo(0, 0);
   }
   
   thanhTien(): string{  
@@ -73,23 +75,15 @@ toggleLike() {
 }
 btnBuy() {
   let currentCheckout: any[] = this.storage.retrieve('checkout') || [];
-  
-  // Tìm xem sản phẩm này đã có trong danh sách chưa
   const existingProduct = currentCheckout.find(item => item.id === this.prod.id);
-
   if (existingProduct) {
-    // Nếu có rồi thì tăng số lượng (giả sử bạn có thuộc tính quantity)
     existingProduct.quantity = (existingProduct.quanity || 1) + 1;
   } else {
-    // Nếu chưa có thì mới thêm mới vào mảng
     currentCheckout.push({ ...this.prod, quanity: this.quanity });
   }
-
   this.storage.store('checkout', currentCheckout);
   this.router.navigate(['/dathang']);
 }
-
-// Giả lập hàm chuyển ảnh (nếu bạn có mảng ảnh)
 prevImage() { console.log('Ảnh trước'); }
 nextImage() { console.log('Ảnh sau'); }
 
@@ -117,10 +111,5 @@ reviews : any[] = [
       avatar: 'https://i.pravatar.cc/150?u=hong'
     }
   ];
-
-  // Hàm tạo mảng sao dựa trên số rating
-  getStars(rating: number) {
-    return Array(rating).fill(0);
-  }
   
 }

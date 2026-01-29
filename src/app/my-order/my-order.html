@@ -10,8 +10,6 @@
             <img [src]="'../../assets/images/SanPham/' + item.images"
                  style="width: 80px; height: 80px; object-fit: cover;" 
                  class="rounded border me-3">
-                 
-            
             <div class="flex-grow-1">
               <div class="d-flex justify-content-between">
                 <h6 class="fw-bold mb-1">{{ item.name }}</h6>
@@ -19,10 +17,8 @@
                   {{ item.status }}
                 </span>
               </div>
-              
               <div class="text-muted small">Mã đơn: ABC_{{ item.id }}</div>
               <div class="text-muted small">Ngày đặt: {{ item.date | date:'dd/MM/yyyy' }}</div>
-              
               <div class="d-flex justify-content-between align-items-center mt-2">
                 <div class="text-muted small">Số lượng: x{{ item.quanity }}</div>
                 <div class="fw-bold text-danger">{{ item.price | number }}đ</div>

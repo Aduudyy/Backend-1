@@ -11,6 +11,9 @@ import { Products } from './product/product';
 import { CheckoutComponent } from './checkout/checkout';
 import { MyOrder } from './my-order/my-order';
 import { InfomationUser } from './infomation-user/infomation-user';
+import { authGuard } from './service/userService/auth.guard';
+import { MainUser } from './userLayout/main-user/main-user';
+import { Header } from './userLayout/header/header';
 
 
 export const routes: Routes = [
@@ -23,8 +26,21 @@ export const routes: Routes = [
             {path: '',redirectTo: '/Home', pathMatch:'full'}, 
             {path: 'Home',component: HomeComponent},
             {path: 'Detail/:id',component: DetailComponent},
+            {path: 'SanPham',component: Products},
+
+        ]
+    },
+    
+    {
+        path: 'User',
+        component : MainUser,
+        canActivate: [authGuard],
+        data: {roles: ['user']},
+        children:[
+            {path: '',redirectTo: 'Home', pathMatch:'full'}, 
+            {path: 'Home',component: HomeComponent},
+            {path: 'Detail/:id',component: DetailComponent},
             {path: 'Shopping-Bag',component: GioHangComponent},
-            {path: 'Header',component: HeaderComponent},
             {path: 'SanPham',component: Products},
             {path: 'dathang',component: CheckoutComponent},
             {path: 'Profile',component: ProFileComponent,
@@ -35,7 +51,9 @@ export const routes: Routes = [
 
                 ]
             },
-
         ]
+
+
+
     }
 ];

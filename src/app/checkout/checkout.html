@@ -97,27 +97,16 @@
         }
       </select>
 
-      <select [(ngModel)]="newAddress.district"
-              (change)="onDistrictChange()"
+      <select [(ngModel)]="newAddress.ward"
               [disabled]="!newAddress.province">
         <option value="">Chọn Xã</option>
-        @for (d of districts; track d) {
+        @for (d of wards; track d) {
           <option [value]="d">{{ d }}</option>
         }
       </select>
-
-      <!-- <select [(ngModel)]="newAddress.ward"
-              [disabled]="!newAddress.district">
-        <option value="">Chọn Phường / Xã</option>
-        @for (w of wards; track w) {
-          <option [value]="w">{{ w }}</option>
-        }
-      </select> -->
-
       <input type="text"
              placeholder="Địa chỉ chi tiết"
              [(ngModel)]="newAddress.detail">
-
       <div class="modal-actions">
         <button class="cancel"
                 (click)="closeAddressPopup()">

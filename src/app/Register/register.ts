@@ -67,6 +67,7 @@ export class registerComponent implements OnInit {
                     pass : passs,
                     sdt : sdthoai,
                     name: name,
+                    role:'user',
                   })
                   console.log(this.listUser)
                    setTimeout(() => {

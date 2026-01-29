@@ -19,6 +19,7 @@ export class ProFileComponent  implements OnInit{
   userName : any;
   private router = inject(Router)
   ngOnInit(): void {
+    window.scrollTo(0,0)
      const names = this.user.getProductss();
      this.nameUser = names[0].name;
      this.sdt = names[0].sdt;

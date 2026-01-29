@@ -56,8 +56,6 @@ changePage(page: number) {
   this.currentPage = page;
   window.scrollTo(0, 0); // Cuộn lên đầu trang khi chuyển trang
 }
-
-// Tính tổng số trang
 get totalPages(): number {
       return Math.ceil(this.filteredProducts.length / this.itemsPerPage);
 }

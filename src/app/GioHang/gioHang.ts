@@ -98,7 +98,7 @@ export class GioHangComponent implements OnInit {
     this.updateTotal();
   }
   goCheckOut(){
-    this.router.navigate(['/dathang'])
+    this.router.navigate(['/User/dathang'])
   }
   getSubtotal() {
     return this.cartItems.reduce((sum, item) => sum + (item.price * item.quanity), 0);}

@@ -4,4 +4,5 @@ export interface User{
     pass: string;
     sdt : string,
     name: string,
+    role: string,
 }
