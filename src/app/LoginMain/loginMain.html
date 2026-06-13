@@ -1,37 +1,74 @@
-<div class="background-overlay">
-        <div class="login-container">
-            <div class="logo">
-                <div><img width="80px" src="../../assets/images/ice-cream-logo.png" alt=""></div>
-                <div>Nhà phân phối Mỹ Anh</div>
-            </div>
-            <div class="login-form" [formGroup]="formLogin">
-                <h2>Đăng nhập</h2>
-                <div class="input-group">
-                    <div>
-                            <input (keydown.enter)="btnLogin()" type="text" placeholder="Nhập user" class="user" formControlName="user">
-                    </div>
-                    
-                </div>
-                
-                 <div  class="input-group">
-                    <div class="pass" >
-                            <input (keydown.enter)="btnLogin()" [type]="typePass"  placeholder="Hãy nập mật khẩu" formControlName="pass" toggleMask="false">
-                            <img (click)="iconPass()" style="cursor: pointer;" class="icon" width="15px" src="assets/images/locked-computer.png" alt="">
-                    </div>
-                    <div *ngIf="formLogin.get('pass')?.invalid && formLogin.get('pass')?.touched">
-                    </div>
-                 </div>
-
-                <div class="register-link">Bạn chưa có tài khoản? 
-                    <a routerLink="/Register" style=" text-decoration: none; cursor: pointer;">Đăng ký</a>
-                </div>
-                 <div class="btn">
-                    <p-toast></p-toast>
-                    <button type="button" (click)="btnLogin()" class="btn-login">Đến cửa hàng</button>
-                 </div>
-                                    
-
-                
-            </div>
+<div class="container-fluid login-wrapper">
+  <div class="background-slider">
+    <img  [src]="hinhAnh[currentIndex]"  class="background-image" alt="">
+    <div class="overlay"></div>
+  </div>
+  <div class="row min-vh-100 justify-content-center align-items-center m-0">
+    <div class="col-11 col-sm-10 col-md-7 col-lg-5 col-xl-4">
+      <div class="card login-card border-0 shadow-lg">
+        <div class="text-center mb-4">
+          <img width="90" src="assets/images/ice-cream-logo.png" alt="" class="mb-3 logo-img" >
+          <h3 class="fw-bold text-white">
+            Đăng nhập
+          </h3>
+          <p class="text-light mb-0">
+            Đến với đại lý Kem
+          </p>
         </div>
+        <form [formGroup]="formLogin" class="w-100">
+          <div class="mb-4">
+            <label class="form-label text-white fw-semibold">
+              Số điện thoại
+            </label>
+            <div class="input-group custom-input">
+              <span class="input-group-text border-0 bg-transparent">
+                <i class="ri-smartphone-line"></i>
+              </span>
+              <input type="text" class="form-control border-0 shadow-none"
+                placeholder="Nhập số điện thoại"
+                formControlName="numberPhone"
+                (keydown.enter)="btnLogin()">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-white fw-semibold">
+              Mật khẩu
+            </label>
+            <div class="input-group custom-input">
+              <span class="input-group-text border-0 bg-transparent">
+                <i class="ri-lock-password-line"></i>
+              </span>
+              <input [type]="typePass" class="form-control border-0 shadow-none"
+                placeholder="Nhập mật khẩu"
+                formControlName="password"
+                (keydown.enter)="btnLogin()" >
+              <button type="button" class="input-group-text border-0 bg-transparent" (click)="iconPass()">
+                <i  class="ri-eye-line" *ngIf="typePass === 'password'"></i>
+                <i class="ri-eye-off-line" *ngIf="typePass === 'text'"></i>
+              </button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mb-4 text-white">
+            <span>
+              Quên mật khẩu
+            </span>
+            <a routerLink="/Register"  class="register-link" >
+              Đăng ký
+            </a>
+          </div>
+          <!-- BUTTON -->
+          <button type="button" class="btn login-btn w-100 py-3 fw-semibold" (click)="btnLogin()">
+            <i class="ri-login-circle-line me-2"></i>
+            Đăng nhập
+          </button>
+        </form>
+        <!-- TOAST -->
+        <p-toast></p-toast>
+
+      </div>
+
     </div>
+
+  </div>
+
+</div>

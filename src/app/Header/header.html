@@ -1,43 +1,107 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
 
-<div class="container-fluid my-type">
-    <ul class="home-type">
-            <li>
-            <a routerLink="/Home"> 
-                <img width="50px" src="assets/images/image4.png" alt="">
-            </a>
+  <div class="container-fluid">
+
+    <!-- LOGO -->
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/Home">
+      <img src="assets/images/image4.png" width="45" alt="logo">
+    </a>
+
+    <!-- TOGGLER MOBILE -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- MENU -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+
+      <!-- LEFT MENU -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/Home">Trang chủ</a>
         </li>
-    </ul>
-    <ul class="header-type">
-        <li><a routerLink="/Home">Trang chủ</a> </li>
-        <li><a routerLink="/Home">Giới thiệu</a> </li>
-        <li><a routerLink="/SanPham">Sản phẩm</a> </li> 
-        <li><a routerLink="/Home">Liên hệ</a> </li> 
-        <li class="shop-bag" style="cursor: pointer;" routerLink="/Shopping-Bag">
-                <img width="30px"  src="assets/images/shopping-bag.png" alt="">
-                <a class="quanity" >
-                    {{index()}}
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/gioithieu">Giới thiệu</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/SanPham">Sản phẩm</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/Home">Liên hệ</a>
+        </li>
+
+      </ul>
+
+      <!-- RIGHT ACTION -->
+      <ul class="navbar-nav ms-auto align-items-center gap-2">
+
+        <!-- CART -->
+        
+
+        <!-- AUTH -->
+        @if (authService.isAuthenticated()) {
+
+          <!-- ADMIN -->
+          @if (authService.isAdmin()) {
+            <li class="nav-item">
+              <a class="nav-link text-danger fw-bold" routerLink="/Admin">
+                🛡 Quản trị
+              </a>
+            </li>
+          }
+          <li class="nav-item position-relative">
+          <a class="nav-link d-flex align-items-center" routerLink="/Shopping-Bag">
+            🛒
+            <span class="badge bg-danger ms-1">{{ index }}</span>
+          </a>
+        </li>
+          <!-- USER DROPDOWN -->
+          <li class="nav-item dropdown">
+
+            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2"
+               role="button"
+               data-bs-toggle="dropdown">
+
+              <img src="assets/images/user.png" width="30" class="rounded-circle">
+
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+
+              <li>
+                <a class="dropdown-item" (click)="proFile()">
+                  👤 Profile
                 </a>
-        </li>
-        <li  *ngIf="loginService.getProducts() as u">
-            <a class="imgUser" tabindex="0">
-                <img width="30px" src="assets/images/user.png" alt=""> 
-                <div class="profile">
-                    <div (click)="proFile()" >
-                        <i class="fa-solid fa-user"></i>
-                        Profile
-                    </div>   
-                    <div (click)="btnLogOut()">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        Đăng Xuất
-                    </div> 
+              </li>
 
-                </div>
+              <li><hr class="dropdown-divider"></li>
+
+              <li>
+                <a class="dropdown-item text-danger" (click)="btnLogOut()">
+                  🚪 Đăng xuất
+                </a>
+              </li>
+
+            </ul>
+
+          </li>
+
+        } @else {
+
+          <li class="nav-item">
+            <a class="btn btn-outline-primary btn-sm" routerLink="/LoginMain">
+              Đăng nhập
             </a>
-        </li>
-        <li *ngIf="!loginService.getProducts()">
-            <a  routerLink="/LoginMain">
-                Đăng nhập
-            </a>
-        </li>   
-    </ul>
-</div>
+          </li>
+
+        }
+
+      </ul>
+
+    </div>
+  </div>
+</nav>

@@ -1,43 +1,96 @@
-<main class="profile-main">
-    <section class="info-section">
-      <div class="section-header">
-        <h3>Hồ Sơ Cá Nhân</h3>
-        <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+<main class="container py-4">
+
+  <div class="card border-0 shadow-sm rounded-4 p-4">
+
+    <h4 class="fw-bold mb-4">Hồ sơ cá nhân</h4>
+
+    <!-- Avatar -->
+    <div class="text-center mb-4">
+
+      <div
+        class="mx-auto d-flex align-items-center justify-content-center rounded-circle bg-primary text-white fw-bold"
+        style="width:120px;height:120px;font-size:42px;">
+
+        {{ nameUser?.charAt(0)?.toUpperCase() }}
+
       </div>
 
-      <div class="info-grid">
-        <div class="form-group">
-          <label>Tên đăng nhập</label>
-          <input type="text" [value]="userName" readonly class="readonly-input">
-        </div>
-        <div class="form-group">
-          <label>Họ và tên</label>
-          <input type="text" [value]="nameUser">
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" value="khachhang@example.com">
-        </div>
-        <div class="form-group">
-          <label>Số điện thoại</label>
-          <input type="text" [value]="sdt" disabled="fasle">
-        </div>
-        <!-- <div class="form-group full-width">
-          <label>Địa chỉ nhận hàng mặc định</label>
-          <textarea>Số 123, Đường ABC, TP. Thái Nguyên</textarea>
-        </div> -->
-      </div>
-      <button class="btn-save">Lưu thay đổi</button>
-    </section>
+      <h5 class="mt-3 mb-0 fw-bold">{{ nameUser }}</h5>
+      <small class="text-muted">Tài khoản người dùng</small>
 
-    <div class="activity-summary">
-      <div class="stat-card">
-        <i class="fas fa-wallet"></i>
-        <span>Số dư: <strong>500.000đ</strong></span>
-      </div>
-      <div class="stat-card">
-        <i class="fas fa-star"></i>
-        <span>Điểm thưởng: <strong>1,250</strong></span>
-      </div>
     </div>
-  </main>
+
+    <!-- Họ tên -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Họ và tên</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="nameUser"
+        [readonly]="!isEditMode"
+        >
+    </div>
+
+    <!-- Số điện thoại -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Số điện thoại</label>
+      <input
+        type="text"
+        class="form-control"
+        [value]="formatPhoneNumber(sdt)"
+        [readonly]="!isEditMode"
+        >
+    </div>
+
+    <!-- Ngày sinh -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Ngày sinh</label>
+      <input
+        type="date"
+        class="form-control"
+        [disabled]="!isEditMode"
+        >
+    </div>
+
+    <!-- Giới tính -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Giới tính</label>
+      <select class="form-select"
+                [disabled]="!isEditMode"
+        >
+        <option value="0">Nam</option>
+        <option value="1">Nữ</option>
+        <option value="2">Khác</option>
+      </select>
+    </div>
+
+    <!-- Button -->
+    <div class="text-end mt-4">
+
+  <!-- Chế độ xem -->
+  <button
+    *ngIf="!isEditMode"
+    class="btn btn-outline-primary px-4"
+    (click)="toggleEdit()">
+
+    <i class="bi bi-pencil-square me-2"></i>
+    Chỉnh sửa
+
+  </button>
+
+  <!-- Chế độ chỉnh sửa -->
+  <button
+    *ngIf="isEditMode"
+    class="btn btn-primary px-4"
+    (click)="saveProfile()">
+
+    <i class="bi bi-check-circle me-2"></i>
+    Lưu
+
+  </button>
+
+</div>
+
+  </div>
+
+</main>

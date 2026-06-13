@@ -1,14 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink, ActivatedRoute, RouterModule } from '@angular/router';
+import {  RouterModule } from '@angular/router';
 import { UserService } from '../service/userService/user.service';
-import { User } from '../models/userModel/User.model';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-Profile',
   standalone: true,
-  imports: [RouterOutlet, RouterLink,RouterModule],
+  imports: [ RouterModule],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })

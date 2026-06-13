@@ -1,0 +1,188 @@
+<div
+  class="modal fade show d-block"
+  tabindex="-1"
+  style="background: rgba(0,0,0,0.5);"
+>
+
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+
+    <div class="modal-content border-0 shadow rounded-4">
+
+      <!-- HEADER -->
+      <div class="modal-header border-0">
+
+        <h4 class="fw-bold mb-0">
+          Thêm khách hàng
+        </h4>
+
+        <button
+          type="button"
+          class="btn-close"
+          (click)="onClose()"
+        ></button>
+
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body">
+
+        <form [formGroup]="customerForm">
+
+          <div class="row g-3">
+
+            <!-- TÊN KHÁCH -->
+            <div class="col-md-6">
+
+              <label class="form-label fw-semibold">
+                Tên khách hàng
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                formControlName="clientName"
+              >
+
+              <small
+                class="text-danger"
+                *ngIf="
+                  customerForm.get('clientName')?.touched &&
+                  customerForm.get('clientName')?.invalid
+                "
+              >
+                Vui lòng nhập tên khách hàng
+              </small>
+
+            </div>
+
+            <!-- TÊN GỌI -->
+            <div class="col-md-6">
+
+              <label class="form-label fw-semibold">
+                Tên thường gọi
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                formControlName="customName"
+              >
+
+            </div>
+
+            <!-- SĐT -->
+            <div class="col-md-6">
+
+              <label class="form-label fw-semibold">
+                Số điện thoại
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                formControlName="numberPhone"
+              >
+
+              <small
+                class="text-danger"
+                *ngIf="
+                  customerForm.get('numberPhone')?.touched &&
+                  customerForm.get('numberPhone')?.invalid
+                "
+              >
+                Số điện thoại phải đủ 10 số
+              </small>
+
+            </div>
+
+            <!-- CÔNG NỢ -->
+            <div class="col-md-6">
+
+              <label class="form-label fw-semibold">
+                Công nợ
+              </label>
+
+              <input
+                type="number"
+                class="form-control"
+                formControlName="debt"
+              >
+
+            </div>
+
+            <!-- TỈNH -->
+             <div class="mb-3">
+            <div>
+            <label class="form-label fw-semibold">Địa chỉ</label>
+
+            <!-- Tỉnh / Thành phố -->
+            <select class="form-select mb-2" formControlName="province"
+                    (change)="provinceChange.emit($event)"
+            >
+              <option value="" >Chọn Tỉnh / Thành phố</option>
+              <option *ngFor="let p of provinces" [value]="p.provinceName"
+               [attr.data-id]="p.provinceId">
+                {{ p.provinceName }}
+              </option>
+            </select>
+
+            <!-- Quận / Huyện -->
+            <select class="form-select mb-2" formControlName="ward"
+                    style="position: relative; z-index: 5;"
+            >
+              <option value="" disabled>Chọn Quận / Huyện</option>
+              <option *ngFor="let d of wards" [value]="d.wardName">
+                {{ d.wardName}}
+              </option>
+            </select>
+
+            <!-- Địa chỉ chi tiết -->
+          </div>
+          </div>
+
+
+            <!-- GHI CHÚ -->
+            <div class="col-12">
+
+              <label class="form-label fw-semibold">
+                Ghi chú
+              </label>
+
+              <textarea
+                rows="3"
+                class="form-control"
+                formControlName="note"
+              ></textarea>
+
+            </div>
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="modal-footer border-0">
+
+        <button
+          class="btn btn-light px-4"
+          (click)="onClose()"
+        >
+          Đóng
+        </button>
+
+        <button
+          class="btn btn-primary px-4"
+          (click)="onSave()"
+        >
+          Thêm khách hàng
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

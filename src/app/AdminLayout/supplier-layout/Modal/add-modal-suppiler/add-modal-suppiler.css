@@ -1,0 +1,55 @@
+/* ==============================
+   FIX BO CUC MODAL BI BO P / CLIP
+   ============================== */
+
+/* 1. Tránh modal tạo stacking context lỗi */
+#supplierModal {
+  overflow: visible !important;
+}
+
+/* 2. Fix modal dialog bị transform gây lỗi select */
+#supplierModal .modal-dialog {
+  transform: none !important;
+  max-height: 90vh;
+}
+
+/* 3. Modal content ổn định layout */
+#supplierModal .modal-content {
+  max-height: 90vh;
+  overflow: visible !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 4. Body scroll ổn định */
+#supplierModal .modal-body {
+  overflow-y: auto;
+  max-height: 60vh;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 5. FIX SELECT KHÔNG BỊ CẮT DROPDOWN */
+#supplierModal select.form-select {
+  position: relative;
+  z-index: 1;
+}
+
+/* Khi focus select thì nâng lên tránh bị clip */
+#supplierModal select.form-select:focus {
+  z-index: 9999;
+}
+
+/* 6. Fix trường hợp dropdown bị modal che */
+#supplierModal .form-select {
+  transform: translateZ(0);
+}
+
+/* 7. Fix input tránh repaint lỗi lần đầu */
+#supplierModal input.form-control {
+  transform: translateZ(0);
+}
+
+/* 8. Smooth hiển thị modal tránh giật layout */
+#supplierModal.modal {
+  will-change: transform, opacity;
+}

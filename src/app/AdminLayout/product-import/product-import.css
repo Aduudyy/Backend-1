@@ -1,0 +1,192 @@
+body {
+  background: #f4f6f9;
+}
+
+/* CARD CHUNG */
+.card {
+  border: none;
+  overflow: hidden;
+}
+
+/* HEADER */
+.card-header {
+  padding: 18px 24px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* FORM */
+.form-label {
+  color: #344054;
+  margin-bottom: 10px;
+}
+
+.form-select {
+  height: 48px;
+  border-radius: 14px;
+  border: 1px solid #d0d5dd;
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+}
+
+/* PRODUCT SECTION */
+.product-section {
+  margin-top: 24px;
+}
+
+.product-section h6 {
+  color: #1d2939;
+  font-size: 18px;
+}
+
+/* PRODUCT ITEM */
+.product-item {
+  background: #fff;
+  border: 1px solid #eaecf0;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: all 0.25s ease;
+}
+
+.product-item:hover {
+  transform: translateY(-2px);
+  border-color: #b2ddff;
+  box-shadow: 0 6px 18px rgba(13, 110, 253, 0.08);
+}
+
+/* CHECKBOX */
+.product-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* PRODUCT NAME */
+.product-item .fw-bold {
+  font-size: 16px;
+  color: #101828;
+}
+
+/* PRODUCT PRICE */
+.product-item small {
+  font-size: 13px;
+  color: #667085 !important;
+}
+
+/* INPUT SỐ LƯỢNG */
+.quantity-input {
+  width: 90px;
+  height: 42px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #d0d5dd;
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+.quantity-input:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 4px rgba(25, 135, 84, 0.1);
+}
+
+/* BUTTON */
+.btn-success {
+  height: 48px;
+  border-radius: 14px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(25, 135, 84, 0.2);
+}
+
+/* HOÁ ĐƠN */
+.invoice-card {
+  background: #fff;
+  position: sticky;
+  top: 20px;
+}
+
+/* DANH SÁCH HOÁ ĐƠN */
+.invoice-list {
+  max-height: 450px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* ITEM HOÁ ĐƠN */
+.invoice-item {
+  background: #f9fafb;
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 14px;
+  border: 1px solid #eef2f6;
+  transition: all 0.2s ease;
+}
+
+.invoice-item:hover {
+  background: #f1f5f9;
+}
+
+/* TÊN SẢN PHẨM */
+.invoice-item .fw-semibold {
+  color: #111827;
+  font-size: 15px;
+}
+
+/* TEXT */
+.invoice-item small {
+  font-size: 13px;
+}
+
+/* TỔNG TIỀN ITEM */
+.invoice-item .text-primary {
+  font-size: 16px;
+}
+
+/* TỔNG TIỀN */
+.text-danger {
+  font-size: 28px !important;
+}
+
+/* NÚT TẠO PHIẾU */
+.btn-primary {
+  border-radius: 16px;
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(13, 110, 253, 0.2);
+}
+
+/* SCROLLBAR */
+.invoice-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.invoice-list::-webkit-scrollbar-thumb {
+  background: #d0d5dd;
+  border-radius: 20px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+
+  .invoice-card {
+    margin-top: 24px;
+    position: static;
+  }
+
+  .quantity-input {
+    width: 70px;
+  }
+}

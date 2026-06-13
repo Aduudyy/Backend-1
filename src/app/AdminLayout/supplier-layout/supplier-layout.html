@@ -1,0 +1,145 @@
+<div class="container-fluid py-4">
+  <!-- HEADER -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+    <div>
+      <h2 class="fw-bold mb-1">
+        Quản lý nhà cung cấp
+      </h2>
+    </div>
+    <button 
+      type="button"
+      class="btn btn-primary px-4"
+      (click)="openModal()"
+    >
+      <i class="ri-add-line"></i>
+      Thêm nhà cung cấp
+    </button>
+  </div>
+  <!-- TABLE CARD -->
+  <div class="card border-0 shadow-sm supplier-table-card">
+    <!-- CARD HEADER -->
+    <div class="card-header bg-white border-0 p-4">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+          <h4 class="fw-bold mb-1">
+            Danh sách nhà cung cấp
+          </h4>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-responsive">
+
+      <table class="table align-middle mb-0">
+
+        <thead class="table-light">
+
+          <tr>
+            <th>ID</th>
+            <th>Tên nhà cung cấp</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+            <th class="text-center">
+              Thao tác
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let s of data ; let i = index">
+
+            <td class="fw-semibold">
+              {{i+1}}
+            </td>
+
+            <td>
+                <div class="fw-semibold">
+                    {{s.supplierName}}
+                </div>
+            </td>
+            <td>
+              {{s.phoneSupplier}}
+            </td>
+            
+            <td class="text-muted">
+              {{searchProvincename(s?.addresss?.provinceId)}}
+            </td>
+
+            <!-- ACTION -->
+            <td>
+
+              <div class="d-flex justify-content-center gap-2">
+
+                <button 
+                  class="btn btn-warning btn-sm action-btn"
+                >
+
+                  <i class="ri-edit-line"></i>
+
+                </button>
+
+                <button 
+                  class="btn btn-danger btn-sm action-btn"
+                >
+
+                  <i class="ri-delete-bin-6-line"></i>
+
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+          <!-- EMPTY -->
+          <tr *ngIf="data?.length === 0">
+
+            <td colspan="6">
+
+              <div class="empty-state">
+
+                <i class="ri-inbox-2-line"></i>
+
+                <h5>
+                  Chưa có nhà cung cấp
+                </h5>
+
+                <p>
+                  Dữ liệu nhà cung cấp sẽ hiển thị tại đây
+                </p>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<app-add-modal-suppiler
+  *ngIf="isOpenModal"
+  [supplierForm]="supplierForm"
+  (save)="addSupplier($event)"
+  (close)="closeModal()"
+  [provinces]="provinces"
+  [wards]="wards"
+  (provinceChange)="onProvinceChange($event)"
+ 
+>
+</app-add-modal-suppiler>

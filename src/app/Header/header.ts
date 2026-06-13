@@ -1,48 +1,48 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule, NgModel } from '@angular/forms';
-import { RouterOutlet, RouterLink, Router, RouterModule } from '@angular/router';
-import { NgForOf, NgIf } from "@angular/common";
-import {UserService} from "../service/userService/user.service"
-import { LocalStorage } from 'ngx-webstorage';
-import { ProductService } from '../service/productService/product.service';
-import { ShopService } from '../service/shoppingService/shopping.service';
+import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {  RouterLink, Router, RouterModule } from '@angular/router';
+import { AuthService } from '../service/authService/authService.Service';
+import { CartService } from '../service/CartItem/CartService.service';
 
  
 
 @Component({
   selector: 'app-Header',
   standalone: true,
-  imports: [FormsModule , NgIf, RouterLink, RouterModule],
+  imports: [FormsModule ,  RouterLink, RouterModule],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
-export class HeaderComponent implements OnInit {
-  constructor(public loginService : UserService){}
-  private pService = inject(UserService);
-  private router = inject(Router)
-  // index : number = 0
-  private proService = inject(ShopService)
-  ngOnInit(): void {
-    
-  }
-  index(): number{
-    return this.proService.listShop.length;
-  }
+export class HeaderComponent   implements OnInit{
+  constructor(private cdr : ChangeDetectorRef){}
+  public authService = inject(AuthService);
+  private router = inject(Router);
+  index : number = 0 
+  cartService = inject(CartService)
+  cart : any[] = []
   
-  btnLogOut(){
-    this.pService.getClear();
-    window.location.reload();
+  ngOnInit(): void {
+    this.loadCart()
+      
   }
-  proFile() {
-    // Sử dụng chữ thường để khớp với khai báo ở trên
-    this.router.navigateByUrl('/Profile').then((success) => {
-      if (success) {
-        // Nếu trang đã chuyển thành công, bạn có thể thực hiện logic tiếp theo
-        // Hạn chế dùng reload() nếu không thật sự cần thiết
-      } else {
-        console.error('Điều hướng thất bại!');
+  loadCart(){
+    this.cartService.getCartItem().subscribe({
+      next : (res) =>{
+        this.cart = res
+        this.index = this.cart.length
+        this.cdr.detectChanges()
+        // window.location.reload()
+        
       }
-    });
+    })
+  }
+  proFile(): void {
+    this.router.navigate(['/Profile']);
+  }
+  btnLogOut(): void {
+    this.authService.logout();
+    localStorage.removeItem('token');
+    this.router.navigate(['Home']);
   }
   
  }

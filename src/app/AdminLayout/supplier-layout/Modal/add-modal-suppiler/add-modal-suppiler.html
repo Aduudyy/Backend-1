@@ -1,0 +1,103 @@
+<div
+  class="modal  fade show" 
+  style="display:block; background: rgba(0,0,0,0.5);"
+  id="supplierModal"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow">
+
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold">
+          Thêm nhà cung cấp
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+
+        <form [formGroup]="supplierForm">
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">
+              Tên nhà cung cấp
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="supplierName"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">
+              Số điện thoại
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="phoneSupplier"
+            />
+          </div>
+          <div class="mb-3">
+            <div formGroupName="addresss">
+            <label class="form-label fw-semibold">Địa chỉ</label>
+
+            <!-- Tỉnh / Thành phố -->
+            <select class="form-select mb-2" formControlName="provinceId"
+                    (change)="onProvinceChange($event)"
+            >
+              <option value="" >Chọn Tỉnh / Thành phố</option>
+              <option *ngFor="let p of provinces" [value]="p.provinceId">
+                {{ p.provinceName }}
+              </option>
+            </select>
+            <!-- Xã / Phường -->
+            <select class="form-select mb-2" formControlName="wardId"
+            style="position: relative; z-index: 4;"
+            >
+              <option value="" disabled selected>Chọn Xã / Phường</option>
+              <option *ngFor="let w of wards" [value]="w.wardId">
+                {{ w.wardName }}
+              </option>
+            </select>
+
+            <!-- Địa chỉ chi tiết -->
+            <input
+              type="text"
+              class="form-control"
+              formControlName="detailAddress"
+              placeholder="Số nhà, tên đường..."
+            />
+          </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0">
+
+        <button
+          type="button"
+          class="btn btn-light"
+          (click)="onClose()"
+        >
+          Đóng
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onSave()"
+        >
+          Thêm
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</div>

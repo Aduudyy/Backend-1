@@ -1,0 +1,61 @@
+<!-- NÚT BẤM BẬT/TẮT CHATBOT (Luôn nổi ở góc phải dưới) -->
+<div class="bot-floating-btn shadow-lg" (click)="toggleChat()" [class.active]="isChatOpen()">
+  @if (!isChatOpen()) {
+    <i class="bi bi-chat-dots-fill text-white fs-3">🤖</i>
+    <span class="badge-notify">AI</span>
+  } @else {
+    <i class="fa-solid fa-xmark text-white fs-4"></i>
+  }
+</div>
+
+<!-- CỬA SỔ KHUNG CHAT CHATBOT -->
+@if (isChatOpen()) {
+  <div class="bot-chat-window card shadow-lg">
+    <!-- Header -->
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center p-3">
+      <div class="d-flex align-items-center gap-2">
+        <div class="bot-avatar-status">
+           <i class="bi bi-chat-dots-fill text-white fs-3">🤖</i>
+          <span class="status-dot"></span>
+        </div>
+        <div>
+          <h6 class="mb-0 text-sm fw-bold">Trợ lý Mỹ Anh</h6>
+          <small class="text-white-50" style="font-size: 11px;">Trực tuyến 24/7</small>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Nội dung tin nhắn -->
+    <div class="card-body chat-body-area" #chatContainer>
+      @for (msg of messages(); track $index) {
+        <div class="d-flex mb-3" [ngClass]="msg.isBot ? 'justify-content-start' : 'justify-content-end'">
+          <div class="message-bubble shadow-sm" [ngClass]="msg.isBot ? 'bot-bubble' : 'user-bubble'">
+            <div class="message-text">{{ msg.text }}</div>
+            <small class="message-time">{{ msg.time | date:'HH:mm' }}</small>
+          </div>
+        </div>
+      }
+
+      <!-- Trạng thái AI đang suy nghĩ / gõ chữ -->
+      @if (isLoading()) {
+        <div class="d-flex mb-3 justify-content-start">
+          <div class="message-bubble bot-bubble text-muted py-2">
+            <span class="spinner-grow spinner-grow-sm me-1" role="status"></span> Đang suy nghĩ...
+          </div>
+        </div>
+      }
+    </div>
+    
+    <!-- Footer Nhập liệu -->
+    <div class="card-footer bg-white border-top p-2">
+      <div class="input-group">
+        <input type="text" class="form-control form-control-sm border-0 bg-light rounded-start-pill px-3" 
+               [(ngModel)]="userMessage" (keyup.enter)="sendMessage()" 
+               placeholder="Nhập câu hỏi tại đây...">
+        <button class="btn btn-primary rounded-end-pill px-3 btn-sm" [disabled]="isLoading()" (click)="sendMessage()">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+}

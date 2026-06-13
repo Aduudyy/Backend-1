@@ -1,119 +1,161 @@
-<div class="cart-page">
-  <div class="shopee-cart-container">
-  <h2 class="cart-header">Giỏ hàng của bạn </h2>
+<div class="container py-4">
 
-  <div class="cart-layout">
-    <div class="cart-main">
+  <h3 class="fw-bold mb-4">Giỏ hàng của bạn</h3>
+
+  <div class="row g-4">
+
+    <!-- LEFT: CART LIST -->
+    <div class="col-lg-8">
 
       <!-- HEADER -->
-      <div class="cart-column-header">
-        <div class="checkbox">
-          <input type="checkbox"
-                 [checked]="isAllSelected"
-                 (change)="toggleSelectAll($event)"
-                 >
+      <div class="card shadow-sm border-0 mb-3">
+        <div class="card-body d-flex align-items-center fw-semibold">
+
+          <div class="form-check me-3">
+            <input class="form-check-input"
+                   type="checkbox"
+                   [checked]="isAllSelected"
+                   (change)="toggleSelectAll($event)">
+          </div>
+
+          <div class="flex-grow-1">Sản phẩm</div>
+          <div class="text-center" style="width:120px;">Đơn giá</div>
+          <div class="text-center" style="width:140px;">Số lượng</div>
+          <div class="text-center" style="width:120px;">Thành tiền</div>
+          <div style="width:80px;" class="text-center">Xóa</div>
+
         </div>
-        <div class="col-product">Sản phẩm</div>
-        <div class="col-price">Đơn giá</div>
-        <div class="col-qty">Số lượng</div>
-        <div class="col-total">Số tiền</div>
-        <div class="col-action">Thao tác</div>
       </div>
 
       <!-- LIST -->
-      <div class="cart-list">
-      @if (cartItems.length > 0) {
-        @for (item of cartItems; track item.id) {
-            <div class="shopee-item">
+      <div class="card shadow-sm border-0">
 
-              <!-- CHECK -->
-              <div class="checkbox">
-                <input type="checkbox"
-                       [(ngModel)]="item.selected"
-                       (change)="updateTotal()">
-            </div>
+        <div class="card-body p-0" 
+              *ngIf="cart?.cartItems?.length; else emptyCart"
+        >
+              <div 
+                class="d-flex align-items-center border-bottom p-3"
+                *ngFor="let item of cart?.cartItems"
+              >
 
-              <div class="col-product">
-                <div class="product-info">
-                  <img src="../../assets/images/SanPham/{{item.images}}">
-                  <span class="product-name">{{item.name}}</span>
-            </div>
+                <!-- CHECK -->
+                <div class="form-check me-3">
+                  <input class="form-check-input"
+                         type="checkbox"
+                         [(ngModel)]="item.selected"
+                          (change)="onItemSelectChange()">
+                         
+                </div>
+
+                <!-- PRODUCT -->
+                <div class="d-flex align-items-center flex-grow-1 gap-3">
+
+                    <img
+                      [src]="'https://localhost:7271' + item.product?.imageUrl"
+                      alt=""
+                      class="product-image"
+                      style="width: 50px;"
+                    >
+
+                  <div class="fw-semibold">
+                    {{item.product?.productName}}
+                  </div>
+
+                </div>
+
+                <!-- PRICE -->
+                <div class="text-center text-muted" style="width:120px;">
+                  {{item.product?.sellPrice}} đ
+                </div>
+
+                <!-- QTY -->
+                <div class="text-center" style="width:140px;">
+
+                  <div class="input-group input-group-sm justify-content-center">
+
+                    <button class="btn btn-outline-secondary"
+                            (click)="decreaseQuantity(item)"  
+                    >
+                      -
+                    </button>
+
+                    <input class="form-control text-center"
+                           style="max-width:50px"
+                           [value]="item.quantity"
+                           readonly>
+
+                    <button class="btn btn-outline-secondary" 
+                              (click)="increaseQuantity(item)"
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+                </div>
+
+                <!-- TOTAL -->
+                <div class="text-center fw-bold text-danger" style="width:120px;">
+                  {{item.product?.sellPrice}} đ
+                </div>
+
+                <!-- DELETE -->
+                <div class="text-center" style="width:80px;">
+                  <button class="btn btn-sm btn-outline-danger"
+                          (click)="removeItem(item.cartItemId)"
+                  >
+                    Xóa
+                  </button>
+                </div>
+
               </div>
-
-              <div class="col-price">
-                <span class="mobile-label">Đơn giá: </span>
-                {{fomatPrice( item.price)}}đ
-              </div>
-
-              <div class="col-qty">
-                <div class="shopee-qty-control-a">
-                <button (click)="decreaseQty(item)">−</button>
-                <input type="text" [value]="item.quanity" readonly>
-                <button (click)="increaseQty(item)">+</button>
-              </div>
-            </div>
-
-              <div class="col-total">
-                <span class="mobile-label">Thành tiền: </span>
-                <span class="price-highlight">
-                   {{fomatPrice(item.price * item.quanity)}}đ
-                </span>
-              </div>
-
-              <div class="col-action">
-                <button class="delete-link"
-                        (click)="removeItem(item.id)">
-                  Xóa
-                </button>
-              </div>
-            </div>
-          }
-        } @else {
-          <div class="empty-state">
-            <img src="assets/empty-cart.png">
-            <p>Giỏ hàng của bạn còn trống</p>
-            <button class="btn-go-shop">MUA SẮM NGAY</button>
+        </div>
+        <ng-template #emptyCart>
+          <div class="text-center py-5">
+            <p class="text-muted">Giỏ hàng trống</p>
           </div>
-        }
-        </div>
+        </ng-template>
+
+      </div>
+
     </div>
 
-    <!-- SIDEBAR -->
-    <div class="cart-sidebar">
-      <div class="summary-card">
-        <div class="summary-line">
-          <span>
-            Tạm tính ({{selectedCount}} sản phẩm):
-          </span>
-          <span>{{fomatPrice(subTotal)}}đ</span>
-      </div>
+    <!-- RIGHT: SUMMARY -->
+    <div class="col-lg-4">
 
-        <div class="summary-line">
-        <span>Phí vận chuyển:</span>
-          <span>
-            Miễn phí
-          </span>
-      </div>
+      <div class="card shadow-lg border-0 sticky-top" style="top: 20px;">
 
-       <!-- <div class="shipping-note">
-          Mua thêm <strong>{{fomatPrice( 200000 - subTotal)}}đ</strong> để được Freeship!
-        </div> -->
+        <div class="card-body">
 
-        <div class="total-section">
-          <span class="total-label">Tổng thanh toán:</span>
-          <span class="total-amount">{{fomatPrice( finalTotal)}}đ</span>
+          <h5 class="fw-bold mb-3">Tóm tắt đơn hàng</h5>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span>Tạm tính</span>
+            <span>{{fomatPrice(subTotal)}} đ</span>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between fs-5 fw-bold mb-3">
+            <span>Tổng</span>
+             <span class="text-danger">
+              {{fomatPrice(finalTotal)}} đ
+            </span>
+          </div>
+
+          <button class="btn btn-danger w-100 py-2 fw-bold"
+            (click)="goCheckOut()"
+          >
+              
+            THANH TOÁN
+          </button>
+
         </div>
 
-        <button class="shopee-btn-main"
-                [disabled]="subTotal === 0"
-                 (click)="goCheckOut()"
-                >
-                 
-          THANH TOÁN
-        </button>
       </div>
+
     </div>
+
   </div>
-</div>
-</div>
 
+</div>

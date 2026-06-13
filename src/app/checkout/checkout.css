@@ -1,235 +1,30 @@
-/* ================== BASE ================== */
-* {
-  box-sizing: border-box;
+.card {
+    border-radius: 16px;
 }
 
-.checkout-container {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 0 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f5f5f5;
-  padding: 10px;
+.card-header {
+    border-bottom: 1px solid #eee;
+    padding: 18px 24px;
 }
 
-.checkout-title {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 16px;
+.card-body {
+    padding: 24px;
 }
 
-/* ================== BOX ================== */
-.box {
-  background: #fff ;
-  border-radius: 4px;
-  padding: 16px;
-  margin-bottom: 16px;
+img {
+    object-fit: cover;
 }
-.box input{
-  background: #fff !important;
-  color: black;
-}
-.box textarea{
-  background: #fff !important;
-  color: black;
+.form-control,
+.form-select {
+    height: 48px;
+    border-radius: 10px;
 }
 
-
-.box h3 {
-  font-size: 16px;
-  margin-bottom: 12px;
+textarea.form-control {
+    height: auto;
 }
 
-/* ================== PRODUCT ================== */
-.item {
-  display: flex;
-  align-items: center;
-  padding: 10px ;
-  border: 1px solid rgb(108, 108, 108);
-  margin-bottom: 5px;
-}
-
-
-
-.item img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  margin-right: 12px;
-  box-shadow: 0.5px 1px 1px rgb(223, 223, 223);
-}
-
-.info {
-  flex: 1;
-}
-
-.info .name {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.price {
-  color: #ee4d2d;
-  font-weight: 600;
-}
-
-/* ================== FORM ================== */
-.box input,
-.box textarea {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-}
-
-.box textarea {
-  resize: none;
-  height: 70px;
-}
-
-/* ================== ADDRESS ================== */
-.address-box {
-  margin-bottom: 10px;
-}
-
-.add-address-btn {
-  width: 100%;
-  border: 1px dashed #ee4d2d;
-  background: #fff;
-  color: #ee4d2d;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.address-display {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fafafa;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 4px;
-}
-
-.address-display button {
-  background: none;
-  border: none;
-  color: #ee4d2d;
-  cursor: pointer;
-  font-size: 13px;
-}
-
-/* ================== SUMMARY ================== */
-.summary .row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.summary .total {
-  font-size: 18px;
-  font-weight: 600;
-  color: #ee4d2d;
-  margin-top: 10px;
-}
-
-.order-btn {
-  width: 100%;
-  background: #ee4d2d;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  font-size: 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 12px;
-}
-
-.order-btn:hover {
-  opacity: 0.9;
-}
-
-/* ================== POPUP ================== */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  /* QUAN TRỌNG */
-  z-index: 999999 !important;
-}
-
-.modal {
-  position: relative;
-  display: flex !important;
-  flex-direction: column;
-  background: #fff;
-  width: 420px;
-  max-width: 90%;
-  padding: 20px;
-  border-radius: 6px;
-
-  /* QUAN TRỌNG */
-  z-index: 1000000 !important;
-}
-
-
-.modal h3 {
-  margin-bottom: 12px;
-  font-size: 16px;
-}
-
-.modal select,
-.modal input {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 9px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  color: black;
-  background-color: #fff;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.modal-actions .cancel {
-  background: #f5f5f5;
-  border: 1px solid #ddd;
-  padding: 8px 14px;
-  cursor: pointer;
-}
-
-.modal-actions .save {
-  background: #ee4d2d;
-  border: none;
-  color: #fff;
-  padding: 8px 14px;
-  cursor: pointer;
-}
-
-/* ================== RESPONSIVE ================== */
-@media (max-width: 600px) {
-  .item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .price {
-    margin-top: 6px;
-  }
-
-  .address-display {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
+.form-label {
+    margin-bottom: 8px;
+    font-weight: 600;
 }

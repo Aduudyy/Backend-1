@@ -1,108 +1,127 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ShopService } from '../service/shoppingService/shopping.service';
-import { Shopping } from '../models/ShoppingModel/shopping.model';
-import { Router, RouterLink } from "@angular/router";
-import { NgIf } from "@angular/common";
-import { LocalStorageService } from 'ngx-webstorage';
+import { CartService } from '../service/CartItem/CartService.service';
+import { CommonModule, NgForOf } from "@angular/common";
+import { Cart, CartItem } from '../models/ShoppingModel/CartModel.model';
+import { Router, RouterLink } from '@angular/router';
+import { CheckoutService } from '../service/CheckOut/checkout.service';
 
 @Component({
   selector: 'app-GioHang',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgForOf, CommonModule, RouterLink],
   templateUrl: './gioHang.html',
   styleUrl: './gioHang.css'
 })
 export class GioHangComponent implements OnInit {
-
-  private shopService = inject(ShopService);
-  private router = inject(Router)
-  private storage = inject(LocalStorageService)
-  cartItems: Shopping[] = [];
-
-  // ===== BIẾN PHỤC VỤ CHỌN MUA =====
+  constructor(private cdr : ChangeDetectorRef){}
+  cartService = inject(CartService)
+  router = inject(Router)
+  cart: Cart | null = null;
   selectedCount = 0;
   isAllSelected = false;
-  quanity : number =1;
-
-  ngOnInit() {
-    this.cartItems = this.shopService.getCart();
-    // Mặc định khi load: chưa chọn sản phẩm nào
-    this.cartItems.forEach(item => {
-      if (item.selected === undefined) {
-        item.selected = false;
-      }
-    });
-
-    this.updateTotal();
-  }
-
-  // ===== TÍNH TOÁN =====
   subTotal = 0;
   shippingFee = 0;
   finalTotal = 0;
+  checkoutService = inject(CheckoutService)
+
+  get cartItems(): CartItem[] {
+    return this.cart?.cartItems || [];
+  }
+  ngOnInit() {
+    this.loadCart()
+    console.log('GioHangComponent Init');
+  }
+  loadCart(){
+    this.cartService.getAllCart().subscribe({
+      next: (res: Cart[]) => {
+          this.cart = res[0]; 
+          if (this.cart && this.cart.cartItems) {
+          this.cart.cartItems.forEach(item => {
+          item.selected = false; 
+        });
+      }
+      this.cdr.detectChanges()
+      this.updateTotal();
+      },
+      error: (err) => {
+        console.error('Lỗi khi load giỏ hàng:', err);
+      }
+    });
+  }
+
+  
 
   updateTotal() {
-  const selectedItems = this.cartItems.filter(item => item.selected);
-  this.selectedCount = selectedItems.length;
-  this.subTotal = selectedItems.reduce(
-    (sum, item) => sum + item.price * item.quanity,
-    0
-  );
-
-  this.shippingFee = (this.subTotal >= 200000 || this.subTotal === 0) ? 0 : 20000;
-  this.finalTotal = this.subTotal + this.shippingFee;
-  this.isAllSelected = this.cartItems.length > 0 && 
-                       this.cartItems.every(item => item.selected);
-  this.storage.store('Checkout', selectedItems);
-  this.storage.store('Cart', this.cartItems);
-}
-
-  // ===== CHECKBOX =====
-  toggleSelectAll(event: any) {
-  const checked = event.target.checked;
-  this.isAllSelected = checked;
-  this.cartItems.forEach(item => item.selected = checked);
-  const selectedProducts = this.cartItems.filter(item => item.selected);
-  if (checked) {
-    this.storage.store('Checkout', selectedProducts);
-  } else {
-    this.storage.store('Checkout', []);
+    const selectedItems = this.cartItems.filter(item => item.selected);
+    this.selectedCount = selectedItems.length;
+    this.subTotal = selectedItems.reduce(
+      (sum, item) => sum + (item.product?.sellPrice || 0) * item.quantity, // 
+      0
+    );
+ 
+    this.finalTotal = this.subTotal ;
+    this.isAllSelected = this.cartItems.length > 0 && 
+                         this.cartItems.every(item => item.selected);
   }
-
-  this.updateTotal();
-  }
-
-  // ===== TĂNG / GIẢM SỐ LƯỢNG =====
-  increaseQty(item: Shopping) {
-    this.shopService.updateQuantity(item.id, 1);
-    this.quanity +=1;
+  onItemSelectChange() {
     this.updateTotal();
   }
 
-  decreaseQty(item: Shopping) {
-    if (item.quanity > 1) {
-      this.shopService.updateQuantity(item.id, -1);
-      this.quanity-=1;
+  toggleSelectAll(event: any) {
+    const checked = event.target.checked;
+    this.isAllSelected = checked;
+    
+    // Gạt toàn bộ trạng thái checkbox mảng cục bộ ở FE
+    this.cartItems.forEach(item => item.selected = checked);
+
+    this.updateTotal();
+  }
+
+  // ===== XÓA SẢN PHẨM KHỎI GIỎ =====
+  removeItem(cartItemId: number) {
+    if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+      this.cartService.deleteCartItem(cartItemId).subscribe({
+        next: () => {
+          // Xóa trên giao diện sau khi API xóa DB thành công
+          if (this.cart && this.cart.cartItems) {
+            this.cart.cartItems = this.cart.cartItems.filter(item => item.cartItemId !== cartItemId);
+          }
+          this.updateTotal();
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Lỗi khi xóa sản phẩm', err)
+        }
+          
+      });
+    }
+  }
+
+  // ===== FORMAT TIỀN TỆ =====
+  fomatPrice(price: number): string {
+    return price ? price.toLocaleString('vi-VN') : '0';
+  }
+
+  // ===== CHUYỂN SANG TRANG ĐẶT HÀNG =====
+  goCheckOut() {
+    if (this.selectedCount === 0) {
+      alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán!');
+      return;
+    }
+    const selectedProducts = this.cartItems.filter(x => x.selected);
+    this.checkoutService.setItems(selectedProducts);
+    console.log(this.checkoutService.getItems())
+    this.router.navigate(['/dathang']);
+  }
+  increaseQuantity(item: CartItem) {
+    item.quantity++;
+    this.updateTotal();
+  } 
+  decreaseQuantity(item: CartItem) {
+    if (item.quantity > 1) {
+      item.quantity--;
       this.updateTotal();
     }
   }
-  fomatPrice( price:number):string{
-    return price.toLocaleString('vi-VN')
-  }
-
-  // ===== XÓA SẢN PHẨM =====
-  removeItem(id: number) {
-    this.shopService.removeProduct(id);
-    this.cartItems = this.shopService.getCart();
-    this.updateTotal();
-  }
-  goCheckOut(){
-    this.router.navigate(['/dathang'])
-  }
-  getSubtotal() {
-    return this.cartItems.reduce((sum, item) => sum + (item.price * item.quanity), 0);}
-  getShipping() {
-    return this.getSubtotal() > 200000 ? 0 : 15000;}
-
 }

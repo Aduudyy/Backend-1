@@ -1,0 +1,246 @@
+<!-- product.component.html -->
+
+<form [formGroup]="productForm">
+<p-toast></p-toast>
+  <div class="container-fluid py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+      <div>
+
+        <h2 class="fw-bold mb-1">
+          Quản lý sản phẩm
+        </h2>
+
+      
+
+      </div>
+
+      <!-- ADD -->
+      <button
+        type="button"
+        class="btn btn-primary px-4 add-btn"
+        (click)="openAddModal()"
+        >
+        <i class="ri-add-line"></i>
+        Thêm sản phẩm
+      </button>
+    </div>
+
+    <!-- FILTER -->
+    <div class="card border-0 shadow-sm filter-card">
+
+      <div class="card-body p-4">
+
+        <div class="row g-3 align-items-end">
+          <!-- SEARCH -->
+          <div class="col-lg-5 col-md-6">
+
+            <label class="form-label fw-semibold">
+              Tìm kiếm
+            </label>
+
+            <div class="search-box">
+
+              <i class="ri-search-line"></i>
+
+              <input
+                type="text"
+                placeholder="Nhập tên sản phẩm..."
+                formControlName="search"
+              >
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- PRODUCT LIST -->
+    <div class="card border-0 shadow-sm product-card mt-4">
+
+      <!-- HEADER -->
+      <div class="card-header bg-white border-0 p-4">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+          <div>
+
+            <h4 class="fw-bold mb-1">
+              Danh sách sản phẩm
+            </h4>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- EMPTY -->
+      <div class="product-wrapper">
+
+  <div class="table-responsive">
+
+    <table class="table table-hover align-middle">
+
+      <thead class="table-dark">
+
+        <tr>
+          <th>ID</th>
+          <th>Hình ảnh</th>
+          <th>Tên sản phẩm</th>
+          <th>Nhà cung cấp</th>
+          <th>Số lượng</th>
+          <th>Đơn vị tính</th>
+          <th>Giá</th>
+          <th>Ngày sản xuất</th>
+          <th>Hạn sử dụng</th>
+          <th class="text-center">
+            Thao tác
+          </th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <!-- Có dữ liệu -->
+        <tr *ngFor="let p of paginatedProducts; let i = index">
+
+          <td>
+            {{ i+1}}
+          </td>
+              
+          <td>
+
+            <img
+              [src]=" 'https://localhost:7271'+ p.imageUrl"
+              alt="p-image"
+              class="p-image"
+            >
+          </td>
+
+          <td>
+            {{ p.productName }}
+          </td>
+
+          <td>
+            {{ p.supplierId }}
+          </td>
+
+          <td>
+            {{ p.quantity  }}
+          </td>
+          <td>
+            {{p.unit?.unitName}}
+          </td>
+          <td>
+            {{ p.sellPrice  }} đ
+          </td>
+
+          <td>
+            {{ p.productionDate | date:'dd/MM/yyyy' }}
+          </td>
+
+          <td>
+            {{ p.expery | date:'dd/MM/yyyy'}}
+          </td>
+          <td>
+        <div class="action-cell">
+          <button class="action-btn delete-btn"
+                  (click)="deleteProduct(p.productId)">
+            <i class="ri-delete-bin-6-line"></i>
+          </button>
+
+          <button class="action-btn update-btn"
+                (click)="editProduct(p)">
+              <i class="ri-edit-2-line"></i>
+          </button>
+        </div>
+      </td>
+
+        </tr>
+
+        <!-- Không có dữ liệu -->
+        <tr *ngIf="paginatedProducts.length === 0">
+
+          <td colspan="8">
+
+            <div class="empty-product">
+
+              <i class="ri-shopping-cart-2-line"></i>
+
+              <h5>
+                Chưa có dữ liệu sản phẩm
+              </h5>
+
+              <p>
+                Danh sách sản phẩm sẽ hiển thị tại đây
+              </p>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+  <div
+  class="pagination-wrapper"
+  *ngIf="totalPages > 1"
+>
+
+  <button
+    class="page-btn"
+    [disabled]="currentPage === 1"
+    (click)="changePage(currentPage - 1)"
+  >
+    Prev
+  </button>
+
+  <button
+    class="page-number"
+    *ngFor="let page of pageNumbers"
+    [class.active]="page === currentPage"
+    (click)="changePage(page)"
+  >
+    {{ page }}
+  </button>
+
+  <button
+    class="page-btn"
+    [disabled]="currentPage === totalPages"
+    (click)="changePage(currentPage + 1)"
+  >
+    Next
+  </button>
+
+</div>
+
+</div>
+
+    </div>
+
+  </div>
+
+</form>
+<p-toast></p-toast>
+<!-- MODAL -->
+ <app-update-model 
+  *ngIf="isModalOpen"
+  [productForm]="productForm" 
+  [previewImage]="previewImage" 
+  [isEditMode]="isEditMode"
+  [supplier]="data"
+  [unit]="unit"
+  [categories]="categories"
+  (save)="onHandleSave()"
+  (close)="closeModal()"
+  (fileChange)="onFileSelected($event)">
+</app-update-model>
+
+        
+

@@ -1,60 +1,110 @@
-<div class="background-overlay">
-        <div class="login-container">
-            <div class="login-image">
-                <img class="rectangle" src="{{hinhAnh[currentIndex]}}" alt="Mèo cute">
+<!-- register.component.html -->
+
+<div class="register-page">
+
+  <!-- BACKGROUND -->
+  <div class="bg-slider">
+
+    <img [src]="hinhAnh[currentIndex]" alt="" class="bg-image">
+    <div class="bg-overlay"></div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="container-fluid">
+    <div class="row min-vh-100 justify-content-center align-items-center">
+      <div class="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+        <div class="register-card">
+          <!-- LOGO -->
+          <div class="text-center mb-4">
+            <img src="assets/images/ice-cream-logo.png" width="90" class="logo-img mb-3" alt="">
+            <h2 class="title">
+              Nhà phân phối Mỹ Anh
+            </h2>
+            <p class="sub-title">
+              Hệ thống quản lý đại lý kem
+            </p>
+          </div>
+          <!-- FORM -->
+          <form [formGroup]="formRegister">
+            <!-- STEP 1 -->
+            <div *ngIf="currentStep === 1">
+              <h4 class="step-title">
+                Nhập số điện thoại
+              </h4>
+              <div class="custom-input mb-4">
+                <i class="ri-smartphone-line"></i>
+                <input type="tel" placeholder="Nhập số điện thoại" formControlName="sdt" >
+              </div>
+             <button type="button" class="main-btn" (click)="sendOTP()" [disabled]="loading">
+                <i class="ri-loader-4-line ai-spin" *ngIf="loading"></i> <i class="ri-message-2-line" *ngIf="!loading"></i>
+                {{ loading ? 'Đang gửi...' : 'Nhận OTP' }}
+            </button>
+            </div>
+            <!-- STEP 2 -->
+            <div *ngIf="currentStep === 2">
+              <h4 class="step-title">
+                Xác nhận OTP
+              </h4>
+              <p class="otp-text">
+                Mã OTP đã được gửi đến số điện thoại của bạn
+              </p>
+              <div class="custom-input mb-4">
+                <i class="ri-shield-keyhole-line"></i>
+                <input type="text" placeholder="Nhập mã OTP" formControlName="otp" >
+              </div>
+              <button type="button" class="main-btn" (click)="verifyOTP()">
+                <i class="ri-check-double-line"></i>
+                Xác nhận OTP
+              </button>
+            </div>
+            <!-- STEP 3 -->
+            <div [hidden]="currentStep !== 3">
+              <h4 class="step-title">
+                Hoàn tất đăng ký
+              </h4>
+              <!-- FULLNAME -->
+              <div class="custom-input mb-3">
+                <i class="ri-user-3-line"></i>
+                <input type="text"  placeholder="Họ và tên"  formControlName="fullName">
+              </div>
+              <!-- PASSWORD -->
+              <div class="custom-input mb-4">
+                <i class="ri-lock-password-line"></i>
+                <input [type]="typePass" placeholder="Mật khẩu" formControlName="password">
+                <button type="button"  class="eye-btn" (click)="iconPass()">
+                  <i class="ri-eye-line" *ngIf="typePass === 'password'"></i>
+                  <i  class="ri-eye-off-line" *ngIf="typePass === 'text'"></i>
+                </button>
+              </div>
+              <button type="button" class="main-btn" (click)="register()" [disabled]="loading">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                    {{ loading ? 'Đang xử lý...' : 'Đăng ký' }}
+                </button>
+
             </div>
 
-            <div class="login-form" [formGroup]="formLogin">
-                <h2>Đăng Ký</h2>
-                 <div class="input-group"  >
-                    <div>
-                            <input  type="tel" placeholder="Nhập số điện thoại  " class="sdt" formControlName="sdt">
-                            <div *ngIf="formLogin.get('sdt')?.invalid && formLogin.get('sdt')?.touched">         
-                            </div>
-                    </div>
-                </div>
-                <div class="input-group"  >
-                    <div>
-                            <input  type="text" placeholder="Nhập họ và tên " class="name" formControlName="name">
-                            <div *ngIf="formLogin.get('name')?.invalid && formLogin.get('name')?.touched">         
-                            </div>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <div>
-                            <input type="text" placeholder="Nhập user" class="user" formControlName="user">
-                    </div>
-                    
-                </div>
-                
-                 <div  class="input-group">
-                    <div class="pass" >
-                            <input [type]="typePass"  placeholder="Hãy nập mật khẩu" formControlName="pass" toggleMask="false">
-                            <img (click)="iconPass()" class="icon" width="15px" src="assets/images/locked-computer.png" alt="">
-                    </div>
-                    <div *ngIf="formLogin.get('pass')?.invalid && formLogin.get('pass')?.touched">
-                    </div>
-                 </div>
+          </form>
 
-                <div class="register-link">Bạn đã có tài khoản? 
-                    <a routerLink="/LoginMain" style=" text-decoration: none; cursor: pointer;">Đăng nhập</a>
-                </div>
-                 <div class="btn">
-                    <p-toast></p-toast>
-                    <button type="button" (click)="btnLogin()" class="btn-login">Đăng Ký</button>
-                 </div>
-                                    
+          <!-- LOGIN -->
 
-                <!-- <div class="divider">
-                    <span>or</span>
-                </div>
+          <div class="login-link-wrapper">
+            Bạn đã có tài khoản?
+            <a routerLink="/LoginMain">
+              Đăng nhập
+              <p>Giá trị mật khẩu đang nhập: {{ formRegister.get('password')?.value }}</p>
+            </a>
+          </div>
+          <!-- RECAPTCHA -->
+          <div id="recaptcha-container"></div>
+          <!-- TOAST -->
+          <p-toast></p-toast>
 
-                <div class="row-type">
-                    <div class="col-1"><img width="30px" src="assets/images/facebook.png" alt=""></div>
-                    <div class="col-1"><img width="30px" src="assets/images/search.png" alt=""></div>
-                    <div class="col-1"><img width="30px" src="assets/images/logo.png" alt=""></div>
-                </div> -->
-            </div>
         </div>
+
+      </div>
+
     </div>
+
+  </div>
+
+</div>

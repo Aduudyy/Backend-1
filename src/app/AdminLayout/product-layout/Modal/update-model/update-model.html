@@ -1,0 +1,233 @@
+<!-- product-modal.component.html -->
+
+<div
+  class="modal fade show"
+  tabindex="-1"
+  style="display: block; background: rgba(0,0,0,0.5);"
+>
+
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+
+    <div class="modal-content border-0">
+
+      <!-- HEADER -->
+      <div class="modal-header border-0 px-4 pt-4">
+
+        <h4 class="fw-bold">
+          {{ isEditMode ? 'Cập nhật sản phẩm' : 'Thêm sản phẩm' }}
+        </h4>
+
+        <button
+          type="button"
+          class="btn-close"
+          (click)="onClose()"
+        ></button>
+
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body px-4 pb-4">
+
+        <form [formGroup]="productForm">
+
+          <div class="row g-4">
+
+            <!-- IMAGE -->
+            <div class="col-lg-4">
+
+              <div class="image-upload-wrapper">
+
+                <div class="preview-box">
+
+                  <img
+                    *ngIf="previewImage"
+                    [src]="previewImage"
+                    class="preview-image"
+                  >
+
+                  <div *ngIf="!previewImage" class="upload-placeholder">
+
+                    <i class="ri-image-add-line"></i>
+
+                    <p>Chọn ảnh sản phẩm</p>
+
+                  </div>
+
+                </div>
+
+                <input
+                  type="file"
+                  class="form-control mt-3 custom-input"
+                  accept="image/*"
+                  (change)="onFileSelected($event)"
+                >
+
+              </div>
+
+            </div>
+
+            <!-- FORM -->
+            <div class="col-lg-8">
+
+              <div class="row g-4">
+
+                <!-- NAME -->
+                <div class="col-md-6">
+
+                  <label class="form-label fw-semibold">
+                    Tên sản phẩm
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control custom-input"
+                    formControlName="productName"
+                    placeholder="Nhập tên sản phẩm"
+                  >
+
+                </div>
+                <!-- PRICE -->
+                <div class="col-md-6">
+
+                  <label class="form-label fw-semibold">
+                    Giá Nhập
+                  </label>
+                  <input
+                    type="number"
+                    class="form-control custom-input"
+                    formControlName="importPrice"
+                  >
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">
+                    Giá Bán
+                  </label>
+                  <input
+                    type="number"
+                    class="form-control custom-input"
+                    formControlName="sellPrice"
+                  >
+                </div>
+
+                <!-- QUANTITY -->
+                <div class="col-md-6">
+
+                  <label class="form-label fw-semibold">
+                    Số lượng
+                  </label>
+
+                  <input
+                    type="number"
+                    class="form-control custom-input"
+                    formControlName="quantity"
+                  >
+
+                </div>
+
+                <!-- SUPPLIER -->
+                <div class="col-md-6">
+
+                  <label class="form-label fw-semibold">
+                    Nhà cung cấp
+                  </label>
+
+                  <select
+                    class="form-select custom-input"
+                    formControlName="supplierId"
+                  >
+
+                  <option *ngFor="let s of supplier"
+                      [value]="s.supplierId"  
+                  >
+                    {{s.supplierName}}
+                  </option>
+
+                </select>
+
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">
+                    Đơn vị tính
+                  </label>
+                  <select
+                    class="form-select custom-input"
+                    formControlName="unitId"
+                  >
+                    <option *ngFor="let s of unit"
+                        [value]="s.unitId"  
+                    >
+                        {{s.unitName}}
+                    </option>
+                  </select>
+                </div>
+
+                <!-- DATE -->
+                <div class="col-md-6">
+
+                  <label class="form-label fw-semibold">
+                    Ngày sản xuất
+                  </label>
+
+                  <input
+                    type="date"
+                    class="form-control custom-input"
+                    formControlName="productionDate"
+                  >
+
+                </div>
+
+                <!-- EXP -->
+                <div class="col-md-6">
+
+                  <label class="form-label fw-semibold">
+                    Hạn sử dụng
+                  </label>
+
+                  <input
+                    type="date"
+                    class="form-control custom-input"
+                    formControlName="expery"
+                  >
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="modal-footer border-0 px-4 pb-4">
+
+        <button
+          type="button"
+          class="btn btn-light px-4"
+          (click)="onClose()"
+        >
+          Hủy
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary px-4"
+          (click)="save.emit()"
+        >
+
+          <i class="ri-save-line"></i>
+
+          {{ isEditMode ? 'Cập nhật' : 'Lưu' }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -4,8 +4,9 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 import { NgIf } from "@angular/common";
 import { MessageService } from 'primeng/api';
 import { Toast } from "primeng/toast";
-import { UserService } from '../service/userService/user.service';
 import { User } from '../models/userModel/User.model';
+import { AuthService } from '../service/authService/authService.Service';
+import { FirebaseService } from '../service/authService/fireBaseService.Service';
 
 @Component({
   selector: 'app-register',
@@ -15,65 +16,118 @@ import { User } from '../models/userModel/User.model';
   styleUrl: './register.css'
 })
 export class registerComponent implements OnInit {
-   constructor(private fb: FormBuilder){}
+      constructor(private fb: FormBuilder){}
       private messageService = inject(MessageService)
+      private fireBase = inject(FirebaseService)
       private listUser : User[]=[];
-      private pService = inject(UserService);
+      private authService = inject(AuthService)
       private route =  inject(Router);
        private ngZone= inject(NgZone)
       currentIndex :number = 0;
       private chg = inject(ChangeDetectorRef)
-      formLogin! : FormGroup;
+      formRegister! : FormGroup;
       phoneRegex = /^(03|05|07|08|09)([0-9]{8})$/;
       typePass :string = 'password'
+      confirmationResult: any;
+      loading: boolean = false;
+      currentStep: number =1;
+      idTokenFromFirebase: string = '';
+
       ngOnInit(): void {
-          this.formLogin = this.fb.group({
-            sdt  : ['',[Validators.required,Validators.pattern(this.phoneRegex)]],
-            user : ['',Validators.required],
-            pass : ['',Validators.required],
-      });
-            this.listUser = this.pService.getProductss();
+          this.formRegister = this.fb.group({
+            sdt:['',[Validators.required,Validators.pattern(this.phoneRegex)]],
+            otp:['',Validators.required],
+            fullName: ['',Validators.required],
+            password : ['',Validators.required,Validators.minLength(6)]
+          }
+            );
             this.slideBar();
       }
-    btnLogin(){
-              const userss = this.formLogin.get('user')?.value;
-              const passs = this.formLogin.get('pass')?.value;
-              const sdthoai = this.formLogin.get('sdt')?.value;
-              const name = this.formLogin.get('name')?.value;
-              let result
-              if(userss != '' && passs != '' && sdthoai != ''){
-                  result = this.listUser.find(s => (s.user === userss ) && s.user != null)
-              }else{
-                 result= null;
-              }
-              
-              if(result=== null){
-                         this.messageService.add({ 
-                              severity: 'error', 
-                              summary: 'Không thành công', 
-                              detail: 'Tài khoản đã tồn tại!' 
-                              });
-              }else{
-                  this.messageService.add({ 
-                  severity: 'success', 
-                  summary: 'Đăng ký thành công', 
-                  detail: 'Hãy đăng nhập để sử dụng' 
-                  });
-                  const newUsser = {
-                    userName : '$'
-                  }
-                  this.listUser.push({
-                    user : userss,
-                    pass : passs,
-                    sdt : sdthoai,
-                    name: name,
-                  })
-                  console.log(this.listUser)
-                   setTimeout(() => {
-                            this.route.navigate(['/LoginMain']);
-                         }, 3000);
+    async sendOTP(){
+     const phone = this.formRegister.get('sdt')?.value;
+      const formattedPhone = `+84${phone.substring(1)}`; // Chuyển 098... thành +8498...
+      try {
+        const verifier = this.fireBase.createRecaptcha('recaptcha-container');
+        await this.fireBase.sendOtp(formattedPhone, verifier);
+        this.currentStep = 2; // Chuyển sang ô nhập mã
+      } catch (err : any) {
+         let message = 'Đã có lỗi xảy ra';
+          if (err.code === 'auth/invalid-verification-code') {
+            message = 'Mã OTP không chính xác, vui lòng kiểm tra lại!';
+          } 
+          else 
+          if (err.code === 'auth/code-expired') {
+            message = 'Mã OTP đã hết hạn, vui lòng gửi lại mã mới!';
+          }
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: message });
+            
         }
-      }
+    }
+  
+     
+  async verifyOTP() {
+   const otpCode = this.formRegister.get('otp')?.value;
+    try {
+      const token = await this.fireBase.verifyOtpAndGetToken(otpCode);
+      this.idTokenFromFirebase = token; // Lưu lại để dùng cho bước Register cuối cùng
+      this.currentStep = 3;
+    }
+    catch (err: any) {
+      let message = 'Đã có lỗi xảy ra';
+      if (err.code === 'auth/invalid-verification-code') 
+        {
+          message = 'Mã OTP không chính xác, vui lòng kiểm tra lại!';
+        } 
+      else if (err.code === 'auth/code-expired') 
+        {
+          message = 'Mã OTP đã hết hạn, vui lòng gửi lại mã mới!';
+        }
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: message });
+  }
+}
+
+  register(){
+      if (!this.formRegister.invalid) {
+        this.formRegister.markAllAsTouched();
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Thông báo',
+          detail: 'Vui lòng nhập đầy đủ thông tin'
+        });
+      return;
+    }
+    const data = {
+      idToken : this.idTokenFromFirebase,
+      sdt:this.formRegister.get('sdt')?.value,
+      fullName:this.formRegister.get('fullName')?.value,
+      password:this.formRegister.get('password')?.value
+
+    };
+    this.loading = true;
+    this.authService.register(data)
+      .subscribe({
+        next: () => {
+          this.loading = false;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Đăng ký thành công',
+            detail: 'Hãy đăng nhập để sử dụng'
+          });
+          setTimeout(() => {
+            this.route.navigate(['/LoginMain']);
+          }, 1500);
+        },
+        error: () => {
+          this.loading = false;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Không thành công',
+            detail: 'Tài khoản đã tồn tại'
+          });
+        }
+      });
+}
+      
       iconPass(){
         this.typePass = (this.typePass === 'password' )?'text':'password';
       }

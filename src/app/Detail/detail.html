@@ -1,114 +1,114 @@
-<main class="container">
-  <div class="product-view">
-    <div class="image-section">
-      <div class="main-image-container">
-        <img [src]="'assets/images/SanPham/' + prod.images" [alt]="prod.name" class="main-image">
-      </div>
-      
-      <div class="slideImg">
-        <div class="thumb-item active">
-          <img [src]="'assets/images/SanPham/' + prod.images" alt="thumb">
-        </div>
-        
+<main class="container py-4">
+  <div class="row g-4">
+    <!-- LEFT: IMAGE -->
+    <div class="col-lg-6">
+      <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+        <img
+          class="w-100"
+          [src]="'https://localhost:7271' + prod.imageUrl"
+          [alt]="prod.productName"
+          style="
+      max-height: 650px;
+      object-fit: contain;
+    "
+        />
       </div>
     </div>
+    <!-- RIGHT: INFO -->
+    <div class="col-lg-6">
+      <div class="ps-lg-3">
+        <!-- TITLE -->
+        <h2 class="fw-bold mb-2">{{ prod.productName }}</h2>
+        <div class="d-flex align-items-center text-muted mb-3 gap-2">
+          <span>⭐ 4.9</span>
+          <span>•</span>
+          <span>Đã bán: 120+</span>
+        </div>
+        <hr>
+        <!-- PRICE CARD -->
+        <div class="p-3 bg-light rounded-4 d-flex justify-content-between align-items-center mb-3">
+          <span class="fw-semibold">Giá bán</span>
+          <span class="text-danger fw-bold fs-4">
+            {{ fomatPrice(prod.sellPrice) }} VND
+          </span>
+        </div>
+        <!-- QUANTITY -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="fw-semibold">Số lượng</span>
+          <div class="input-group shadow-sm" style="width: 140px; border-radius: 12px; overflow: hidden;">
+            <button class="btn btn-outline-secondary"
+                    (click)="reduceQuanity()"
+                    [disabled]="quanity <= 1">
+              −
+            </button>
+            <input type="number"
+                   class="form-control text-center border-0"
+                   [(ngModel)]="quanity"
+                   readonly />
 
-    <div class="details-section">
-      <div class="product-card">
-        <h2 class="product-title">{{prod.name}}</h2>
-
-        <div class="rating-like-header">
-          <div class="rating-summary-top">
-            <span class="stars">⭐⭐⭐⭐⭐</span>
-            <span class="rating-count">({{prod.sold}} đánh giá)</span>
-            <span class="divider-v">| </span>
-            <span class="sold-count">{{prod.sold}}</span>
+            <button class="btn btn-outline-secondary"
+                    (click)="increaseQuanity()">
+              +
+            </button>
           </div>
-          <div class="like-action" (click)="toggleLike()">
-            <span class="heart-icon" [class.liked]="isLiked">❤</span>
-            <span class="like-text">{{ isLiked ? 'Đã thích' : 'Yêu thích' }}</span>
-          </div>
         </div>
-
-        <hr class="line">
-
-        <div class="info-row">
-          <span class="label">Giá bán:</span>
-          <span class="value price-tag">{{fomatPrice(prod.price)}} VND</span>
+        <small class="text-muted d-block mb-3">
+          {{ quanity }} sản phẩm
+        </small>
+        <hr>
+        <!-- TOTAL -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <span class="fw-semibold fs-6">Tổng thanh toán</span>
+          <span class="fw-bold text-dark fs-5">
+            {{ thanhTien() }} VND
+          </span>
         </div>
-        
-        <div class="quantity-section">
-  <span class="label">Số lượng:</span>
-  <div class="quantity-wrapper">
-    <button class="qty-btn minus" (click)="reduceQuanity()" [disabled]="quanity <= 1">−</button>
-    <input type="number" 
-           [(ngModel)]="quanity" 
-           (change)="eventInput()" 
-           class="qty-input"
-           readonly> 
-    <button class="qty-btn plus" (click)="increaseQuanity()">+</button>
-  </div>
-  <span class="unit-tag">{{quanity}} phần</span>
-</div>
-
-        <hr class="line">
-
-        <div class="info-row total">
-          <span class="label">Thành tiền:</span>
-          <span class="value total-price">{{thanhTien()}} VND</span>
-        </div>
-
-        <div class="action-buttons">
-          <button class="btn-add-cart" (click)="addProduct()">
-            <img width="25" src="assets/images/shopping-bag.png" alt="cart">
-            Thêm vào giỏ
+        <!-- ACTION -->
+        <div class="d-grid gap-2">
+          <button class="btn btn-warning btn-lg fw-semibold shadow-sm"
+                  (click)="addProduct(prod.productId)">
+            🛒 Thêm vào giỏ
           </button>
-          <button (click)="btnBuy()" class="btn-buy-now">MUA NGAY</button>
+          <button class="btn btn-danger btn-lg fw-semibold shadow-sm"
+                  >
+            ⚡ Mua ngay
+          </button>
         </div>
       </div>
     </div>
   </div>
+  <p-toast></p-toast>
+</main>
+<!-- RECOMMEND PRODUCTS -->
+<div class="mt-5" *ngIf="recommendProducts.length > 0">
+  <h4 class="fw-bold mb-3">Sản phẩm gợi ý</h4>
 
-  <section class="reviews-section">
-    <div class="reviews-header">
-      <h3>Khách hàng nói gì về món này?</h3>
-      <div class="overall-box">
-        <span class="score-big">4.9</span>
-        <div class="stars-col">
-          <span>⭐⭐⭐⭐⭐</span>
-          <p>Dựa trên {{prod.sold}} lượt mua</p>
+  <div class="row g-3">
+    <div class="col-6 col-md-3" *ngFor="let item of recommendProducts">
+      <div class="card border-0 shadow-sm rounded-4 p-2">
+
+        <img
+          [src]="'https://localhost:7271' + item.imageUrl"
+          style="height:150px; object-fit:contain"
+          class="w-100"
+        />
+
+        <div class="mt-2">
+          <div class="fw-semibold text-truncate">
+            {{ item.productName }}
+          </div>
+
+          <small class="text-muted">
+            {{ fomatPrice(item.sellPrice) }} VND
+          </small>
+
+          <button class="btn btn-sm btn-outline-primary w-100 mt-2"
+                  (click)="router.navigate(['/product', item.productId])">
+            Xem
+          </button>
         </div>
+
       </div>
     </div>
-
-    <div class="reviews-list">
-      @for (rev of reviews; track $index) {
-        <div class="review-item">
-          <img [src]="rev.avatar" class="user-avatar" alt="avatar">
-          <div class="review-body">
-            <div class="review-top">
-              <span class="user-name">{{rev.name}}</span>
-              <span class="rev-date">{{rev.date}}</span>
-            </div>
-            <div class="rev-stars">
-               @for (s of [1,2,3,4,5]; track $index) {
-                 <span class="star-gold">★</span>
-               }
-            </div>
-            <p class="rev-content">{{rev.content}}</p>
-           
-          </div>
-        </div>
-      }
-    </div>
-
-    <div class="view-more-center">
-      <button class="btn-more">Xem thêm đánh giá</button>
-    </div>
-  </section>
-</main>
-
-<div class="floating-chat">
-  <div class="chat-icon bot">🤖</div>
-  <div class="chat-icon human">💬</div>
+  </div>
 </div>

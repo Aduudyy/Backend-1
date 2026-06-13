@@ -1,8 +1,7 @@
-import { ChangeDetectorRef, Component, inject, NgZone, OnInit } from '@angular/core';
-import { FormControl, FormsModule, NgModel, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RouterOutlet, RouterLink, RouterModule } from '@angular/router';
+import {  Component, inject, OnInit } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {  RouterLink, RouterModule } from '@angular/router';
 import { ProductService } from '../service/productService/product.service';
-import { NgFor } from "@angular/common";
 import { Product, TradeMark } from '../models/productModel/product.model';
 
 
@@ -10,7 +9,7 @@ import { Product, TradeMark } from '../models/productModel/product.model';
 @Component({
   selector: 'app-Home',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, RouterLink, RouterModule, ReactiveFormsModule, NgFor],
+  imports: [ FormsModule, RouterLink, RouterModule, ReactiveFormsModule],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -20,9 +19,7 @@ export class HomeComponent implements OnInit  {
   tradeMarks : TradeMark[] =[];
   searching = new FormControl('');
   listProduct = inject(ProductService)
-  private ngZone= inject(NgZone)
   currentIndex :number = 0;
-  private chg = inject(ChangeDetectorRef)
   ngOnInit(): void {
     this.products = this.listProduct.getProduct()
     this.sellProduct = this.listProduct.getSold()
@@ -35,15 +32,18 @@ export class HomeComponent implements OnInit  {
   }
   // sidebar
     hinhAnh = [
-      'assets/images/background1.png',
-      'assets/images/image_background.png',
+      'assets/images/banner1.jpg',
+      'assets/images/banner2.jpg',
+      'assets/images/Banner3.jpg',
     ]
     slideBar() {
-      this.ngZone.run(()=>{
-           setInterval(()=>{
-            this.currentIndex=(this.currentIndex+1)% this.hinhAnh.length;
-            this.chg.detectChanges();    
-      },3000)
-      }); 
-    }
+
+  setInterval(() => {
+
+    this.currentIndex =
+      (this.currentIndex + 1) % this.hinhAnh.length;
+
+  }, 3000);
+
+}
 }

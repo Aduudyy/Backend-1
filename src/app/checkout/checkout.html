@@ -1,133 +1,207 @@
-  
-<div class="checkout-container">
-  <div (click)="returnGioHang()" style="cursor: pointer; font-size: 14px; padding: 20px 0px;">
-    <i class="fa-solid fa-angle-left"></i>
-    Quay lại giỏ hàng
+<div class="container py-4">
+
+  <div class="mb-4">
+    <a class="text-decoration-none text-dark"
+       (click)="returnGioHang()"
+       style="cursor:pointer">
+      <i class="fa-solid fa-arrow-left me-2"></i>
+      Quay lại giỏ hàng
+    </a>
   </div>
-  <h2 class="checkout-title">Thanh toán</h2>
 
-  <!-- ================= SẢN PHẨM ================= -->
-  <div class="box">
-    <h3>Sản phẩm</h3>
+  <h2 class="fw-bold mb-4">Thanh toán</h2>
 
-    @for (item of cartItems; track item.id) {
-      <div class="item">
-        <img src="../../assets/images/SanPham/{{item.images}}">
-        <div class="info">
-          <p class="name">{{ item.name }}</p>
-          <p>Số lượng: x{{ item.quanity }}</p>
+  <div class="row g-4">
+
+    <!-- LEFT -->
+    <div class="col-lg-8">
+
+      <!-- Sản phẩm -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white">
+          <h5 class="mb-0 fw-bold">Sản phẩm</h5>
         </div>
-        <div class="price">
-          {{ item.price * item.quanity | number }}đ
+
+        <div class="card-body">
+
+          <div class="d-flex align-items-center border-bottom py-3"
+               *ngFor="let item of cartItems">
+
+            <img
+              [src]="'https://localhost:7271' + item.product?.imageUrl"
+              class="rounded border me-3"
+              width="90"
+              height="90"
+              style="object-fit:cover">
+
+            <div class="flex-grow-1">
+              <h6 class="mb-1 fw-semibold">
+                {{ item.product?.productName }}
+              </h6>
+
+              <small class="text-muted">
+                Số lượng: {{ item.quantity }}
+              </small>
+
+              <br>
+
+              <small class="text-muted">
+                Nhà cung cấp:
+              </small>
+            </div>
+
+            <div class="fw-bold text-danger">
+              {{ (item.product.sellPrice * item.quantity) | number}}đ
+            </div>
+
+          </div>
+
         </div>
       </div>
-    }
+
+      <!-- Thông tin nhận hàng -->
+      <!-- Thông tin nhận hàng -->
+<div class="card border-0 shadow-sm">
+  <div class="card-header bg-white">
+    <h5 class="mb-0 fw-bold">
+      Thông tin nhận hàng
+    </h5>
   </div>
 
-  <!-- ================= THÔNG TIN NHẬN HÀNG ================= -->
-  <div class="box">
-    <h3>Thông tin nhận hàng</h3>
+  <div class="card-body">
 
-    <input type="text"
-           placeholder="Họ và tên"
-           [(ngModel)]="customer.name" 
-           id="name">
+    <div class="row">
 
-    <input type="text"
-           placeholder="Số điện thoại"
-           [(ngModel)]="customer.phone">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">
+          Họ và tên
+        </label>
 
-    <!-- ĐỊA CHỈ -->
-    <div class="address-box">
-      @if (selectedAddress) {
-        <div class="address-display">
-          <p>{{ selectedAddress.fullAddress }}</p>
-          <button type="button"
-                  (click)="openAddressPopup()">
-            Thay đổi
-          </button>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="customer.name">
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">
+          Số điện thoại
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="customer.phone">
+      </div>
+
+    </div>
+
+    <!-- Địa chỉ -->
+    <div class="mb-4">
+
+      <label class="form-label fw-semibold">
+        Địa chỉ giao hàng
+      </label>
+
+      <div class="row g-3">
+
+        <!-- Tỉnh -->
+        <div class="col-md-6">
+          <input
+            class="form-control"
+            value="Thái Nguyên"
+            readonly>
         </div>
-      } @else {
-      <button type="button"
-        (click)="openAddressPopup()">
-                + Thêm địa chỉ mới
-        </button>
-      }
+
+        <!-- Xã -->
+        <div class="col-md-6">
+          <select
+            class="form-select"
+            [(ngModel)]="selectedWard"
+            >
+
+            <option [ngValue]="null">
+              Chọn Xã / Phường
+            </option>
+
+           <option
+            *ngFor="let w of wards"
+            [ngValue]="w">
+            {{ w.wardName}}
+          </option>
+
+          </select>
+        </div>
+        <div class="col-12">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Số nhà, tên đường..."
+            [(ngModel)]="note"
+           >
+        </div>
+
+      </div>
+
+    </div>
+    <div class="mb-3">
+      <label class="form-label fw-semibold">
+        Ghi chú
+      </label>
+      <textarea
+        rows="4"
+        class="form-control"
+        [(ngModel)]="customer.note">
+      </textarea>
+    </div>
+  </div> 
+</div> 
+</div> 
+<div class="col-lg-4">
+
+  <div class="card border-0 shadow-sm sticky-top"
+       style="top:20px">
+
+    <div class="card-header bg-white">
+      <h5 class="mb-0 fw-bold">
+        Đơn hàng
+      </h5>
     </div>
 
-    <textarea placeholder="Ghi chú"
-              [(ngModel)]="customer.note"></textarea>
+    <div class="card-body">
+
+      <div class="d-flex justify-content-between mb-3">
+        <span>Tạm tính</span>
+        <span>{{ subTotal | number }}đ</span>
+      </div>
+
+      <div class="d-flex justify-content-between mb-3">
+        <span>Phí vận chuyển</span>
+        <span>{{ shippingFee | number }}đ</span>
+      </div>
+
+      <hr>
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <span class="fw-bold fs-5">
+          Tổng cộng
+        </span>
+
+        <span class="text-danger fw-bold fs-4">
+          {{ total | number }}đ
+        </span>
+      </div>
+
+      <button
+        class="btn btn-danger w-100 py-3 fw-bold"
+        (click)="placeOrder()">
+        XÁC NHẬN ĐẶT HÀNG
+      </button>
+
+    </div>
+
   </div>
+  <p-toast></p-toast>
 
-  <!-- ================= TỔNG TIỀN ================= -->
-  <div class="box summary">
-    <div class="row">
-      <span>Tạm tính</span>
-      <span>{{ subTotal | number }}đ</span>
-    </div>
-
-    <div class="row">
-      <span>Phí vận chuyển</span>
-      <span>{{ shippingFee === 0 ? 'Miễn phí' : (shippingFee | number) + 'đ' }}</span>
-    </div>
-
-    <div class="row total">
-      <span>Tổng thanh toán</span>
-      <span>{{ total | number }}đ</span>
-    </div>
-
-    <button class="order-btn"
-            (click)="placeOrder()">
-      XÁC NHẬN ĐẶT HÀNG
-    </button>
-  </div>
 </div>
-
-<!-- ================= POPUP ĐỊA CHỈ ================= -->
-@if (showAddressPopup) {
-  <div class="modal-overlay">
-    <div class="modal">
-      <h3>Địa chỉ nhận hàng</h3>
-
-      <select [(ngModel)]="newAddress.province"
-              (change)="onProvinceChange()">
-        <option value="">Chọn Tỉnh / Thành phố</option>
-        @for (p of provinces; track p) {
-          <option [value]="p">{{ p }}</option>
-        }
-      </select>
-
-      <select [(ngModel)]="newAddress.district"
-              (change)="onDistrictChange()"
-              [disabled]="!newAddress.province">
-        <option value="">Chọn Xã</option>
-        @for (d of districts; track d) {
-          <option [value]="d">{{ d }}</option>
-        }
-      </select>
-
-      <!-- <select [(ngModel)]="newAddress.ward"
-              [disabled]="!newAddress.district">
-        <option value="">Chọn Phường / Xã</option>
-        @for (w of wards; track w) {
-          <option [value]="w">{{ w }}</option>
-        }
-      </select> -->
-
-      <input type="text"
-             placeholder="Địa chỉ chi tiết"
-             [(ngModel)]="newAddress.detail">
-
-      <div class="modal-actions">
-        <button class="cancel"
-                (click)="closeAddressPopup()">
-          Hủy
-        </button>
-        <button class="save"
-                (click)="saveAddress()">
-          Lưu
-        </button>
-      </div>
-    </div>
-  </div>
-}
+</div>

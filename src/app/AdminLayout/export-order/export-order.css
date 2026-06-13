@@ -1,0 +1,47 @@
+/* export-invoice.component.css */
+
+table th {
+  white-space: nowrap;
+}
+
+table td {
+  vertical-align: middle;
+}
+
+.card {
+  overflow: hidden;
+}
+
+.badge {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.btn-sm {
+  width: 36px;
+  height: 36px;
+}
+
+.table tbody tr:hover {
+  transition: 0.2s;
+}
+
+.bg-light table {
+  background: white;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+.btn-custom-action {
+  display: inline-flex;
+  align-items: center; 
+}
+
+.btn-custom-action .btn-text {
+  /* Khoảng cách từ icon đến chữ là 8px (bạn có thể đổi thành 6px hoặc 10px tùy ý) */
+  margin-left: 8px; 
+  
+  /* Giúp chữ không bị xuống dòng lỗi font */
+  white-space: nowrap; 
+}

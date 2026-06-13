@@ -1,0 +1,31 @@
+.modal-content {
+  animation: modalShow 0.2s ease;
+}
+
+.form-control,
+.form-select {
+  border-radius: 12px;
+  height: 45px;
+}
+
+textarea.form-control {
+  height: auto;
+}
+
+.btn {
+  border-radius: 12px;
+  height: 42px;
+  min-width: 120px;
+}
+
+@keyframes modalShow {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

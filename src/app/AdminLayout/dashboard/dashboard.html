@@ -1,0 +1,199 @@
+<!-- sidebar.component.html -->
+
+<div class="d-flex vh-100 overflow-hidden">
+
+  <!-- OVERLAY MOBILE -->
+  <div
+    class="sidebar-overlay d-lg-none"
+    [class.show]="sidebarOpen"
+    (click)="closeSidebar()"
+  ></div>
+
+  <!-- SIDEBAR -->
+  <aside
+    class="
+      sidebar
+      bg-primary
+      text-white
+      p-3
+      d-flex
+      flex-column
+      justify-content-between
+    "
+    [class.sidebar-open]="sidebarOpen"
+  >
+
+    <div>
+
+      <!-- LOGO -->
+      <div class="d-flex align-items-center gap-3 mb-5">
+
+        <button
+          class="btn btn-light d-lg-none"
+          (click)="toggleSidebar()"
+        >
+          <i class="ri-menu-line"></i>
+        </button>
+
+        <h4 class="fw-bold m-0">
+          Đại Lý Kem Mỹ Anh
+        </h4>
+
+      </div>
+
+      <!-- MENU -->
+      <nav class="d-flex flex-column gap-2">
+        
+        <a
+          class="menu-item"
+          routerLink="profile"
+          routerLinkActive="active"
+          >
+          <i class="ri-user-3-line"></i>
+          <span>Quản lý User</span>
+        </a>
+         <a
+          class="menu-item"
+          routerLink="danhmuc"
+          routerLinkActive="active"
+          >
+          <i class="ri-user-3-line"></i>
+          <span>Quản lý danh mục</span>
+        </a>
+
+        <a
+          class="menu-item"
+          routerLink="khachhang"
+          routerLinkActive="active"
+          >
+          <i class="ri-group-line"></i>
+          <span>Quản lý Khách hàng</span>
+        </a>
+
+        <a
+          class="menu-item"
+          routerLink="nhacungcap"
+          routerLinkActive="active"
+          >
+          <i class="ri-store-2-line"></i>
+          <span>Quản lý nhà cung cấp</span>
+        </a>
+
+        <a
+          class="menu-item"
+          routerLinkActive="active"routerLink="quanlysanpham"
+
+        >
+          <i class="ri-box-3-line"></i>
+          <span>Quản lý sản phẩm</span>
+        </a>
+
+        <a
+          class="menu-item"
+          routerLink="nhaphang"
+          routerLinkActive="active"
+          >
+          <i class="ri-download-2-line"></i>
+          <span>Quản lý nhập hàng</span>
+        </a>
+
+        <a
+          class="menu-item"
+          routerLink="xuathang"
+          routerLinkActive="active"
+          >
+          <i class="ri-upload-2-line"></i>
+          <span>Quản lý xuất hàng</span>
+        </a>
+
+        <a
+          class="menu-item"
+          href="javascript:void(0)"
+          (click)="showXuatHang = !showXuatHang"
+        >
+          <i class="ri-upload-2-line"></i>
+          <span>Quản lý xuất hàng</span>
+          <i
+            class="ri-arrow-down-s-line ms-auto"
+            [class.rotate]="showXuatHang"
+          ></i>
+        </a>
+
+        <div *ngIf="showXuatHang">
+          <a
+            class="menu-sub-item"
+            routerLink="donxuathangkhachle"
+            routerLinkActive="active"
+          >
+           Khách lẻ
+          </a>
+
+          <a
+            class="menu-sub-item"
+            routerLink="donxuathang"
+            routerLinkActive="active"
+          >
+            Khách VIP
+          </a>
+        </div>
+
+        <a
+          class="menu-item"
+          routerLinkActive="active"routerLink="baocaothongke"
+
+        >
+          <i class="ri-bar-chart-box-line"></i>
+          <span>Báo cáo thống kê</span>
+        </a>
+
+      </nav>
+
+    </div>
+
+    <!-- LOGOUT -->
+    <button class="btn btn-light w-100 mt-4" (click)="logout()">
+      <i class="ri-logout-box-r-line"></i>
+      Log Out
+    </button>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-grow-1 overflow-auto bg-light">
+
+    <!-- MOBILE HEADER -->
+    <div
+      class="
+        d-lg-none
+        bg-white
+        p-3
+        shadow-sm
+        d-flex
+        align-items-center
+        gap-3
+      "
+    >
+
+      <button
+        class="btn btn-primary"
+        (click)="toggleSidebar()"
+      >
+        <i class="ri-menu-line"></i>
+      </button>
+
+      <h5 class="m-0 fw-bold">
+        Smart
+      </h5>
+
+    </div>
+
+    <!-- CONTENT -->
+     <div class="p-3 p-lg-4">
+
+      <router-outlet></router-outlet>
+
+    </div>
+
+  </main>
+
+</div>

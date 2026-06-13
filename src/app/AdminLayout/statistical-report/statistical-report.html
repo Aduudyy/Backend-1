@@ -1,0 +1,134 @@
+<div class="report-container">
+
+  <!-- HEADER -->
+  <div class="report-header">
+
+    <div>
+      <h2>Báo Cáo Thống Kê</h2>
+      <p>Phân tích hoạt động kinh doanh</p>
+    </div>
+
+    <div class="filter-box">
+
+      <select
+        class="form-select"
+        [(ngModel)]="selectedFilter"
+      >
+        <option value="today">Hôm nay</option>
+        <option value="week">7 ngày</option>
+        <option value="month">30 ngày</option>
+        <option value="year">Năm nay</option>
+      </select>
+
+    </div>
+
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-grid">
+
+    <div class="summary-card revenue">
+
+      <div class="icon-box">
+        <i class="bi bi-cash-stack"></i>
+      </div>
+
+      <div >
+        <h3>
+          {{ grandTotalRevenue| number }}đ
+        </h3>
+
+        <p>Doanh thu</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CHART -->
+  <div class="chart-layout">
+
+    <div class="chart-card">
+
+      <div class="card-header">
+        <h4>Doanh Thu Theo Tháng</h4>
+      </div>
+
+      <div class="chart-box">
+
+        <div class="bar" style="height: 45%"></div>
+        <div class="bar" style="height: 70%"></div>
+        <div class="bar" style="height: 55%"></div>
+        <div class="bar" style="height: 90%"></div>
+        <div class="bar" style="height: 65%"></div>
+        <div class="bar" style="height: 80%"></div>
+        <div class="bar" style="height: 50%"></div>
+
+      </div>
+
+    </div>
+
+    <div class="chart-card">
+
+      <div class="card-header">
+        <h4>Top Sản Phẩm</h4>
+      </div>
+
+      <div
+        class="product-item"
+        *ngFor="let p of topProducts"
+      >
+
+        <span>{{ p.name }}</span>
+
+        <strong>{{ p.sold }}</strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-card">
+
+    <div class="card-header">
+      <h4>Hoá Đơn Gần Đây</h4>
+    </div>
+
+    <div class="table-responsive">
+
+      <table class="table align-middle">
+
+        <thead>
+
+          <tr>
+            <th>Mã HĐ</th>
+            <th>Khách hàng</th>
+            <th>Ngày</th>
+          
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let item of invoice">
+
+            <td>{{ item.invoiceCode }}</td>
+
+            <td>{{ item.clientName }}</td>
+
+            <td>{{ item.exportDateProduct | date:'dd/MM/yyyy' }}</td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

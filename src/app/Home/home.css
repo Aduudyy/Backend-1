@@ -1,166 +1,62 @@
-/* --- Biến màu sắc và cấu hình chung --- */
-:root {
-    --primary-pink: #ee8a8a;
-    --bg-light: #f9f9f9;
-    --text-purple: #9b59b6;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --gradient-btn: linear-gradient(to right, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+.product-type {
+    background: #f5f7fb;
 }
 
-.container-fluid.product-type {
-    background-color: var(--bg-light);
-    padding-bottom: 50px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* --- Phần Slidebar & Search --- */
-.slidebar {
-    position: relative;
-    width: 100%;
-    margin-bottom: 30px;
-}
-
-.search {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    width: 60%;
-    max-width: 500px;
-    
-}
-
-.search input {
-    width: 100%;
-    padding: 12px 25px;
-    border-radius: 25px;
-    border: none;
-    box-shadow: var(--shadow);
-    outline: none;
-    background-color: white !important;
-    color: black;
-    box-shadow: 1px 1px 1px black;
-}
-
-.image_slide {
-    width: 100%;
-    height: 70vh;
-    overflow: hidden;
-}
-
-.image_slide img {
-    width: 100%;
-    height: 100%;
-    display: block;
+/* Banner */
+.banner-image {
+    height: 450px;
     object-fit: cover;
-    object-position: center;
+    transition: 0.4s;
 }
 
-/* --- Bố cục Danh sách Sản phẩm --- */
-.product {
-    max-width: 1200px;
-    margin: 0 auto 40px;
-    padding: 0 15px;
+.banner-image:hover {
+    transform: scale(1.01);
 }
 
-.product > p {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-transform: uppercase;
+/* Product Card */
+.product-card {
+    background: white;
+    border: 1px solid #ececec;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.product1 {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: flex-start;
-}
-
-/* --- Card Sản phẩm --- */
-.product_1 {
-    background: #fff;
-    border-radius: 12px;
-    padding: 15px;
-    text-align: center;
-    transition: transform 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    /* Mặc định cho Desktop (5 cột) */
-    width: calc((100% / 5) - (80px / 5)); 
-    box-sizing: border-box;
-}
-
-.product_1:hover {
+.product-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
-.product_1 img {
-    width: 100%; /* Chiếm hết chiều rộng div chứa */
-    height: auto;
-    aspect-ratio: 1/1; /* Giữ ảnh vuông như hình mẫu */
+.product-image {
+    width: 100%;
+    height: 220px;
     object-fit: contain;
-    border-radius: 8px;
-    margin-bottom: 15px;
 }
 
-.product_infomation p {
-    color: var(--text-purple);
-    font-weight: 500;
-    margin: 10px 0;
-    font-size: 0.95rem;
-    height: 40px; /* Giới hạn chiều cao cho tên SP dài */
-    overflow: hidden;
+/* Brand */
+.brand-card {
+    background: white;
+    border: 1px solid #ececec;
+    transition: all 0.3s ease;
 }
 
-.product_quantity {
-    background: linear-gradient(to right, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-    color: rgb(255, 255, 255);
-    border-radius: 20px;
-    padding: 5px 15px;
-    display: inline-block;
-    font-size: 0.85rem;
+.brand-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-.product_quantity p {
-    margin: 0;
+.brand-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
 }
 
-/* --- Responsive (Đa phương thức hiển thị) --- */
-
-/* Tablet (Dưới 1024px): 3 cột */
-@media (max-width: 1024px) {
-    .product_1 {
-        width: calc((100% / 3) - (40px / 3));
-    }
-    .search {
-        width: 80%;
-    }
-}
-
-/* Mobile lớn (Dưới 768px): 2 cột */
+/* Responsive */
 @media (max-width: 768px) {
-    .product_1 {
-        width: calc((100% / 2) - (20px / 2));
+    .banner-image {
+        height: 250px;
     }
-    .product > p {
-        font-size: 1.2rem;
-    }
-}
 
-/* Mobile nhỏ (Dưới 480px): 1 cột */
-@media (max-width: 480px) {
-    .product1 {
-        justify-content: center;
-    }
-    .product_1 {
-        width: 100%;
-        max-width: 280px;
-    }
-    .search {
-        top: 10px;
-    }
-    .search input {
-        padding: 8px 15px;
+    .product-image {
+        height: 180px;
     }
 }

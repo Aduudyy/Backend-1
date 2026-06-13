@@ -1,53 +1,168 @@
-<div class="container-fluid product-type">
-  <nav class="breadcrumb">
-    <span routerLink="/Home">Home </span> / <span class="active"> Sản phẩm</span>
-  </nav>
-
-  <div class="main-layout">
-    <div class="sidebar">
-      <div class="filter-group">
-        <h3 class="filter-title">Các loại kem</h3>
-        <ul class="filter-list">
-          <li (click)="filterByName('Kem que')">Kem que</li>
-          <li (click)="filterByName('Kem hộp')">Kem hộp</li>
-          <li (click)="filterByName('Kem ốc quế')">Kem ốc quế</li>
-        </ul>
-      </div>
-
-      <div class="filter-group">
-        <h3 class="filter-title">Sữa chua</h3>
-        <ul class="filter-list">
-          <li (click)="filterByName('Sữa chua lọ')">Sữa chua lọ</li>
-          <li (click)="filterByName('Sữa chua uống')" >Sữa chua uống</li>
-        </ul>
-      </div>
-
-      <div class="filter-group">
-        <h3 class="filter-title">Thương hiệu</h3>
-        <ul class="filter-list">
-          <li (click)="filterByBrand('Trangtien')">Tràng Tiền</li>
-          <li (click)="filterByBrand('Vinamilk')">Vinamilk</li>
-          <li (click)="filterByBrand('Merino')">Merino</li>
-          <li (click)="filterByBrand('Khac')">Khác</li>
-        </ul>
+<div class="container-fluid py-4 bg-light min-vh-100">
+  <!-- BREADCRUMB -->
+  <div class="mb-4">
+    <nav class="breadcrumb-custom">
+      <span routerLink="/Home" class="breadcrumb-link">
+        Trang chủ
+      </span>
+      <span class="mx-2 text-muted">/</span>
+      <span class="breadcrumb-active">
+        Sản phẩm
+      </span>
+    </nav>
+  </div>
+  <div class="row g-4">
+    <!-- SIDEBAR -->
+    <div class="col-lg-3">
+      <div class="card border-0 shadow-sm rounded-4 sticky-top sidebar-card">
+        <div class="card-body p-4">
+          <h4 class="fw-bold text-primary mb-4">
+            Bộ lọc sản phẩm
+          </h4>
+          <!-- LOẠI KEM -->
+          <div class="mb-4">
+            <h6 class="filter-title">
+              Các loại kem
+            </h6>
+            <div class="d-flex flex-column gap-2" *ngFor = "let s of category">
+              <button class="btn filter-btn" 
+               (click)="filterByName(s.categoryname)">
+                {{s.categoryname}}
+              </button>
+            </div>
+          </div>
+        
+          <!-- THƯƠNG HIỆU -->
+          <div >
+            <h6 class="filter-title">
+              Thương hiệu
+            </h6>
+            <div class="d-flex flex-column gap-2" *ngFor = "let s of supplier">
+              <button class="btn filter-btn" 
+                (click)=" filterBySupplier(s.supplierId)"
+              >
+                {{s.supplierName}}
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="product-content">
-      
-        <div class="product1">
-            @for (item of filteredProducts; track $index) {
-            <div style="cursor: pointer;" class="product_1" routerLink="/Detail/{{item.id}}">
-            <div>
-                <img src="../../assets/images/SanPham/{{item.images}}" alt="">
-            </div>
-            <div class="product_infomation">
-                <div>{{item.name}}</div>
-                <div class="product_price"> {{fomatPrice( item.price)}}<span>đ</span> </div>
-            </div>
+    <!-- PRODUCT -->
+    <div class="col-lg-9">
+  <!-- HEADER -->
+  <div
+    class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4"
+  >
+    <div>
+      <h3 class="fw-bold text-dark mb-1">
+        Danh sách sản phẩm
+      </h3>
+    </div>
+    <!-- SEARCH -->
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)] = "searchName"
+        placeholder="Tìm kiếm sản phẩm..."
+        (keyup.enter)= "searchProduct()"
+      >
+    </div>
+  </div>
+  <!-- PRODUCT GRID -->
+  <div class="row g-4">
+    <!-- ITEM -->
+    <div
+      class="col-xl-4 col-lg-6 col-md-6"
+      *ngFor="let p of paginatedProducts; let i = index"
+    >
+      <div class="product-card h-100" (click)="p?.productId && goToProducts(p.productId)">
+        <div class="product-image-wrapper">
+          <img
+            [src]="'https://localhost:7271' + p.imageUrl"
+            alt=""
+            class="product-image"
+          >
+          <span class="product-badge">
+            #{{i + 1}}
+          </span>
         </div>
-         }
+        <!-- BODY -->
+        <div class="p-4">
+          <!-- NAME -->
+          <h5 class="fw-bold product-name">
+            {{p.productName}}
+          </h5> 
+          <!-- FOOTER -->
+          <div
+            class="d-flex justify-content-between align-items-center mt-4"
+          >
+            <div class="price-text">
+              {{p.sellPrice | number}} đ
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- EMPTY -->
+    <div
+      class="col-12"
+      *ngIf="paginatedProducts.length === 0"
+    >
+      <div class="empty-product">
+        <i class="bi bi-box-seam"></i>
+        <h4 class="mt-3">
+          Chưa có sản phẩm
+        </h4>
+        <p class="text-muted">
+          Danh sách sản phẩm sẽ hiển thị tại đây
+        </p>
       </div>
     </div>
   </div>
+  <!-- PAGINATION -->
+  <div
+    class="d-flex justify-content-center align-items-center gap-2 mt-5 flex-wrap"
+  >
+    <button
+      class="btn btn-light pagination-btn"
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <button
+      *ngFor="let page of pageNumbers"
+      class="btn pagination-btn"
+      [ngClass]="{
+        'btn-primary text-white': currentPage === page,
+        'btn-light': currentPage !== page
+      }"
+      (click)="changePage(page)"
+    >
+      {{page}}
+    </button>
+    <button
+      class="btn btn-light pagination-btn"
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      <i class="bi bi-chevron-right"></i>
+    </button>
+
+  </div>
+
+</div>
+  <div
+  class="pagination-wrapper"
+  *ngIf="totalPages > 1"
+>
+
+    </div>
+
+  </div>
+
 </div>

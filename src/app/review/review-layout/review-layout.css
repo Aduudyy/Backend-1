@@ -1,0 +1,35 @@
+.hero-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #fff5f7, #eef7ff);
+}
+
+.hero-image {
+  max-height: 420px;
+}
+
+.value-card {
+  border-radius: 20px;
+  transition: .3s;
+}
+
+.value-card:hover {
+  transform: translateY(-8px);
+}
+
+.icon-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #eef4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-size: 28px;
+}
+
+.cta-section {
+  background: linear-gradient(135deg, #ff7eb3, #6ea8fe);
+  color: white;
+  padding: 80px 0;
+}

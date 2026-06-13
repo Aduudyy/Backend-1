@@ -1,0 +1,159 @@
+<div class="container-fluid py-4">
+
+  <div class="card shadow-sm border-0">
+
+    <div class="card-header bg-white">
+      <div class="d-flex justify-content-between align-items-center">
+
+        <h4 class="mb-0 fw-bold">
+          Quản lý danh mục
+        </h4>
+
+        <button class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#categoryModal"
+                (click)="resetForm()">
+                <i class="ri-add-line"></i>
+                Thêm danh mục
+              </button>
+
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <div class="row mb-3">
+
+        <div class="col-md-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Tìm tên danh mục..."
+            [(ngModel)]="searchText"
+          >
+        </div>
+
+      </div>
+
+      <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Tên danh mục</th>
+              <th>Trạng thái</th>
+              <th width="150">Thao tác</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let item of filteredCategories; let i = index">
+
+              <td>{{ i + 1 }}</td>
+
+              <td>{{ item.categoryname }}</td>
+
+              <td>
+                <span
+                  class="badge"
+                  [ngClass]="{
+                    'text-bg-success': item.isActive,
+                    'text-bg-danger': !item.isActive
+                  }"
+                >
+                  {{ item.isActive ? 'Hoạt động' : 'Tạm khóa' }}
+                </span>
+              </td>
+
+              <td>
+
+                <button
+                  class="btn btn-sm btn-warning me-2"
+                >
+                  Sửa
+                </button>
+
+                <button
+                    class="btn btn-sm btn-danger"
+                    (click)="deleteCategory(item.categoryId)">
+                    Xoá
+                  </button>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<div
+  class="modal fade"
+  id="categoryModal"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ isEditMode ? 'Cập nhật danh mục' : 'Thêm danh mục' }}
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal">
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label class="form-label">
+            Tên danh mục
+          </label>
+
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="category.categoryName"
+          >
+        </div>
+      </div>
+
+      <div class="modal-footer">
+
+    <button
+      id="closeModalBtn"
+      type="button"
+      class="btn btn-secondary"
+      data-bs-dismiss="modal">
+      Đóng
+    </button>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="addCategory()">
+          {{ isEditMode ? 'Cập nhật' : 'Thêm mới' }}
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

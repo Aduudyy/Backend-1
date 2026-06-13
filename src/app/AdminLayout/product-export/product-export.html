@@ -1,0 +1,170 @@
+<div class="container-fluid mt-4">
+
+  <div class="row g-4">
+
+    <!-- BÊN TRÁI -->
+    <div class="col-lg-7">
+
+      <div class="card shadow rounded-4 h-100">
+
+        <!-- HEADER -->
+        <div class="card-header text-white bg-primary">
+          <h5 class="mb-0">Phiếu nhập hàng</h5>
+        </div>
+
+        <div class="card-body">
+
+          <!-- NHÀ CUNG CẤP -->
+          <div class="mb-4">
+            <form 
+                    [formGroup]="clientForm"
+                    >
+              <label class="form-label fw-bold">
+              Khách Hàng
+              </label>
+                <select class="form-select"
+                formControlName="clientId">
+                  <option value="" disabled selected hidden>
+                    -----------------Khách Hàng--------------
+                  </option>
+                  <option
+                    *ngFor="let p of customers"
+                    [value]="p.clientId"
+                  >
+                    {{ p.customName }}
+                  </option>
+                </select>
+            </form>
+          </div>
+
+          <!-- SẢN PHẨM -->
+          <div class="product-section">
+
+            <h6 class="fw-bold mb-3">
+              Danh sách sản phẩm
+            </h6>
+
+            <div
+              class="product-item"
+              *ngFor="let p of products"
+            >
+
+              <div class="d-flex align-items-center gap-3">
+
+                <input 
+                        type="checkbox"
+                        [checked] = "isCheck(p.productId)"
+                        (change)="toggleProduct(p,$event)"
+                >
+
+                  <div class="flex-grow-1">
+
+                    <div class="fw-bold">
+                      {{ p.productName }}
+                    </div>
+
+                    <small class="text-muted">
+                      Giá: {{ p.sellPrice }} đ
+                    </small>
+
+                  </div>
+
+                <input
+                  type="number"
+                  class="form-control quantity-input"
+                  placeholder="SL"
+                  min="1"
+                  [(ngModel)]="p.importQuantity"
+                  (ngModelChange)="onQuantityChange(p)"
+                  
+                >
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- BUTTON -->
+         
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BÊN PHẢI -->
+    <div class="col-lg-5">
+
+      <div class="card border-0 shadow-sm rounded-4 p-4 invoice-card">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+          <h4 class="fw-bold mb-0">
+            Hoá đơn xuất
+          </h4>
+        </div>
+
+        <div class="invoice-list">
+
+          <div
+            class="invoice-item"
+            *ngFor="let item of selectedCustomer"
+          >
+
+            <div class="d-flex justify-content-between align-items-start">
+
+              <div>
+
+                <div class="fw-semibold">
+                  {{ item.productName }}
+                </div>
+
+                <small class="text-muted d-block mt-1">
+                  SL: {{item.importQuantity || 0 }}
+                </small>
+
+              </div>
+
+              <div class="text-end">
+
+                <div class="fw-bold text-primary">
+                  {{ (item.sellPrice * (item.importQuantity || 0)) }} đ
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+          <span class="fw-semibold fs-5">
+            Tổng tiền
+          </span>
+
+          <span class="fw-bold fs-4 text-danger">
+             {{total() | number:'1.0-0' }}đ
+          </span>
+
+        </div>
+
+        <button class="btn btn-primary w-100 py-3 rounded-3 fw-semibold"
+            (click)="addInvoice()"     
+        >
+          Tạo hoá đơn xuất hàng
+        </button>
+
+      </div>
+
+    </div>
+<p-toast></p-toast>
+  </div>
+
+</div>

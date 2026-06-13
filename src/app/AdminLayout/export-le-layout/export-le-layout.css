@@ -1,0 +1,35 @@
+/* export-invoice.component.css */
+
+table th {
+  white-space: nowrap;
+}
+
+table td {
+  vertical-align: middle;
+}
+
+.card {
+  overflow: hidden;
+}
+
+.badge {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.btn-sm {
+  width: 36px;
+  height: 36px;
+}
+
+.table tbody tr:hover {
+  transition: 0.2s;
+}
+
+.bg-light table {
+  background: white;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
