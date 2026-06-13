@@ -48,6 +48,7 @@
         </div>
       </div>
     </div>
+<<<<<<< HEAD
     <!-- PRODUCT -->
     <div class="col-lg-9">
   <!-- HEADER -->
@@ -88,6 +89,21 @@
           <span class="product-badge">
             #{{i + 1}}
           </span>
+=======
+
+    <div class="product-content">
+      
+        <div class="product1">
+            @for (item of paginatedProducts; track $index) {
+            <div style="cursor: pointer;" class="product_1" routerLink="/Detail/{{item.id}}">
+            <div>
+                <img src="../../assets/images/SanPham/{{item.images}}" alt="">
+            </div>
+            <div class="product_infomation">
+                <div>{{item.name}}</div>
+                <div class="product_price"> {{fomatPrice( item.price)}}<span>đ</span> </div>
+            </div>
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
         </div>
         <!-- BODY -->
         <div class="p-4">
@@ -120,6 +136,23 @@
           Danh sách sản phẩm sẽ hiển thị tại đây
         </p>
       </div>
+    <div class="pagination-controls" >
+      <button class="pagination-button" [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">
+        <i class="fa-solid fa-angle-left"></i>
+      </button>
+    
+      @for (p of [].constructor(totalPages); track $index) {
+        <button 
+          [style.font-weight]="currentPage === $index + 1 ? 'bold' : 'normal'"
+          (click)="changePage($index + 1)">
+          {{ $index + 1 }}
+      </button>
+    }
+
+    <button class="pagination-button" [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">
+      <i class="fa-solid fa-angle-right"></i>
+    </button>
+  </div>
     </div>
   </div>
   <!-- PAGINATION -->

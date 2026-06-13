@@ -3,6 +3,8 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {  RouterLink, RouterModule } from '@angular/router';
 import { ProductService } from '../service/productService/product.service';
 import { Product, TradeMark } from '../models/productModel/product.model';
+import { UserService } from '../service/userService/user.service';
+
 
 
 
@@ -19,8 +21,18 @@ export class HomeComponent implements OnInit  {
   tradeMarks : TradeMark[] =[];
   searching = new FormControl('');
   listProduct = inject(ProductService)
+<<<<<<< HEAD
   currentIndex :number = 0;
+=======
+  private ngZone= inject(NgZone)
+  pService = inject(UserService)
+  currentIndex :number = 0;
+  currentPage: number = 1;
+  itemsPerPage: number = 15;
+  private chg = inject(ChangeDetectorRef)
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.products = this.listProduct.getProduct()
     this.sellProduct = this.listProduct.getSold()
     this.tradeMarks =  this.listProduct.getTrade()
@@ -32,9 +44,15 @@ export class HomeComponent implements OnInit  {
   }
   // sidebar
     hinhAnh = [
+<<<<<<< HEAD
       'assets/images/banner1.jpg',
       'assets/images/banner2.jpg',
       'assets/images/Banner3.jpg',
+=======
+      'assets/images/image_background.png',
+      'assets/images/anh2.png',
+      'assets/images/anh3.png',
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
     ]
     slideBar() {
 

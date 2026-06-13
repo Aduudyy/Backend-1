@@ -11,6 +11,7 @@ import { Product } from './product/product';
 import { CheckoutComponent } from './checkout/checkout';
 import { MyOrder } from './my-order/my-order';
 import { InfomationUser } from './infomation-user/infomation-user';
+<<<<<<< HEAD
 import { Dashboard } from './AdminLayout/dashboard/dashboard';
 import { Profile } from './AdminLayout/profile/profile';
 import { RouteLayout } from './AdminLayout/route-layout/route-layout';
@@ -26,6 +27,11 @@ import { authGuard } from './guard/auth.guard';
 import { ReviewLayout } from './review/review-layout/review-layout';
 import { ExportLeLayout } from './AdminLayout/export-le-layout/export-le-layout';
 import { CategoryLayout } from './AdminLayout/category-layout/category-layout';
+=======
+import { authGuard } from './service/userService/auth.guard';
+import { MainUser } from './userLayout/main-user/main-user';
+import { Header } from './userLayout/header/header';
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
 
 
 export const routes: Routes = [
@@ -36,6 +42,7 @@ export const routes: Routes = [
         path: '',
         component: mainLayoutComponent,
         children: [
+<<<<<<< HEAD
             { path: '', redirectTo: 'Home', pathMatch: 'full' }, 
             { path: 'Home', component: HomeComponent },
             { path: 'Detail/:id', component: DetailComponent },
@@ -88,6 +95,39 @@ export const routes: Routes = [
             { path: "donxuathang", component: ExportOrder },
             { path: "donxuathangkhachle", component: ExportLeLayout },
             { path: "baocaothongke", component: StatisticalReport },
+=======
+            {path: '',redirectTo: '/Home', pathMatch:'full'}, 
+            {path: 'Home',component: HomeComponent},
+            {path: 'Detail/:id',component: DetailComponent},
+            {path: 'SanPham',component: Products},
+
         ]
+    },
+    
+    {
+        path: 'User',
+        component : MainUser,
+        canActivate: [authGuard],
+        data: {roles: ['user']},
+        children:[
+            {path: '',redirectTo: 'Home', pathMatch:'full'}, 
+            {path: 'Home',component: HomeComponent},
+            {path: 'Detail/:id',component: DetailComponent},
+            {path: 'Shopping-Bag',component: GioHangComponent},
+            {path: 'SanPham',component: Products},
+            {path: 'dathang',component: CheckoutComponent},
+            {path: 'Profile',component: ProFileComponent,
+                children:[
+                {path: 'my-order',component: MyOrder},
+                {path: 'Infomation',component: InfomationUser},
+                {path:'' , redirectTo:'Infomation',pathMatch:'full'},
+
+                ]
+            },
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
+        ]
+
+
+
     }
 ];

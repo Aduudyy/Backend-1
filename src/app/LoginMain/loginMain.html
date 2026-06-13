@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container-fluid login-wrapper">
   <div class="background-slider">
     <img  [src]="hinhAnh[currentIndex]"  class="background-image" alt="">
@@ -14,6 +15,43 @@
           <p class="text-light mb-0">
             Đến với đại lý Kem
           </p>
+=======
+<div class="background-overlay">
+        <div class="login-container">
+            <div class="logo">
+                <div><img width="80px" src="../../assets/images/SanPham/ice-cream-logo.png" alt=""></div>
+                <div>Nhà phân phối Mỹ Anh</div>
+            </div>
+            <div class="login-form" [formGroup]="formLogin">
+                <h2 style="color: rgb(20, 20, 20); font-weight: bold;">Đăng nhập</h2>
+                <div class="input-group">
+                    <div>
+                            <input (keydown.enter)="btnLogin()" type="text" placeholder="Nhập tài khoản" class="user" formControlName="user">
+                    </div>
+                    
+                </div>
+                
+                 <div  class="input-group">
+                    <div class="pass" >
+                            <input (keydown.enter)="btnLogin()" [type]="typePass"  placeholder="Hãy nập mật khẩu" formControlName="pass" toggleMask="false">
+                            <img (click)="iconPass()" style="cursor: pointer;" class="icon" width="15px" src="assets/images/locked-computer.png" alt="">
+                    </div>
+                    <div *ngIf="formLogin.get('pass')?.invalid && formLogin.get('pass')?.touched">
+                    </div>
+                 </div>
+
+                <div class="register-link">Bạn chưa có tài khoản? 
+                    <a routerLink="/Register" style=" text-decoration: none; cursor: pointer;">Đăng ký</a>
+                </div>
+                 <div class="btn">
+                    <p-toast></p-toast>
+                    <button type="button" (click)="btnLogin()" class="btn-login">Đến cửa hàng</button>
+                 </div>
+                                    
+
+                
+            </div>
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
         </div>
         <form [formGroup]="formLogin" class="w-100">
           <div class="mb-4">

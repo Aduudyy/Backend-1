@@ -109,6 +109,7 @@
     color: #212529;
     min-height: 48px;
 }
+<<<<<<< HEAD
 
 .product-price {
     font-size: 18px;
@@ -276,4 +277,25 @@
     .price-text {
         font-size: 18px;
     }
+=======
+.product_price span{
+   text-decoration: underline;
+   font-size: 10px;
+}
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    button{
+        background: white;
+        color: black;
+        border: none;
+    }
+}
+.pagination-button{
+    background-color: white;
+    color: black;
+    gap: 10px;
+    margin: 0px 10px;
+    border: 1px solid rgb(226, 226, 226) !important;
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
 }

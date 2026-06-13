@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container-fluid py-4 bg-light product-type">
 
   <!-- SLIDER -->
@@ -17,6 +18,36 @@
         class="img-fluid rounded-4 banner-image w-100"
       >
 
+=======
+<div class="container-fluid product-type">
+    <div class="slidebar">
+        <div class="image_slide">
+            <img [src]="hinhAnh[currentIndex]" alt="">
+        </div>
+    </div>
+    
+        <div class="product">
+        <p style="color: rgb(238, 138, 138);">Sản phẩm bán chạy</p>
+        
+        <div class="product1">
+            @for (item of sellProduct; track $index) {
+        <div style="cursor: pointer;" 
+             class="product_1" 
+            [routerLink]="pService.isLogged() ? ['/User/Detail', item.id] : ['/Detail', item.id]">
+                 <div>
+                <img width="100px" height="100px" src="../../assets/images/SanPham/{{item.images}}" alt="">
+            </div>
+            <div class="product_infomation">
+                <p>{{item.name}}</p>
+            </div>
+            <div class="product_quantity">
+                <p>Đã bán <span>{{item.sold}}</span> </p>
+            </div>
+        </div>
+    }
+        </div> 
+    
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
     </div>
 
   </div>

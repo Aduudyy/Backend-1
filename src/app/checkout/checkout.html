@@ -204,4 +204,45 @@
   <p-toast></p-toast>
 
 </div>
+<<<<<<< HEAD
 </div>
+=======
+
+<!-- ================= POPUP ĐỊA CHỈ ================= -->
+@if (showAddressPopup) {
+  <div class="modal-overlay">
+    <div class="modal">
+      <h3>Địa chỉ nhận hàng</h3>
+
+      <select [(ngModel)]="newAddress.province"
+              (change)="onProvinceChange()">
+        <option value="">Chọn Tỉnh / Thành phố</option>
+        @for (p of provinces; track p) {
+          <option [value]="p">{{ p }}</option>
+        }
+      </select>
+
+      <select [(ngModel)]="newAddress.ward"
+              [disabled]="!newAddress.province">
+        <option value="">Chọn Xã</option>
+        @for (d of wards; track d) {
+          <option [value]="d">{{ d }}</option>
+        }
+      </select>
+      <input type="text"
+             placeholder="Địa chỉ chi tiết"
+             [(ngModel)]="newAddress.detail">
+      <div class="modal-actions">
+        <button class="cancel"
+                (click)="closeAddressPopup()">
+          Hủy
+        </button>
+        <button class="save"
+                (click)="saveAddress()">
+          Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+}
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2

@@ -63,6 +63,7 @@
             {{ thanhTien() }} VND
           </span>
         </div>
+<<<<<<< HEAD
         <!-- ACTION -->
         <div class="d-grid gap-2">
           <button class="btn btn-warning btn-lg fw-semibold shadow-sm"
@@ -72,6 +73,34 @@
           <button class="btn btn-danger btn-lg fw-semibold shadow-sm"
                   >
             ⚡ Mua ngay
+=======
+        
+        <div class="quantity-section">
+  <span class="label">Số lượng:</span>
+  <div class="quantity-wrapper">
+    <button class="qty-btn minus" (click)="reduceQuanity()" [disabled]="quanity <= 1">−</button>
+    <input type="number" 
+           [(ngModel)]="quanity" 
+           (change)="eventInput()" 
+           class="qty-input"
+           readonly> 
+    <button class="qty-btn plus" (click)="increaseQuanity()">+</button>
+  </div>
+  <span class="unit-tag">{{quanity}} hộp</span>
+</div>
+
+        <hr class="line">
+
+        <div class="info-row total">
+          <span class="label">Thành tiền:</span>
+          <span class="value total-price">{{thanhTien()}} VND</span>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn-add-cart" (click)="addProduct()">
+            <img width="25" src="assets/images/shopping-bag.png" alt="cart">
+            Thêm vào giỏ
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
           </button>
         </div>
       </div>

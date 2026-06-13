@@ -1,0 +1,38 @@
+
+<div class="container-fluid my-type">
+    <ul class="home-type">
+            <li>
+            <a routerLink="/User/Home"> 
+                <img width="50px" src="assets/images/image4.png" alt="">
+            </a>
+        </li>
+    </ul>
+    <ul class="header-type">
+        <li><a style="cursor: pointer;" routerLink="/User/Home">Trang chủ</a> </li>
+        <li><a style="cursor: pointer;" routerLink="/User/Home">Giới thiệu</a> </li>
+        <li><a style="cursor: pointer;" routerLink="/User/SanPham">Sản phẩm</a> </li> 
+        <li><a style="cursor: pointer;" routerLink="/User/Home">Liên hệ</a> </li> 
+        <li class="shop-bag" style="cursor: pointer;" routerLink="/User/Shopping-Bag">
+                <img width="30px"  src="assets/images/shopping-bag.png" alt="">
+                <a class="quanity" >
+                    {{index()}}
+                </a>
+        </li>
+        <li>
+            <a class="imgUser" tabindex="0">
+                <img width="30px" src="assets/images/user.png" alt=""> 
+                <div class="profile">
+                    <div (click)="proFile()" >
+                        <i class="fa-solid fa-user"></i>
+                        Profile
+                    </div>   
+                    <div (click)="btnLogOut()">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        Đăng Xuất
+                    </div> 
+
+                </div>
+            </a>
+        </li> 
+    </ul>
+</div>

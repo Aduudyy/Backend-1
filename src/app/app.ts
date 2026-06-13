@@ -5,7 +5,10 @@ import { HeaderComponent } from "./Header/header";
 
 @Component({
   selector: 'app-root',
+<<<<<<< HEAD
   standalone: true,
+=======
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
   imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'

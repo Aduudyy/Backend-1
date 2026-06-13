@@ -21,9 +21,16 @@ export class HeaderComponent   implements OnInit{
   cartService = inject(CartService)
   cart : any[] = []
   
+<<<<<<< HEAD
   ngOnInit(): void {
     this.loadCart()
       
+=======
+  btnLogOut(){
+    this.pService.getClear();
+    this.router.navigate(['/LoginMain'])
+  
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
   }
   loadCart(){
     this.cartService.getCartItem().subscribe({

@@ -23,17 +23,27 @@ export class CheckoutComponent implements OnInit {
   constructor(private cdr : ChangeDetectorRef, private user : AuthService){}
   private daichi = inject(SupplierService)
   private router = inject(Router);
+<<<<<<< HEAD
   invoiceService = inject(InvoiceService)
   messageService = inject(MessageService)
   orderService = inject(OrderService)
   cartItems: any[] = [];
   profile : any = {}
+=======
+  private user = inject(UserService)
+  cartItems: Shopping[] = [];
+  private storage = inject(LocalStorageService);
+  selectedAddress: any = null;
+  wards: string[] = [];
+  showAddressPopup = false;
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
   customer = {
     name: '',
     phone: '',
     address: '',
     note: ''
   };
+<<<<<<< HEAD
   province : any[] =[]
   wards : any[] =[]
   selectedWard: any = null;
@@ -79,6 +89,37 @@ export class CheckoutComponent implements OnInit {
     0
   );
 }
+=======
+  provinces = ['Thái Nguyên','HaNoi'];
+  WardMap: any = {
+  'Thái Nguyên': ['TP.Thái Nguyên', 'xã Quyết Thắng']
+  };
+  newAddress = {
+    province: '',
+    ward: '',
+    detail: '',
+    fullAddress: ''
+  };
+
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+    this.cartItems = this.storage.retrieve('checkout');
+    const name = this.user.getProductss()
+    this.customer.name = name[0].name
+    this.customer.phone = name[0].sdt
+    const savedAddress = this.storage.retrieve('address');
+    if (savedAddress) {
+      this.selectedAddress = savedAddress;
+      this.customer.address = savedAddress.fullAddress;
+    } 
+  }
+
+  get subTotal(): number {
+    return (this.cartItems.reduce((sum, item) => 
+      sum + item.price * item.quanity,0
+    )?? 0);
+  }
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
 
   get shippingFee(): number {
     return this.subTotal >= 200000 ? 0 : 20000;
@@ -87,8 +128,8 @@ export class CheckoutComponent implements OnInit {
   get total(): number {
     return this.subTotal + this.shippingFee;
   }
-
   placeOrder() {
+<<<<<<< HEAD
       if (this.cartItems.length === 0) {
       this.messageService.add({
         severity: 'warn',
@@ -139,6 +180,78 @@ export class CheckoutComponent implements OnInit {
             });
           }
         });
+=======
+  if (this.cartItems.length === 0) {
+    alert('Giỏ hàng trống');
+    this.router.navigate(['/']);
+    return;
+  }
+  if (!this.customer.name || !this.customer.phone || !this.customer.address) {
+    alert('Vui lòng nhập đầy đủ thông tin nhận hàng');
+    return;
+  }
+  const order = {
+    customer: this.customer,
+    items: this.cartItems,
+    total: this.total,
+    createdAt: new Date()
+  };
+  const donhang = this.storage.retrieve('checkout') || [];
+  const listOrder = this.storage.retrieve('donHang') || [];
+  const newItems = donhang.map((item: any, idx: number) => ({
+    ...item,
+    orderCode: 'ORD' + Date.now() + idx,
+    status: 'Đang xử lý',
+    date: new Date()
+  }));
+  const updatedList = [...newItems, ...listOrder];
+  this.storage.store('donHang', updatedList); 
+  this.storage.clear('checkout');
+  alert('🎉 Đặt hàng thành công!');
+  this.router.navigate(['/User/Home']);
+}
+/* ===== POPUP ===== */
+
+openAddressPopup() {
+  this.showAddressPopup = true;
+}
+
+closeAddressPopup() {
+  this.showAddressPopup = false;
+}
+
+onProvinceChange() {
+  this.wards = this.WardMap[this.newAddress.province] || [];
+  this.newAddress.ward = '';
+}
+
+saveAddress() {
+  if (
+    !this.newAddress.province ||
+    !this.newAddress.ward ||
+    !this.newAddress.detail
+  ) {
+    alert('Vui lòng nhập đầy đủ địa chỉ');
+    return;
+  }
+
+  const fullAddress =
+    `${this.newAddress.detail}, ${this.newAddress.ward}, ` +
+    `${this.newAddress.ward}, ${this.newAddress.province}`;
+
+  this.selectedAddress = {
+    ...this.newAddress,
+    fullAddress
+  };
+  this.customer.address = fullAddress;
+  this.storage.store('address', this.selectedAddress);
+  this.closeAddressPopup();
+}
+returnGioHang(){
+  this.storage.clear('checkout')
+    this.router.navigate(['/User/Shopping-Bag'])
+
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
   }
   returnGioHang(){
     this.storage.clear('checkout')

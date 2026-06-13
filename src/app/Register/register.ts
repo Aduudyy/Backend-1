@@ -43,6 +43,7 @@ export class registerComponent implements OnInit {
             );
             this.slideBar();
       }
+<<<<<<< HEAD
     async sendOTP(){
      const phone = this.formRegister.get('sdt')?.value;
       const formattedPhone = `+84${phone.substring(1)}`; // Chuyển 098... thành +8498...
@@ -61,6 +62,46 @@ export class registerComponent implements OnInit {
           }
           this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: message });
             
+=======
+    btnLogin(){
+              const userss = this.formLogin.get('user')?.value;
+              const passs = this.formLogin.get('pass')?.value;
+              const sdthoai = this.formLogin.get('sdt')?.value;
+              const name = this.formLogin.get('name')?.value;
+              let result
+              if(userss != '' && passs != '' && sdthoai != ''){
+                  result = this.listUser.find(s => (s.user === userss ) && s.user != null)
+              }else{
+                 result= null;
+              }
+              
+              if(result=== null){
+                         this.messageService.add({ 
+                              severity: 'error', 
+                              summary: 'Không thành công', 
+                              detail: 'Tài khoản đã tồn tại!' 
+                              });
+              }else{
+                  this.messageService.add({ 
+                  severity: 'success', 
+                  summary: 'Đăng ký thành công', 
+                  detail: 'Hãy đăng nhập để sử dụng' 
+                  });
+                  const newUsser = {
+                    userName : '$'
+                  }
+                  this.listUser.push({
+                    user : userss,
+                    pass : passs,
+                    sdt : sdthoai,
+                    name: name,
+                    role:'user',
+                  })
+                  console.log(this.listUser)
+                   setTimeout(() => {
+                            this.route.navigate(['/LoginMain']);
+                         }, 3000);
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
         }
     }
   

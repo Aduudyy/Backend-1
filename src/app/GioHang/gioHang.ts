@@ -1,15 +1,27 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+<<<<<<< HEAD
 import { CartService } from '../service/CartItem/CartService.service';
 import { CommonModule, NgForOf } from "@angular/common";
 import { Cart, CartItem } from '../models/ShoppingModel/CartModel.model';
 import { Router, RouterLink } from '@angular/router';
 import { CheckoutService } from '../service/CheckOut/checkout.service';
+=======
+import { ShopService } from '../service/shoppingService/shopping.service';
+import { Shopping } from '../models/ShoppingModel/shopping.model';
+import { Router, RouterLink, RouterModule } from "@angular/router";
+import { NgIf } from "@angular/common";
+import { LocalStorageService } from 'ngx-webstorage';
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
 
 @Component({
   selector: 'app-GioHang',
   standalone: true,
+<<<<<<< HEAD
   imports: [FormsModule, NgForOf, CommonModule, RouterLink],
+=======
+  imports: [FormsModule, RouterLink,RouterModule],
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
   templateUrl: './gioHang.html',
   styleUrl: './gioHang.css'
 })
@@ -124,4 +136,25 @@ export class GioHangComponent implements OnInit {
       this.updateTotal();
     }
   }
+<<<<<<< HEAD
+=======
+  fomatPrice( price:number):string{
+    return price.toLocaleString('vi-VN')
+  }
+
+  // ===== XÓA SẢN PHẨM =====
+  removeItem(id: number) {
+    this.shopService.removeProduct(id);
+    this.cartItems = this.shopService.getCart();
+    this.updateTotal();
+  }
+  goCheckOut(){
+    this.router.navigate(['/User/dathang'])
+  }
+  getSubtotal() {
+    return this.cartItems.reduce((sum, item) => sum + (item.price * item.quanity), 0);}
+  getShipping() {
+    return this.getSubtotal() > 200000 ? 0 : 15000;}
+
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
 }

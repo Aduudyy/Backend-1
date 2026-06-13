@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 
 import { RouterLink, Router } from "@angular/router";
@@ -11,15 +12,26 @@ import { FormsModule } from '@angular/forms';
 import { Toast } from "primeng/toast";
 import { CategoryService } from '../service/Category/category.service';
 
+=======
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../service/productService/product.service';
+import { RouterLink } from "@angular/router";
+import { Product } from '../models/productModel/product.model';
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
 
 
 @Component({
   selector: 'app-product',
+<<<<<<< HEAD
   imports: [RouterLink, NgForOf, CommonModule, FormsModule, Toast],
+=======
+  imports: [RouterLink],
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
   templateUrl: './product.html',
   styleUrl: './product.css',
 })
 
+<<<<<<< HEAD
 export class Product implements OnInit{
   constructor(private cdr: ChangeDetectorRef){}
   productService = inject(ProductServices)
@@ -38,6 +50,16 @@ export class Product implements OnInit{
   selectedSupplierId?: number;
   categoryService = inject(CategoryService)
   category : any[] = []
+=======
+export class Products implements OnInit{
+  allProducts: Product[] = [];
+  filteredProducts: Product[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  products: any;
+
+  constructor(private productService: ProductService) {}
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
 
   ngOnInit() {
     this.loadProduct()
@@ -142,6 +164,7 @@ export class Product implements OnInit{
   fomatPrice( price:number):string{
     return price.toLocaleString('vi-VN')
   }
+<<<<<<< HEAD
   setupPagination() {
     this.totalPages = Math.ceil(
       this.products.length / this.pageSize
@@ -175,5 +198,19 @@ changePage(page: number) {
   }
 
   this.router.navigate(['/Detail', id]);
+=======
+get paginatedProducts() {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  return this.filteredProducts.slice(startIndex, startIndex + this.itemsPerPage);
+}
+
+// Hàm chuyển trang
+changePage(page: number) {
+  this.currentPage = page;
+  window.scrollTo(0, 0); // Cuộn lên đầu trang khi chuyển trang
+}
+get totalPages(): number {
+      return Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+>>>>>>> 9610326f6179a0e89a810d969c71dfd32c92ede2
 }
 }
